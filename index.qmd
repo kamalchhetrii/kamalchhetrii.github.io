@@ -1,5 +1,5 @@
 ---
-title: "kamalchhetrii.github.io"
+title: "Welcome to my Machine Learning blog"
 listing:
   contents: posts
   sort: "date desc"
