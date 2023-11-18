@@ -10,7 +10,7 @@ website:
   navbar:
     title: Kamal Chhetri
     logo: media/dec.png
-    logo-alt: "10-point star made up of 100 triangles"
+    logo-alt: ""
     right:
       - icon: house
         href: https://kamalchhetrii.github.io
