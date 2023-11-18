@@ -1,20 +1,52 @@
-project:
-  type: website
-  output-dir: docs
-
 website:
-  title: "kamalchhetrii.github.io"
+  back-to-top-navigation: true
+  reader-mode: true
+  page-navigation: true
+  favicon: media/dec.png
   navbar:
+    title: Kamal Chhetri
+    logo: media/dec.png
+    logo-alt: "10-point star made up of 100 triangles"
     right:
-      - about.qmd
+      - icon: house
+        href: https://kchhetrii.github.io
+      - icon: pencil
+        href: https://kchhetrii.github.io/blog
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/kchhetrii
+      - icon: linkedin
+        href: https://www.linkedin.com/in/kamal-chhetri-555b04125/
+      - icon: envelope
+        href: mailto:kchhetri@vt.edu
+  twitter-card: true
+  site-url: https://kchhetrii.github.io
+  sidebar:
+    search: true
+    sort: order
+    style: floating
+    title: none
+    contents:
+      - text: About
+        file: about.qmd
+      - section: Blog
+        file: blog/blog.qmd
+        contents:
+          - blog/quarto/quarto.qmd
+          - blog/observable/observable.qmd
+          - blog/jupyter/jupyter.qmd
+          - blog/knitr/knitr.qmd  
+    
 format:
   html:
-    theme: cosmo
+    page-layout: full
+    theme:
+      light: [flatly, light.scss]
+      dark: [darkly, dark.scss]
     css: styles.css
-
-editor: visual
-
+    grid:
+      sidebar-width: 200px
+      body-width: 1800px
+      margin-width: 200px
+execute:
+  freeze: true
+  cache: true
