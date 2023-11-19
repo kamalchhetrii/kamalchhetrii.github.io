@@ -1,0 +1,142 @@
+---
+title: "Anomaly Detection in Machine Learning"
+author: "Kamal Chhetri"
+date: "2023-10-18"
+categories:
+  - R
+  - Code
+  - Analysis
+---
+
+### Introduction
+
+## Introduction
+
+Anomaly detection, also known as outlier detection, is a fascinating aspect of machine learning. It involves identifying data points, events, or observations that deviate significantly from the norm. These anomalies can often provide critical and actionable insights in various domains, such as fraud detection in banking, intrusion detection in network security, and fault detection in critical systems.
+
+## What is Anomaly Detection?
+
+Anomaly detection is the process of identifying unexpected items or events in datasets, which differ from the norm. In other words, it's about finding the 'outliers' in your data. For example, in a manufacturing context, an anomalous event could be a sudden increase in defective products.
+
+## Types of Anomalies
+
+There are three main types of anomalies:
+
+1.  **Point Anomalies**: A single instance of data is anomalous if it's too far off from the rest. For example, spending \$100 on food every day during the holiday season is normal, but may be odd otherwise.
+
+2.  **Contextual Anomalies**: The abnormality is context-specific. This type of anomaly is common in time-series data. For example, spending \$100 on food during the holiday season is normal, but may be odd otherwise.
+
+3.  **Collective Anomalies**: A set of data instances collectively helps in detecting anomalies. For example, someone is trying to copy data form a remote machine to a local host unexpectedly, an anomaly that would be flagged as a potential cyber attack.
+
+## Anomaly Detection Techniques
+
+There are several techniques used for anomaly detection, each with its strengths and weaknesses. Some of the most popular methods include:
+
+1.  **Statistical Methods**: These methods model the normal data behavior using statistical parameters like mean, median, mode, variance, etc. Any data instance that doesn't fit this model is considered an anomaly.
+
+2.  **Machine Learning-Based Methods**: These include techniques like clustering, classification, and nearest neighbors. These methods can either be supervised (labels are available) or unsupervised (no labels).
+
+3.  **Time Series Analysis**: This is particularly useful for sequential data, where some pattern or trend is expected. Techniques used here include state space models, decomposition methods, etc.
+
+![](https://miro.medium.com/v2/resize:fit:750/1*zfcgxCebn8ejyhNLU4sCsg.png)
+
+[**Load necessary libraries:**]{.underline}
+
+```{r}
+library(fpc)
+library(ggplot2)
+library(dbscan)
+
+```
+
+```{r}
+
+data <- read.csv("/Users/test/Downloads/creditcard.csv")
+
+```
+
+```{r}
+head(data)
+```
+
+## Data cleaning:
+
+Remove the unnecessary column that is not required during the analysis. We can remove the unnecessary column by following:
+
+```{r}
+data$Time <- NULL
+```
+
+## Convert categorical variables to factors:
+
+```{r}
+data$Class <- as.factor(data$Class)
+
+```
+
+## Convert categorical variable to numeric
+
+```{r}
+data$Class <- as.numeric(as.character(data$Class))
+```
+
+## Check if the data contains null values:
+
+```{r}
+sum(is.na(data))
+```
+
+This means this data doesnot contains any null values. We are good to go with this data and don't have to remove any null data if there are any.
+
+## 
+
+```{r}
+
+
+```
+
+## Data visualization:
+
+```{r}
+# Select a subset of variables to plot
+selected_vars <- data[, c("V1", "V2", "V3", "V4", "V5")]
+
+# Create a color palette
+colors <- terrain.colors(length(selected_vars))
+
+# Create the pairs plot with colors
+pairs(selected_vars, col=colors)
+```
+
+## DBSCAN clustering for anomaly detection:
+
+```{r}
+dbscan_result <- dbscan(data, eps = 0.3, minPts = 5)
+
+```
+
+## Visualization of DBSCAN result:
+
+```{r}
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
