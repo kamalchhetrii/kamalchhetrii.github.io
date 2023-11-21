@@ -1,0 +1,101 @@
+---
+title: "Probability Theory and Random Variables in Machine Learning"
+author: "Kamal Chhetri"
+date: "2023-10-18"
+categories:
+  - R
+  - Code
+  - Analysis
+---
+
+### Introduction
+
+Probability theory is a fundamental pillar of Machine Learning (ML). It provides a framework to represent uncertain statements and formulate the learning problem in a principled way. In this blog post, we will delve into the basics of probability theory and random variables, and how they play a crucial role in ML. We will also illustrate these concepts with an example in R.
+
+## Probability Theory
+
+Probability theory is a branch of mathematics that deals with uncertainty. It provides a mathematical framework for quantifying our belief or uncertainty. The probability of an event is a measure of the likelihood that the event will occur.
+
+In ML, we often have to deal with uncertainty. For example, when we build a spam classifier, we are uncertain about whether a new incoming email is spam or not. Probability theory provides a solid foundation to reason about this uncertainty.
+
+## Random Variables
+
+A random variable is a variable whose possible values are outcomes of a random phenomenon. There are two types of random variables: discrete and continuous. A discrete random variable has a countable number of possible values. A continuous random variable has an uncountable number of possible values, often represented by an interval on the real number line.
+
+In the context of ML, random variables could represent various things. For example, in a spam classifier, a random variable could represent whether an email is spam (1) or not (0).
+
+![](https://www.researchgate.net/publication/337071456/figure/tbl1/AS:822449109233664@1573098556987/Discrete-and-continuous-random-variables.png)
+
+Figure credit: [Discrete vs continuous](https://www.researchgate.net/publication/337071456_Dynamic_Location_Referencing_Probability-Based_Decision_System/figures?lo=1&utm_source=google&utm_medium=organic)
+
+## Probability Distributions
+
+A probability distribution describes how a random variable is distributed. It tells us what the probabilities of each outcome are. For discrete random variables, we use a probability mass function (PMF). For continuous random variables, we use a probability density function (PDF).
+
+![](https://tinyheero.github.io/assets/prob-distr/overview-prob-distr.png)
+
+Figure credit: [Probabilistic approaches to risk by Aswath Damodaran](http://people.stern.nyu.edu/adamodar/pdfiles/papers/probabilistic.pdf).
+
+## Discrete Probability Distributions:
+
+A discrete probability distribution applies to scenarios where the set of possible outcomes is discrete. Common examples of discrete probability distributions include the Bernoulli, Binomial, and Poisson distributions.
+
+Example: Binomial distribution
+
+Let\'s create a hypothetical scenario where we toss a coin 10 times. We are interested in the number of times we get heads. This scenario follows a binomial distribution. Lets do the data analysis for better understanding of it.
+
+[**Load necessary libraries:**]{.underline}
+
+```{r}
+# Load necessary library
+library(ggplot2)
+
+```
+
+[**Set the random seed for reproducibility:**]{.underline}
+
+```{r}
+# Set parameters
+size <- 10
+prob <- 0.5
+
+# Generate binomial data
+set.seed(123)
+data <- rbinom(1000, size, prob)
+
+# Create a histogram
+ggplot(data.frame(x = data), aes(x = x)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "lightblue") +
+  labs(x = "Number of Heads", y = "Frequency", title = "Binomial Distribution") +
+  theme_minimal()
+```
+
+## Continuous Probability Distributions:
+
+A continuous probability distribution applies to scenarios where the set of possible outcomes is an interval of real numbers. Common examples of continuous probability distributions include the Normal, Exponential, and Beta distributions.
+
+Example: Normal distiribution
+
+Let\'s create a hypothetical scenario where we measure the heights of a large group of individuals. The heights of individuals in a large population often follow a normal distribution.
+
+```{r}
+# Set parameters
+mean <- 170
+sd <- 10
+
+# Generate normal data
+set.seed(123)
+data <- rnorm(1000, mean, sd)
+
+# Create a histogram
+ggplot(data.frame(x = data), aes(x = x)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "lightblue", aes(y = ..density..)) +
+  geom_density(alpha = 0.2, fill = "#FF6666") +
+  labs(x = "Height (cm)", y = "Density", title = "Normal Distribution") +
+  theme_minimal()
+
+```
+
+## Conclusion:
+
+Probability theory and random variables are essential tools. Understanding discrete and continuous probability distributions is crucial in machine learning. They provide a foundation for many machine learning algorithms and statistical tests. They provide a framework to handle uncertainty and formulate learning problems. Understanding these concepts can help you build more effective and robust machine learning models.

@@ -77,11 +77,144 @@
     "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts.\n\n\n\n Back to top"
   },
   {
+    "objectID": "posts/anomaly detection/anomaly.html#introduction-1",
+    "href": "posts/anomaly detection/anomaly.html#introduction-1",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Introduction",
+    "text": "Introduction\nAnomaly detection, also known as outlier detection, is a fascinating aspect of machine learning. It involves identifying data points, events, or observations that deviate significantly from the norm. These anomalies can often provide critical and actionable insights in various domains, such as fraud detection in banking, intrusion detection in network security, and fault detection in critical systems."
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#what-is-anomaly-detection",
+    "href": "posts/anomaly detection/anomaly.html#what-is-anomaly-detection",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "What is Anomaly Detection?",
+    "text": "What is Anomaly Detection?\nAnomaly detection is the process of identifying unexpected items or events in datasets, which differ from the norm. In other words, it’s about finding the ‘outliers’ in your data. For example, in a manufacturing context, an anomalous event could be a sudden increase in defective products."
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#types-of-anomalies",
+    "href": "posts/anomaly detection/anomaly.html#types-of-anomalies",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Types of Anomalies",
+    "text": "Types of Anomalies\nThere are three main types of anomalies:\n\nPoint Anomalies: A single instance of data is anomalous if it’s too far off from the rest. For example, spending $100 on food every day during the holiday season is normal, but may be odd otherwise.\nContextual Anomalies: The abnormality is context-specific. This type of anomaly is common in time-series data. For example, spending $100 on food during the holiday season is normal, but may be odd otherwise.\nCollective Anomalies: A set of data instances collectively helps in detecting anomalies. For example, someone is trying to copy data form a remote machine to a local host unexpectedly, an anomaly that would be flagged as a potential cyber attack."
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#anomaly-detection-techniques",
+    "href": "posts/anomaly detection/anomaly.html#anomaly-detection-techniques",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Anomaly Detection Techniques",
+    "text": "Anomaly Detection Techniques\nThere are several techniques used for anomaly detection, each with its strengths and weaknesses. Some of the most popular methods include:\n\nStatistical Methods: These methods model the normal data behavior using statistical parameters like mean, median, mode, variance, etc. Any data instance that doesn’t fit this model is considered an anomaly.\nMachine Learning-Based Methods: These include techniques like clustering, classification, and nearest neighbors. These methods can either be supervised (labels are available) or unsupervised (no labels).\nTime Series Analysis: This is particularly useful for sequential data, where some pattern or trend is expected. Techniques used here include state space models, decomposition methods, etc."
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#about-the-data",
+    "href": "posts/anomaly detection/anomaly.html#about-the-data",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "About the data:",
+    "text": "About the data:\nThe data collection includes 284,807 credit card purchases made by European cardholders over a 48-hour period. The legitimate purchases significantly distort this data set, with only 492 of these sales being fraudulent. The purchase metrics, which comprise 28 variables namely V1 through V28, have been anonymized and modified to remove any personal information due to the sensitive nature of the data.\nLoad necessary libraries:\n\nlibrary(fpc)\nlibrary(ggplot2)\nlibrary(dbscan)\n\n\nAttaching package: 'dbscan'\n\n\nThe following object is masked from 'package:fpc':\n\n    dbscan\n\n\nThe following object is masked from 'package:stats':\n\n    as.dendrogram\n\n\n\ndata &lt;- read.csv(\"/Users/test/Downloads/creditcard.csv\")\n\n\nhead(data)\n\n  Time         V1          V2        V3         V4          V5          V6\n1    0 -1.3598071 -0.07278117 2.5363467  1.3781552 -0.33832077  0.46238778\n2    0  1.1918571  0.26615071 0.1664801  0.4481541  0.06001765 -0.08236081\n3    1 -1.3583541 -1.34016307 1.7732093  0.3797796 -0.50319813  1.80049938\n4    1 -0.9662717 -0.18522601 1.7929933 -0.8632913 -0.01030888  1.24720317\n5    2 -1.1582331  0.87773675 1.5487178  0.4030339 -0.40719338  0.09592146\n6    2 -0.4259659  0.96052304 1.1411093 -0.1682521  0.42098688 -0.02972755\n           V7          V8         V9         V10        V11         V12\n1  0.23959855  0.09869790  0.3637870  0.09079417 -0.5515995 -0.61780086\n2 -0.07880298  0.08510165 -0.2554251 -0.16697441  1.6127267  1.06523531\n3  0.79146096  0.24767579 -1.5146543  0.20764287  0.6245015  0.06608369\n4  0.23760894  0.37743587 -1.3870241 -0.05495192 -0.2264873  0.17822823\n5  0.59294075 -0.27053268  0.8177393  0.75307443 -0.8228429  0.53819555\n6  0.47620095  0.26031433 -0.5686714 -0.37140720  1.3412620  0.35989384\n         V13        V14        V15        V16         V17         V18\n1 -0.9913898 -0.3111694  1.4681770 -0.4704005  0.20797124  0.02579058\n2  0.4890950 -0.1437723  0.6355581  0.4639170 -0.11480466 -0.18336127\n3  0.7172927 -0.1659459  2.3458649 -2.8900832  1.10996938 -0.12135931\n4  0.5077569 -0.2879237 -0.6314181 -1.0596472 -0.68409279  1.96577500\n5  1.3458516 -1.1196698  0.1751211 -0.4514492 -0.23703324 -0.03819479\n6 -0.3580907 -0.1371337  0.5176168  0.4017259 -0.05813282  0.06865315\n          V19         V20          V21          V22         V23         V24\n1  0.40399296  0.25141210 -0.018306778  0.277837576 -0.11047391  0.06692807\n2 -0.14578304 -0.06908314 -0.225775248 -0.638671953  0.10128802 -0.33984648\n3 -2.26185710  0.52497973  0.247998153  0.771679402  0.90941226 -0.68928096\n4 -1.23262197 -0.20803778 -0.108300452  0.005273597 -0.19032052 -1.17557533\n5  0.80348692  0.40854236 -0.009430697  0.798278495 -0.13745808  0.14126698\n6 -0.03319379  0.08496767 -0.208253515 -0.559824796 -0.02639767 -0.37142658\n         V25        V26          V27         V28 Amount Class\n1  0.1285394 -0.1891148  0.133558377 -0.02105305 149.62     0\n2  0.1671704  0.1258945 -0.008983099  0.01472417   2.69     0\n3 -0.3276418 -0.1390966 -0.055352794 -0.05975184 378.66     0\n4  0.6473760 -0.2219288  0.062722849  0.06145763 123.50     0\n5 -0.2060096  0.5022922  0.219422230  0.21515315  69.99     0\n6 -0.2327938  0.1059148  0.253844225  0.08108026   3.67     0"
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#data-cleaning",
+    "href": "posts/anomaly detection/anomaly.html#data-cleaning",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Data cleaning:",
+    "text": "Data cleaning:\nRemove the unnecessary column that is not required during the analysis. We can remove the unnecessary column by following:\n\ndata$Time &lt;- NULL"
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#convert-categorical-variables-to-factors",
+    "href": "posts/anomaly detection/anomaly.html#convert-categorical-variables-to-factors",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Convert categorical variables to factors:",
+    "text": "Convert categorical variables to factors:\n\ndata$Class &lt;- as.factor(data$Class)"
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#convert-categorical-variable-to-numeric",
+    "href": "posts/anomaly detection/anomaly.html#convert-categorical-variable-to-numeric",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Convert categorical variable to numeric",
+    "text": "Convert categorical variable to numeric\n\ndata$Class &lt;- as.numeric(as.character(data$Class))"
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#check-if-the-data-contains-null-values",
+    "href": "posts/anomaly detection/anomaly.html#check-if-the-data-contains-null-values",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Check if the data contains null values:",
+    "text": "Check if the data contains null values:\n\nsum(is.na(data))\n\n[1] 0\n\n\nThis means this data doesnot contains any null values. We are good to go with this data and don’t have to remove any null data if there are any."
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#data-visualization",
+    "href": "posts/anomaly detection/anomaly.html#data-visualization",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Data visualization:",
+    "text": "Data visualization:\n\n# Select a subset of variables to plot\nselected_vars &lt;- data[, c(\"V1\", \"V2\", \"V3\", \"V4\", \"V5\")]\n\n# Create a color palette\ncolors &lt;- terrain.colors(length(selected_vars))\n\n# Create the pairs plot with colors\npairs(selected_vars, col=colors)"
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#dbscan-clustering-for-anomaly-detection",
+    "href": "posts/anomaly detection/anomaly.html#dbscan-clustering-for-anomaly-detection",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "DBSCAN clustering for anomaly detection:",
+    "text": "DBSCAN clustering for anomaly detection:\n\ndbscan_result &lt;- dbscan(data, eps = 0.3, minPts = 5)"
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#visualization-of-dbscan-result",
+    "href": "posts/anomaly detection/anomaly.html#visualization-of-dbscan-result",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Visualization of DBSCAN result:",
+    "text": "Visualization of DBSCAN result:"
+  },
+  {
     "objectID": "posts/post-with-code/index.html",
     "href": "posts/post-with-code/index.html",
     "title": "Post With Code",
     "section": "",
     "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "posts/Probability/probability.html",
+    "href": "posts/Probability/probability.html",
+    "title": "Probability Theory and Random Variables in Machine Learning",
+    "section": "",
+    "text": "Probability theory is a fundamental pillar of Machine Learning (ML). It provides a framework to represent uncertain statements and formulate the learning problem in a principled way. In this blog post, we will delve into the basics of probability theory and random variables, and how they play a crucial role in ML. We will also illustrate these concepts with an example in R."
+  },
+  {
+    "objectID": "posts/Probability/probability.html#probability-theory",
+    "href": "posts/Probability/probability.html#probability-theory",
+    "title": "Probability Theory and Random Variables in Machine Learning",
+    "section": "Probability Theory",
+    "text": "Probability Theory\nProbability theory is a branch of mathematics that deals with uncertainty. It provides a mathematical framework for quantifying our belief or uncertainty. The probability of an event is a measure of the likelihood that the event will occur.\nIn ML, we often have to deal with uncertainty. For example, when we build a spam classifier, we are uncertain about whether a new incoming email is spam or not. Probability theory provides a solid foundation to reason about this uncertainty."
+  },
+  {
+    "objectID": "posts/Probability/probability.html#random-variables",
+    "href": "posts/Probability/probability.html#random-variables",
+    "title": "Probability Theory and Random Variables in Machine Learning",
+    "section": "Random Variables",
+    "text": "Random Variables\nA random variable is a variable whose possible values are outcomes of a random phenomenon. There are two types of random variables: discrete and continuous. A discrete random variable has a countable number of possible values. A continuous random variable has an uncountable number of possible values, often represented by an interval on the real number line.\nIn the context of ML, random variables could represent various things. For example, in a spam classifier, a random variable could represent whether an email is spam (1) or not (0).\n\nFigure credit: Discrete vs continuous"
+  },
+  {
+    "objectID": "posts/Probability/probability.html#probability-distributions",
+    "href": "posts/Probability/probability.html#probability-distributions",
+    "title": "Probability Theory and Random Variables in Machine Learning",
+    "section": "Probability Distributions",
+    "text": "Probability Distributions\nA probability distribution describes how a random variable is distributed. It tells us what the probabilities of each outcome are. For discrete random variables, we use a probability mass function (PMF). For continuous random variables, we use a probability density function (PDF).\n\nFigure credit: Probabilistic approaches to risk by Aswath Damodaran."
+  },
+  {
+    "objectID": "posts/Probability/probability.html#discrete-probability-distributions",
+    "href": "posts/Probability/probability.html#discrete-probability-distributions",
+    "title": "Probability Theory and Random Variables in Machine Learning",
+    "section": "Discrete Probability Distributions:",
+    "text": "Discrete Probability Distributions:\nA discrete probability distribution applies to scenarios where the set of possible outcomes is discrete. Common examples of discrete probability distributions include the Bernoulli, Binomial, and Poisson distributions.\nExample: Binomial distribution\nLet's create a hypothetical scenario where we toss a coin 10 times. We are interested in the number of times we get heads. This scenario follows a binomial distribution. Lets do the data analysis for better understanding of it.\nLoad necessary libraries:\n\n# Load necessary library\nlibrary(ggplot2)\n\nSet the random seed for reproducibility:\n\n# Set parameters\nsize &lt;- 10\nprob &lt;- 0.5\n\n# Generate binomial data\nset.seed(123)\ndata &lt;- rbinom(1000, size, prob)\n\n# Create a histogram\nggplot(data.frame(x = data), aes(x = x)) +\n  geom_histogram(binwidth = 1, color = \"black\", fill = \"lightblue\") +\n  labs(x = \"Number of Heads\", y = \"Frequency\", title = \"Binomial Distribution\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "posts/Probability/probability.html#continuous-probability-distributions",
+    "href": "posts/Probability/probability.html#continuous-probability-distributions",
+    "title": "Probability Theory and Random Variables in Machine Learning",
+    "section": "Continuous Probability Distributions:",
+    "text": "Continuous Probability Distributions:\nA continuous probability distribution applies to scenarios where the set of possible outcomes is an interval of real numbers. Common examples of continuous probability distributions include the Normal, Exponential, and Beta distributions.\nExample: Normal distiribution\nLet's create a hypothetical scenario where we measure the heights of a large group of individuals. The heights of individuals in a large population often follow a normal distribution.\n\n# Set parameters\nmean &lt;- 170\nsd &lt;- 10\n\n# Generate normal data\nset.seed(123)\ndata &lt;- rnorm(1000, mean, sd)\n\n# Create a histogram\nggplot(data.frame(x = data), aes(x = x)) +\n  geom_histogram(binwidth = 1, color = \"black\", fill = \"lightblue\", aes(y = ..density..)) +\n  geom_density(alpha = 0.2, fill = \"#FF6666\") +\n  labs(x = \"Height (cm)\", y = \"Density\", title = \"Normal Distribution\") +\n  theme_minimal()\n\nWarning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.\nℹ Please use `after_stat(density)` instead."
+  },
+  {
+    "objectID": "posts/Probability/probability.html#conclusion",
+    "href": "posts/Probability/probability.html#conclusion",
+    "title": "Probability Theory and Random Variables in Machine Learning",
+    "section": "Conclusion:",
+    "text": "Conclusion:\nProbability theory and random variables are essential tools. Understanding discrete and continuous probability distributions is crucial in machine learning. They provide a foundation for many machine learning algorithms and statistical tests. They provide a framework to handle uncertainty and formulate learning problems. Understanding these concepts can help you build more effective and robust machine learning models."
   },
   {
     "objectID": "posts/Clustering/clustering.html",
@@ -137,90 +270,6 @@
     "href": "index.html",
     "title": "Welcome to my Machine Learning blog",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nNov 18, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nNov 15, 2023\n\n\nKamal\n\n\n\n\n\n\n  \n\n\n\n\nPredicting Crop Suitability with Machine Learning using R\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 28, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nAnomaly Detection in Machine Learning\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nDNSCAN Clustering\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\nNo matching items\n\n Back to top"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#introduction-1",
-    "href": "posts/anomaly detection/anomaly.html#introduction-1",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Introduction",
-    "text": "Introduction\nAnomaly detection, also known as outlier detection, is a fascinating aspect of machine learning. It involves identifying data points, events, or observations that deviate significantly from the norm. These anomalies can often provide critical and actionable insights in various domains, such as fraud detection in banking, intrusion detection in network security, and fault detection in critical systems."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#what-is-anomaly-detection",
-    "href": "posts/anomaly detection/anomaly.html#what-is-anomaly-detection",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "What is Anomaly Detection?",
-    "text": "What is Anomaly Detection?\nAnomaly detection is the process of identifying unexpected items or events in datasets, which differ from the norm. In other words, it’s about finding the ‘outliers’ in your data. For example, in a manufacturing context, an anomalous event could be a sudden increase in defective products."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#types-of-anomalies",
-    "href": "posts/anomaly detection/anomaly.html#types-of-anomalies",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Types of Anomalies",
-    "text": "Types of Anomalies\nThere are three main types of anomalies:\n\nPoint Anomalies: A single instance of data is anomalous if it’s too far off from the rest. For example, spending $100 on food every day during the holiday season is normal, but may be odd otherwise.\nContextual Anomalies: The abnormality is context-specific. This type of anomaly is common in time-series data. For example, spending $100 on food during the holiday season is normal, but may be odd otherwise.\nCollective Anomalies: A set of data instances collectively helps in detecting anomalies. For example, someone is trying to copy data form a remote machine to a local host unexpectedly, an anomaly that would be flagged as a potential cyber attack."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#anomaly-detection-techniques",
-    "href": "posts/anomaly detection/anomaly.html#anomaly-detection-techniques",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Anomaly Detection Techniques",
-    "text": "Anomaly Detection Techniques\nThere are several techniques used for anomaly detection, each with its strengths and weaknesses. Some of the most popular methods include:\n\nStatistical Methods: These methods model the normal data behavior using statistical parameters like mean, median, mode, variance, etc. Any data instance that doesn’t fit this model is considered an anomaly.\nMachine Learning-Based Methods: These include techniques like clustering, classification, and nearest neighbors. These methods can either be supervised (labels are available) or unsupervised (no labels).\nTime Series Analysis: This is particularly useful for sequential data, where some pattern or trend is expected. Techniques used here include state space models, decomposition methods, etc."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#data-cleaning",
-    "href": "posts/anomaly detection/anomaly.html#data-cleaning",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Data cleaning:",
-    "text": "Data cleaning:\nRemove the unnecessary column that is not required during the analysis. We can remove the unnecessary column by following:\n\ndata$Time &lt;- NULL"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#convert-categorical-variables-to-factors",
-    "href": "posts/anomaly detection/anomaly.html#convert-categorical-variables-to-factors",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Convert categorical variables to factors:",
-    "text": "Convert categorical variables to factors:\n\ndata$Class &lt;- as.factor(data$Class)"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#convert-categorical-variable-to-numeric",
-    "href": "posts/anomaly detection/anomaly.html#convert-categorical-variable-to-numeric",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Convert categorical variable to numeric",
-    "text": "Convert categorical variable to numeric\n\ndata$Class &lt;- as.numeric(as.character(data$Class))"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#check-if-the-data-contains-null-values",
-    "href": "posts/anomaly detection/anomaly.html#check-if-the-data-contains-null-values",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Check if the data contains null values:",
-    "text": "Check if the data contains null values:\n\nsum(is.na(data))\n\n[1] 0\n\n\nThis means this data doesnot contains any null values. We are good to go with this data and don’t have to remove any null data if there are any."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#data-visualization",
-    "href": "posts/anomaly detection/anomaly.html#data-visualization",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Data visualization:",
-    "text": "Data visualization:\n\n# Select a subset of variables to plot\nselected_vars &lt;- data[, c(\"V1\", \"V2\", \"V3\", \"V4\", \"V5\")]\n\n# Create a color palette\ncolors &lt;- terrain.colors(length(selected_vars))\n\n# Create the pairs plot with colors\npairs(selected_vars, col=colors)"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#dbscan-clustering-for-anomaly-detection",
-    "href": "posts/anomaly detection/anomaly.html#dbscan-clustering-for-anomaly-detection",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "DBSCAN clustering for anomaly detection:",
-    "text": "DBSCAN clustering for anomaly detection:\n\ndbscan_result &lt;- dbscan(data, eps = 0.3, minPts = 5)"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#visualization-of-dbscan-result",
-    "href": "posts/anomaly detection/anomaly.html#visualization-of-dbscan-result",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Visualization of DBSCAN result:",
-    "text": "Visualization of DBSCAN result:"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#about-the-data",
-    "href": "posts/anomaly detection/anomaly.html#about-the-data",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "About the data:",
-    "text": "About the data:\nThe data collection includes 284,807 credit card purchases made by European cardholders over a 48-hour period. The legitimate purchases significantly distort this data set, with only 492 of these sales being fraudulent. The purchase metrics, which comprise 28 variables namely V1 through V28, have been anonymized and modified to remove any personal information due to the sensitive nature of the data.\nLoad necessary libraries:\n\nlibrary(fpc)\nlibrary(ggplot2)\nlibrary(dbscan)\n\n\nAttaching package: 'dbscan'\n\n\nThe following object is masked from 'package:fpc':\n\n    dbscan\n\n\nThe following object is masked from 'package:stats':\n\n    as.dendrogram\n\n\n\ndata &lt;- read.csv(\"/Users/test/Downloads/creditcard.csv\")\n\n\nhead(data)\n\n  Time         V1          V2        V3         V4          V5          V6\n1    0 -1.3598071 -0.07278117 2.5363467  1.3781552 -0.33832077  0.46238778\n2    0  1.1918571  0.26615071 0.1664801  0.4481541  0.06001765 -0.08236081\n3    1 -1.3583541 -1.34016307 1.7732093  0.3797796 -0.50319813  1.80049938\n4    1 -0.9662717 -0.18522601 1.7929933 -0.8632913 -0.01030888  1.24720317\n5    2 -1.1582331  0.87773675 1.5487178  0.4030339 -0.40719338  0.09592146\n6    2 -0.4259659  0.96052304 1.1411093 -0.1682521  0.42098688 -0.02972755\n           V7          V8         V9         V10        V11         V12\n1  0.23959855  0.09869790  0.3637870  0.09079417 -0.5515995 -0.61780086\n2 -0.07880298  0.08510165 -0.2554251 -0.16697441  1.6127267  1.06523531\n3  0.79146096  0.24767579 -1.5146543  0.20764287  0.6245015  0.06608369\n4  0.23760894  0.37743587 -1.3870241 -0.05495192 -0.2264873  0.17822823\n5  0.59294075 -0.27053268  0.8177393  0.75307443 -0.8228429  0.53819555\n6  0.47620095  0.26031433 -0.5686714 -0.37140720  1.3412620  0.35989384\n         V13        V14        V15        V16         V17         V18\n1 -0.9913898 -0.3111694  1.4681770 -0.4704005  0.20797124  0.02579058\n2  0.4890950 -0.1437723  0.6355581  0.4639170 -0.11480466 -0.18336127\n3  0.7172927 -0.1659459  2.3458649 -2.8900832  1.10996938 -0.12135931\n4  0.5077569 -0.2879237 -0.6314181 -1.0596472 -0.68409279  1.96577500\n5  1.3458516 -1.1196698  0.1751211 -0.4514492 -0.23703324 -0.03819479\n6 -0.3580907 -0.1371337  0.5176168  0.4017259 -0.05813282  0.06865315\n          V19         V20          V21          V22         V23         V24\n1  0.40399296  0.25141210 -0.018306778  0.277837576 -0.11047391  0.06692807\n2 -0.14578304 -0.06908314 -0.225775248 -0.638671953  0.10128802 -0.33984648\n3 -2.26185710  0.52497973  0.247998153  0.771679402  0.90941226 -0.68928096\n4 -1.23262197 -0.20803778 -0.108300452  0.005273597 -0.19032052 -1.17557533\n5  0.80348692  0.40854236 -0.009430697  0.798278495 -0.13745808  0.14126698\n6 -0.03319379  0.08496767 -0.208253515 -0.559824796 -0.02639767 -0.37142658\n         V25        V26          V27         V28 Amount Class\n1  0.1285394 -0.1891148  0.133558377 -0.02105305 149.62     0\n2  0.1671704  0.1258945 -0.008983099  0.01472417   2.69     0\n3 -0.3276418 -0.1390966 -0.055352794 -0.05975184 378.66     0\n4  0.6473760 -0.2219288  0.062722849  0.06145763 123.50     0\n5 -0.2060096  0.5022922  0.219422230  0.21515315  69.99     0\n6 -0.2327938  0.1059148  0.253844225  0.08108026   3.67     0"
+    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nNov 18, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nNov 15, 2023\n\n\nKamal\n\n\n\n\n\n\n  \n\n\n\n\nPredicting Crop Suitability with Machine Learning using R\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 28, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nProbability Theory and Random Variables in Machine Learning\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nAnomaly Detection in Machine Learning\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nDNSCAN Clustering\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   }
 ]
