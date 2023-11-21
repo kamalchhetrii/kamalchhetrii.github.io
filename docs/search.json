@@ -186,14 +186,14 @@
     "href": "posts/Probability/probability.html#random-variables",
     "title": "Probability Theory and Random Variables in Machine Learning",
     "section": "Random Variables",
-    "text": "Random Variables\nA random variable is a variable whose possible values are outcomes of a random phenomenon. There are two types of random variables: discrete and continuous. A discrete random variable has a countable number of possible values. A continuous random variable has an uncountable number of possible values, often represented by an interval on the real number line.\nIn the context of ML, random variables could represent various things. For example, in a spam classifier, a random variable could represent whether an email is spam (1) or not (0).\n\nFigure credit: Discrete vs continuous"
+    "text": "Random Variables\nA random variable is a variable whose possible values are outcomes of a random phenomenon. There are two types of random variables: discrete and continuous. A discrete random variable has a countable number of possible values. A continuous random variable has an uncountable number of possible values, often represented by an interval on the real number line.\nIn the context of ML, random variables could represent various things. For example, in a spam classifier, a random variable could represent whether an email is spam (1) or not (0).\nTo see comparison between discrete and continuous, have a look at the table given below\n\nFigure credit: Discrete vs continuous"
   },
   {
     "objectID": "posts/Probability/probability.html#probability-distributions",
     "href": "posts/Probability/probability.html#probability-distributions",
     "title": "Probability Theory and Random Variables in Machine Learning",
     "section": "Probability Distributions",
-    "text": "Probability Distributions\nA probability distribution describes how a random variable is distributed. It tells us what the probabilities of each outcome are. For discrete random variables, we use a probability mass function (PMF). For continuous random variables, we use a probability density function (PDF).\n\nFigure credit: Probabilistic approaches to risk by Aswath Damodaran."
+    "text": "Probability Distributions\nA probability distribution describes how a random variable is distributed. It tells us what the probabilities of each outcome are. For discrete random variables, we use a probability mass function (PMF). For continuous random variables, we use a probability density function (PDF).\nWith the facts at hand, one can utilize the decision tree depicted in the picture below to get an understanding of some common probability distributions:\n\nFigure credit: Probabilistic approaches to risk by Aswath Damodaran."
   },
   {
     "objectID": "posts/Probability/probability.html#discrete-probability-distributions",

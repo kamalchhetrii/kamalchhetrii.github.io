@@ -24,6 +24,8 @@ A random variable is a variable whose possible values are outcomes of a random p
 
 In the context of ML, random variables could represent various things. For example, in a spam classifier, a random variable could represent whether an email is spam (1) or not (0).
 
+To see comparison between discrete and continuous, have a look at the table given below
+
 ![](https://www.researchgate.net/publication/337071456/figure/tbl1/AS:822449109233664@1573098556987/Discrete-and-continuous-random-variables.png)
 
 Figure credit: [Discrete vs continuous](https://www.researchgate.net/publication/337071456_Dynamic_Location_Referencing_Probability-Based_Decision_System/figures?lo=1&utm_source=google&utm_medium=organic)
@@ -31,6 +33,8 @@ Figure credit: [Discrete vs continuous](https://www.researchgate.net/publication
 ## Probability Distributions
 
 A probability distribution describes how a random variable is distributed. It tells us what the probabilities of each outcome are. For discrete random variables, we use a probability mass function (PMF). For continuous random variables, we use a probability density function (PDF).
+
+With the facts at hand, one can utilize the decision tree depicted in the picture below to get an understanding of some common probability distributions:
 
 ![](https://tinyheero.github.io/assets/prob-distr/overview-prob-distr.png)
 
