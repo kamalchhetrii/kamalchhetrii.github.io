@@ -40,6 +40,10 @@ There are several techniques used for anomaly detection, each with its strengths
 
 ![](https://miro.medium.com/v2/resize:fit:750/1*zfcgxCebn8ejyhNLU4sCsg.png)
 
+## About the data:
+
+The data collection includes 284,807 credit card purchases made by European cardholders over a 48-hour period. The legitimate purchases significantly distort this data set, with only 492 of these sales being fraudulent. The purchase metrics, which comprise 28 variables namely V1 through V28, have been anonymized and modified to remove any personal information due to the sensitive nature of the data.
+
 [**Load necessary libraries:**]{.underline}
 
 ```{r}
