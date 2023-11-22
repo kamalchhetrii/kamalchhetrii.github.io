@@ -59,6 +59,7 @@ library(broom)
 library(ggpubr)
 library(corrplot)
 library(reshape2)
+library(Metrics)
 ```
 
 ### Load the data:
@@ -239,73 +240,58 @@ ggplot(data, aes(x = as.factor(children), y = charges, fill = sex)) +
 
 We can see some outliers data in different children age group.
 
-## [**Building the model:**]{.underline} 
+## [**Building the model and prediction:**]{.underline} 
 
 From the above code and analysis, we understand about the data and its distribution. Now, we can build model that fits for our data. In this particular case, we are going to use the linear regression model.
 
-```{r}
-# Split the data into training and test sets
-set.seed(0)
-sampleSplit <- sample.split(Y=data$bmi, SplitRatio=0.7)
-trainSet <- subset(x=data, sampleSplit==TRUE)
-testSet <- subset(x=data, sampleSplit==FALSE)
-
-
-# Fit the model
-model <- lm(formula=bmi ~ ., data=trainSet)
-
-```
-
-By using a linear combination of all other attributes, we hope to predict the bmi attribute. In this case, we don't have to worry about the categorical attributes. R automatically manages the categorical attributes.
-
-Lets see the summary of model:
-
-```{r}
-summary(model)
-
-```
-
-The P-values that are shown in the Pr(\>\|t\|) column are the most intriguing aspect of this situation. The probability significance column Pr(\>\|t\|) in the above table is a crucial factor to take into account because it shows how important probability is for prediction. Here, we took a significance level of 5%  for the calculation.
-
-```{r}
-modelResiduals <- as.data.frame(residuals(model))
-ggplot(modelResiduals, aes(residuals(model)))+
-  geom_histogram(fill = 'mediumorchid1', color = 'black')
-
-```
-
-The distribution of the residual data is approximately normally distributed.
-
-**Make the prediction:**
-
-```{r}
-preds <- predict(model, testSet)
-
-```
-
-Now, see the further details by creating a table for for actual and prediction values from the above created model.
-
-```{r}
-modelEval <- cbind(testSet$bmi, preds)
-colnames(modelEval) <- c('Acual', 'Predicted')
-modelEval <- as.data.frame(modelEval)
-head(modelEval)
-
-```
-
-# **Now lets evaluate the prediction:**
-
-[**Model evaluation:**]{.underline} After building the model, its time to see how good the model is. We evaluate the model based on its performance which involved root mean square error (rmse).
+[**Model evaluation:**]{.underline} After building the model, its time to see how good the model is. We evaluate the model based on its performance which involved root mean square error (rmse) and R squared value.
 
 [**Lets learn little bit about rmse:**]{.underline} The Root Mean Square Error (RMSE) is a frequently used measure to evaluate the prediction errors of a regression model. It tells us about the distribution of the residuals (prediction errors), with a lower RMSE indicating a better fit for the data.
 
 During model evaluation, RMSE serves as a measure to understand the model's performance. Specifically, it reveals how close the predicted values are to the actual ones. An RMSE of zero indicates perfect predictions, which, in practice, is highly unlikely if not impossible.
 
 ```{r}
-# Calculate error metrics
-mse <- mean((modelEval$Acual - modelEval$Predicted)^2)
-rmse <- sqrt(mse)
-print(rmse)
+# Set the seed for reproducibility
+set.seed(0)
+
+# Create the independent variable data frame
+x <- data[, !(names(data) %in% "charges")]
+
+# Create the dependent variable vector
+y <- data$charges
+
+# Split the data into training and testing sets
+split <- sample.split(y, SplitRatio = 0.8)
+x_train <- x[split, ]
+y_train <- y[split]
+x_test <- x[!split, ]
+y_test <- y[!split]
+
+# Fit a linear regression model
+Lin_reg <- lm(y_train ~ ., data = cbind(x_train, y_train))
+
+# Print the intercept and coefficients
+print(paste("Intercept: ", Lin_reg$coefficients[1]))
+print(paste("Coefficients: ", Lin_reg$coefficients[-1]))
+
+# Calculate R-squared on the test set
+y_pred <- predict(Lin_reg, newdata = x_test)
+SSE <- sum((y_pred - y_test)^2)
+SST <- sum((mean(y_train) - y_test)^2)
+R_squared <- 1 - SSE/SST
+print(paste("R-squared: ", R_squared))
+
+# Calculate RMSE
+rmse_val <- rmse(y_test, y_pred)
+print(paste("RMSE: ", rmse_val))
+```
+
+In this case, the R-squared value is approximately 0.7364, which means that our model explains about 73.64% of the variance in the charges.
+
+# 
+
+```{r}
+
 
 ```
 
@@ -322,5 +308,6 @@ print(rmse)
 ```
 
 ```{r}
+
 
 ```
