@@ -36,12 +36,28 @@ Despite its advantages, DBSCAN also has some limitations:
 
 2.  **Sensitivity to parameter settings**: The results of DBSCAN can be significantly affected by the settings of **`eps`** and **`minPts`**. Choosing appropriate values for these parameters can be challenging.
 
+In general, density-based clustering algorithms can be quite successful for a wide range of clustering tasks, particularly when the data is shaped and has different densities. When using the algorithm with a specific dataset, it is crucial to pay close attention to the parameters and take the algorithm's constraints into account.
+
+According to the research report, the concept of dense regions forms the basis of DBSCAN. It is assumed that points in dense locations make up natural clusters. The term "dense region" has to be defined for this. These two parameters are necessary for the DBSCAN algorithm to function.
+
+-   Eps, ε: distance
+
+-   MinPts: The bare minimum of points within a given distance Eps
+
+![](https://media.geeksforgeeks.org/wp-content/uploads/20190418023034/781ff66c-b380-4a78-af25-80507ed6ff26.jpeg)
+
 In this blog post, we will perform a DBSCAN clustering analysis on an insurance dataset using R.
+
+## Data: 
+
+In this blog post, we will do the clustering analysis using the DBSCAN clustering method. Regarding the choice of this algorithm is explain above. Please have a look if you want to learn more. Regarding the data, [you can access this data from here](https://github.com/kamalchhetrii/kamalchhetrii.github.io/blob/main/insurance.csv).
 
 Load necessary libraries
 
 ```{r}
 library(fpc) 
+library(ggplot2)
+library(dplyr)
 ```
 
 ```{r}
@@ -67,6 +83,99 @@ data_num <- data[, sapply(data, is.numeric)]
 head(data_num)
 ```
 
+## Data cleaning: 
+
+It is important to see if the data contains any null values. If it has any, please consider removing it.
+
+```{r}
+sum(is.na(data_num))
+```
+
+From the above code, we can conlcude that this data file doesnot contain any na values. If you choose another data set that contains null value, you can remove them by using the code: data \<- na.omit(data)
+
+## Explanatory data analysis:
+
+An overview of a particular database's fundamental statistics is provided in this section. It is an essential step in any analysis since it makes the underlying data easier to comprehend. Distributions and correlations are the two primary sections of this section.
+
+```{r}
+# Subset the data
+male_bmi <- data[data$sex == "male", "bmi"]
+female_bmi <- data[data$sex == "female", "bmi"]
+
+# Create the histogram for male BMI
+ggplot(data.frame(BMI = male_bmi), aes(x = BMI)) +
+  geom_histogram(bins = 30, fill = "blue") +
+  theme_minimal() +
+  labs(title = "Histogram of Male BMI", x = "BMI", y = "Count")
+
+# Create the histogram for female BMI
+ggplot(data.frame(BMI = female_bmi), aes(x = BMI)) +
+  geom_histogram(bins = 30, fill = "green") +
+  theme_minimal() +
+  labs(title = "Histogram of Female BMI", x = "BMI", y = "Count")
+
+
+```
+
+The average bmi rate of Male is higher than female.
+
+```{r}
+# Subset the data
+male_charges <- data[data$sex == "male", "charges"]
+female_charges <- data[data$sex == "female", "charges"]
+
+# Create a data frame for plotting
+plot_data <- data.frame(
+  Sex = rep(c("Male", "Female"), times = c(length(male_charges), length(female_charges))),
+  Charges = c(male_charges, female_charges)
+)
+
+# Create the box plot
+ggplot(plot_data, aes(x = Sex, y = Charges, fill = Sex)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Box Plot of Charges by Sex", x = "Sex", y = "Charges", fill = "Sex")
+
+
+
+```
+
+```{r}
+# Calculate the mean separation score and standard deviation for each group
+grouped_data <- plot_data %>%
+  group_by(Sex) %>%
+  summarise(
+    Mean_Separation_Score = mean(Charges),
+    SD = sd(Charges)
+  )
+
+print(grouped_data)
+```
+
+From the above data, we can see that the mean separation score for male is higher than female.
+
+## lets see the correlation between different variable to understand the relation:
+
+```{r}
+# Calculate the average bmi for each region
+avg_bmi_by_region <- data %>%
+  group_by(region) %>%
+  summarise(Average_BMI = mean(bmi))
+
+print(avg_bmi_by_region)
+```
+
+From the above graph, we can see that the average bmi of southeast is the highest among all.
+
+```{r}
+# Create the bar plot
+ggplot(avg_bmi_by_region, aes(x = region, y = Average_BMI, fill = region)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Average BMI by Region", x = "Region", y = "Average BMI", fill = "Region")
+
+```
+
 # Perform DBSCAN on the loaded dataset:
 
 ## Remove label form dataset
@@ -76,6 +185,13 @@ med <- data_num[-4]
 ```
 
 Fitting DBSCAN clustering model:
+
+Determining the ideal values is a challenging task that cannot be done at random. As a result, I will start by making a matrix of the options I've looked into.
+
+```{r}
+
+
+```
 
 ```{r}
 set.seed(0)  # Setting seed 
