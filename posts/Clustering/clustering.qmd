@@ -1,5 +1,5 @@
 ---
-title: "DNSCAN Clustering"
+title: "Understanding DBSCAN Clustering Analysis in Machine Learning"
 author: "Kamal Chhetri"
 date: "2023-10-18"
 categories:
@@ -7,8 +7,6 @@ categories:
   - Code
   - Analysis
 ---
-
-# Understanding DBSCAN Clustering Analysis in Machine Learning
 
 ## Introduction
 
@@ -48,7 +46,7 @@ According to the research report, the concept of dense regions forms the basis o
 
 In this blog post, we will perform a DBSCAN clustering analysis on an insurance dataset using R.
 
-## Data: 
+## Data:
 
 In this blog post, we will do the clustering analysis using the DBSCAN clustering method. Regarding the choice of this algorithm is explain above. Please have a look if you want to learn more. Regarding the data, [you can access this data from here](https://github.com/kamalchhetrii/kamalchhetrii.github.io/blob/main/insurance.csv).
 
@@ -83,7 +81,7 @@ data_num <- data[, sapply(data, is.numeric)]
 head(data_num)
 ```
 
-## Data cleaning: 
+## Data cleaning:
 
 It is important to see if the data contains any null values. If it has any, please consider removing it.
 
