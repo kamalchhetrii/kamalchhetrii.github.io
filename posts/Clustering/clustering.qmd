@@ -104,13 +104,13 @@ female_bmi <- data[data$sex == "female", "bmi"]
 
 # Create the histogram for male BMI
 ggplot(data.frame(BMI = male_bmi), aes(x = BMI)) +
-  geom_histogram(bins = 30, fill = "blue") +
+  geom_histogram(bins = 30, fill = "blue", color= "black") +
   theme_minimal() +
   labs(title = "Histogram of Male BMI", x = "BMI", y = "Count")
 
 # Create the histogram for female BMI
 ggplot(data.frame(BMI = female_bmi), aes(x = BMI)) +
-  geom_histogram(bins = 30, fill = "green") +
+  geom_histogram(bins = 30, fill = "green", color="black") +
   theme_minimal() +
   labs(title = "Histogram of Female BMI", x = "BMI", y = "Count")
 

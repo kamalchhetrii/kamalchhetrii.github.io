@@ -8,7 +8,7 @@ categories:
   - Analysis
 ---
 
-### Introduction
+# Introduction
 
 Linear regression is a powerful statistical method that allows us to examine the relationship between two (simple linear regression) or more (multiple linear regression) variables. A key feature of linear regression is its simplicity and interpretability. It's used in various fields, including machine learning, most medical fields, and social sciences.
 
@@ -40,15 +40,15 @@ There are several assumption for the linear regression model that I am using in 
 
 [**Absence of multicollinearity:**]{.underline} In the case of multiple linear regression, the independent variables should not be too highly correlated with each other.
 
-[**Load necessary libraries:**]{.underline}
+## About the data:
+
+There are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining six variables---age, sex, bmi, children, smoker, and region---are independent variables, whereas charges is the target variable in this instance. To examine the data, multiple linear regression must be fitted because there are several independent variables.
 
 ```{r}
 
 ```
 
-[**Set the random seed for reproducibility:**]{.underline}
-
-
+## [**Load necessary libraries:**]{.underline}
 
 ```{r}
 # Load packages
@@ -61,6 +61,8 @@ library(corrplot)
 library(reshape2)
 ```
 
+### Load the data:
+
 ```{r}
 # Load the data into R
 data <- read.csv('/Users/test/Desktop/Machine_learning/mlblog/kchhetrii.github.io/insurance.csv')
@@ -69,7 +71,11 @@ data <- read.csv('/Users/test/Desktop/Machine_learning/mlblog/kchhetrii.github.i
 head(data)
 ```
 
-[**Load and clean the data:**]{.underline}
+```{r}
+str(data)
+```
+
+### [**Load and clean the data:**]{.underline}
 
 ```{r}
 # Check for missing values
@@ -81,16 +87,18 @@ sum(is.na(data))
 # data$column <- ifelse(is.na(data$column), mean(data$column, na.rm = TRUE), data$column)  # fills missing values with mean
 ```
 
+In my case, the data does not contain the null values; however, if you select the data with the null values and want to analyze the data, it is important to deal with the null values before proceeding further analysis. Different ways to deal with the null values in R is given in the code above.
+
 ```{r}
 
 ```
 
-Since, we don't have any null or missing value in this data as indicated above. So, no further handling of missing data is needed.
+Upon executing the above code, we got the value 0, which means there are no missing values in the data. Since we don't have any null or missing values in this data, as indicated above. So, no further handling of missing data is needed.
 
 ```{r}
 ```
 
-Visualize the data: for better understanding of the data before proceeding further
+### Visualize the data: for better understanding of the data before proceeding further
 
 ```{r}
 # Visualize the data
@@ -118,7 +126,7 @@ print(correlation_matrix)
 
 ```
 
-Create the heatmap for better visualization:
+### Create the heatmap for better visualization:
 
 ```{r}
 # Melt the correlation matrix into a long format
@@ -137,35 +145,103 @@ ggplot(data_melt, aes(x=Var1, y=Var2, fill=value)) +
         axis.text.y = element_text(size = 12))
 ```
 
-From the heatmap created using the above code, we can see there is no strong correlation between different variables. However, this part is made to visualize the data only.
+We can see no strong correlation between different variables from the heatmap created using the above code. However, this part is made to visualize the data only.
 
-[**Building the model:**]{.underline} From the above code and analysis, we understand about the data and its distribution. Now, we can build model that fits for our data. In this particular case, we are going to use the linear regression model.
+### Lets explore the data for charges by region:
 
 ```{r}
-# Create a violin plot for 'age'
-ggplot(data, aes(x=sex, y=charges)) +
-  geom_violin(fill="yellow") +
-  labs(title="Distribution of Charges by Sex", x="Sex", y="Charges")
+# Sum 'charges' grouped by 'region'
+charges <- aggregate(data$charges, by=list(data$region), FUN=sum)
 
+# Sort the data frame by 'charges' in ascending order
+charges <- charges[order(charges$x, decreasing=FALSE), ]
 
-# Create a violin plot for 'charges' vs 'sex'
-p1 <- ggplot(data, aes(x=sex, y=charges)) +
-  geom_violin(fill="yellowgreen") +
-  labs(title="Violin plot of Charges vs Sex", x="Sex", y="Charges")
+# Create a bar plot
+ggplot(charges[1:5, ], aes(x=Group.1, y=x, fill=x)) +
+  geom_bar(stat="identity") +
+  coord_flip() +
+  labs(title="Sum of Charges by Region", x="Region", y="Charges") +
+  theme_minimal() +
+  scale_fill_gradient(low = "lightgreen", high = "blue")
+```
 
-# Create a violin plot for 'charges' vs 'smoker'
-p2 <- ggplot(data, aes(x=smoker, y=charges)) +
-  geom_violin(fill="goldenrod1") +
-  labs(title="Violin plot of Charges vs Smoker", x="Smoker", y="Charges")
+Therefore, the Southeast has the highest overall medical costs, whereas the Southwest has the lowest.
+
+It is always interesting to explore the data; in this case, I am interested in seeing how smoking habits affect the charges associated with insurance. Let's explore this below:
+
+```{r}
+# Create a scatter plot for 'age' vs 'charges' colored by 'smoker'
+p1 <- ggplot(data, aes(x=age, y=charges, color=smoker)) +
+  geom_point() +
+  stat_smooth(method="lm", col="red") +
+  scale_color_manual(values=c("red", "blue")) +
+  labs(title="Scatter plot of Charges vs Age", x="Age", y="Charges")
+
+# Create a scatter plot for 'bmi' vs 'charges' colored by 'smoker'
+p2 <- ggplot(data, aes(x=bmi, y=charges, color=smoker)) +
+  geom_point() +
+  stat_smooth(method="lm", col="red") +
+  scale_color_manual(values=c("red", "blue")) +
+  labs(title="Scatter plot of Charges vs BMI", x="BMI", y="Charges")
+
+# Create a scatter plot for 'children' vs 'charges' colored by 'smoker'
+p3 <- ggplot(data, aes(x=children, y=charges, color=smoker)) +
+  geom_point() +
+  stat_smooth(method="lm", col="red") +
+  scale_color_manual(values=c("green", "purple")) +
+  labs(title="Scatter plot of Charges vs Children", x="Children", y="Charges")
 
 # Print the plots
 print(p1)
 print(p2)
+print(p3)
+
+
 ```
 
-According to the left plot, the average insurance cost for men and women is roughly the same at \$5,000. The insurance costs for smokers in the right plot vary significantly from those for non-smokers; the average cost for a non-smoker is about \$5,000. The minimum insurance premium for smokers is \$5,000.
+Overall, the insurance charge is significantly higher for an individual who smokes.
 
-#### Need to check again on these
+## 
+
+```{r}
+
+```
+
+```{r}
+# Create a box plot for 'charges' vs 'sex'
+p1 <- ggplot(data, aes(x=sex, y=charges)) +
+  geom_boxplot(fill="yellowgreen") +
+  labs(title="Box plot of Charges vs Sex", x="Sex", y="Charges")
+
+# Create a box plot for 'charges' vs 'smoker'
+p2 <- ggplot(data, aes(x=smoker, y=charges)) +
+  geom_boxplot(fill="goldenrod1") +
+  theme_minimal() +
+  labs(title="Box plot of Charges vs Smoker", x="Smoker", y="Charges")
+
+# Print the plots
+print(p1)
+print(p2)
+
+```
+
+According to the plot, the average insurance cost for men and women is roughly the same at \$5,000. The insurance costs for smokers in the right plot vary significantly from those for non-smokers; the average cost for a non-smoker is about \$5,000. The minimum insurance premium for smokers is \$5,000.
+
+```{r}
+# Create the box plot
+ggplot(data, aes(x = as.factor(children), y = charges, fill = sex)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("blue", "green")) +
+  theme_minimal() +
+  labs(title = "Box plot of charges vs children", x = "Children", y = "Charges", fill = "Sex")
+
+```
+
+We can see some outliers data in different children age group.
+
+## [**Building the model:**]{.underline} 
+
+From the above code and analysis, we understand about the data and its distribution. Now, we can build model that fits for our data. In this particular case, we are going to use the linear regression model.
 
 ```{r}
 # Split the data into training and test sets
@@ -185,7 +261,6 @@ By using a linear combination of all other attributes, we hope to predict the bm
 Lets see the summary of model:
 
 ```{r}
-# Split the data into training and test sets
 summary(model)
 
 ```
@@ -201,7 +276,7 @@ ggplot(modelResiduals, aes(residuals(model)))+
 
 The distribution of the residual data is approximately normally distributed.
 
-Make the prediction:
+**Make the prediction:**
 
 ```{r}
 preds <- predict(model, testSet)
