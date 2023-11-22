@@ -24,7 +24,7 @@ b\. Multiple linear regression: In this case, We use multiple input variable
 
 ### The Dataset:
 
-There are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining six variables---age, sex, bmi, children, smoker, and region---are independent variables, whereas charges is the target variable in this instance. To examine the data, multiple linear regression must be fitted because there are several independent variables.
+There are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining six variables---age, sex, bmi, children, smoker, and region---are independent variables, whereas charges is the target variable in this instance. To examine the data, multiple linear regression must be fitted because there are several independent variables. You can access this data from [here.](https://github.com/kamalchhetrii/kamalchhetrii.github.io/blob/main/insurance.csv)
 
 ### Assumptions:
 
@@ -236,7 +236,7 @@ ggplot(data, aes(x = as.factor(children), y = charges, fill = sex)) +
 
 We can see some outliers data in different children age group.
 
-## **Building the model and prediction:** 
+## **Building the model and prediction:**
 
 From the above code and analysis, we understand about the data and its distribution. Now, we can build model that fits for our data. In this particular case, we are going to use the linear regression model.
 
