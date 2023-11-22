@@ -246,10 +246,6 @@ From the above code and analysis, we understand about the data and its distribut
 
 [**Model evaluation:**]{.underline} After building the model, its time to see how good the model is. We evaluate the model based on its performance which involved root mean square error (rmse) and R squared value.
 
-[**Lets learn little bit about rmse:**]{.underline} The Root Mean Square Error (RMSE) is a frequently used measure to evaluate the prediction errors of a regression model. It tells us about the distribution of the residuals (prediction errors), with a lower RMSE indicating a better fit for the data.
-
-During model evaluation, RMSE serves as a measure to understand the model's performance. Specifically, it reveals how close the predicted values are to the actual ones. An RMSE of zero indicates perfect predictions, which, in practice, is highly unlikely if not impossible.
-
 ```{r}
 # Set the seed for reproducibility
 set.seed(0)
@@ -285,6 +281,10 @@ print(paste("R-squared: ", R_squared))
 rmse_val <- rmse(y_test, y_pred)
 print(paste("RMSE: ", rmse_val))
 ```
+
+[**Lets learn little bit about rmse:**]{.underline} The Root Mean Square Error (RMSE) is a frequently used measure to evaluate the prediction errors of a regression model. It tells us about the distribution of the residuals (prediction errors), with a lower RMSE indicating a better fit for the data.
+
+During model evaluation, RMSE serves as a measure to understand the model's performance. Specifically, it reveals how close the predicted values are to the actual ones. An RMSE of zero indicates perfect predictions, which, in practice, is highly unlikely if not impossible.
 
 In this case, the R-squared value is approximately 0.7364, which means that our model explains about 73.64% of the variance in the charges.
 
