@@ -411,7 +411,7 @@ Attaching package: 'randomForest'</code></pre>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>testLabels <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(testLabels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><u><strong>Make predictions on the test data:</strong></u></p>
-<p><strong>Using Random Forest:</strong></p>
+<p><strong>Using Random Forest algorithm:</strong></p>
 <div class="cell" data-hash="crop_cache/html/unnamed-chunk-13_871ab157369d678e3cb42d47566ccf6c">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pred_rf <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_rf, testData)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -426,14 +426,14 @@ Attaching package: 'randomForest'</code></pre>
 <p><img src="crop_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>For SVM</strong></p>
+<p><strong>Using Support Vector Machine algorithm:</strong></p>
 <div class="cell" data-hash="crop_cache/html/unnamed-chunk-14_6d65e1f637674194b5b8caa82e1e11e2">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pred_svm <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_svm, testData)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate confusion matrices</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>cm_svm <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(pred_svm, testLabels)</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print confusion matrices</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>For NB</strong></p>
+<p><strong>Using Naive Bayes algorithm:</strong></p>
 <div class="cell" data-hash="crop_cache/html/unnamed-chunk-15_5e2894adca4fdb04b2b87ecb9fa3494a">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pred_nb <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_nb, testData)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate confusion matrices</span></span>
@@ -470,6 +470,10 @@ Attaching package: 'randomForest'</code></pre>
 3   Naive Bayes            0.004545455</code></pre>
 </div>
 </div>
+</section>
+<section id="summarize-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="summarize-the-results">Summarize the results:</h2>
+<p>In this blog, as I mentioned before, we used different algorithms for classification, and based on the accuracy, a suitable algorithm will be used for further prediction. As you can see above, I employed different algorithms and calculated the prediction accuracy for each model. Now, let’s summarize the results and compare one another.</p>
 <div class="cell" data-hash="crop_cache/html/unnamed-chunk-19_c1d0950a926fd3c7c71dee36be8c594d">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the results</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">resamples</span>(<span class="fu">list</span>(<span class="at">RF=</span>model_rf, <span class="at">SVM=</span>model_svm, <span class="at">NB=</span>model_nb))</span>
@@ -502,6 +506,7 @@ NB  0.9761905 0.9940476 0.9940476 0.9940476 1.0000000    1    0</code></pre>
 <p><img src="crop_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>From this plot, we can see the prediction accuracy using different algorithms. From this, we can see that the prediction accuracy by random forest is significantly better than that of other algorithms. Thus, based on this, We will select a random forest for further prediction.</p>
 <p><u><strong>Making Predictions:</strong></u></p>
 <p>Finally, I used the best model (Random Forest) to make predictions. Given the average temperature (21.7 - 31.7 C), average humidity (71), pH level (5), rainfall (118 cm), and NPK values (89, 41, 22) of Blackstone Area, VA, the model predicted that Maize would be the most suitable crop for this area.</p>
 <div class="cell" data-hash="crop_cache/html/unnamed-chunk-29_91fe712402677857c8f3f35b5f009875">

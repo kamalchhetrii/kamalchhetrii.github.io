@@ -136,7 +136,7 @@ testLabels <- as.factor(testLabels)
 
 [**Make predictions on the test data:**]{.underline}
 
-**Using Random Forest:**
+**Using Random Forest algorithm:**
 
 ```{r}
 pred_rf <- predict(model_rf, testData)
@@ -150,7 +150,7 @@ cm_rf_numeric[] <- as.numeric(cm_rf_numeric)
 pheatmap(cm_rf_numeric, display_numbers = T)
 ```
 
-**For SVM**
+**Using Support Vector Machine algorithm:**
 
 ```{r}
 pred_svm <- predict(model_svm, testData)
@@ -160,7 +160,7 @@ cm_svm <- confusionMatrix(pred_svm, testLabels)
 
 ```
 
-**For NB**
+**Using Naive Bayes algorithm:**
 
 ```{r}
 pred_nb <- predict(model_nb, testData)
@@ -204,6 +204,10 @@ print(misclassification)
 
 ```
 
+## Summarize the results:
+
+In this blog, as I mentioned before, we used different algorithms for classification, and based on the accuracy, a suitable algorithm will be used for further prediction. As you can see above, I employed different algorithms and calculated the prediction accuracy for each model. Now, let's summarize the results and compare one another.
+
 ```{r}
 # Summarize the results
 results <- resamples(list(RF=model_rf, SVM=model_svm, NB=model_nb))
@@ -214,6 +218,8 @@ summary(results)
 # Plot the results
 dotplot(results, metric = "Accuracy")
 ```
+
+From this plot, we can see the prediction accuracy using different algorithms. From this, we can see that the prediction accuracy by random forest is significantly better than that of other algorithms. Thus, based on this, We will select a random forest for further prediction.
 
 ```{r}
 
