@@ -172,21 +172,21 @@
     "href": "posts/Probability/probability.html",
     "title": "Probability Theory and Random Variables in Machine Learning",
     "section": "",
-    "text": "Probability theory is a fundamental pillar of Machine Learning (ML). It provides a framework to represent uncertain statements and formulate the learning problem in a principled way. In this blog post, we will delve into the basics of probability theory and random variables, and how they play a crucial role in ML. We will also illustrate these concepts with an example in R."
+    "text": "Probability theory serves as a cornerstone for Machine Learning (ML). It offers an approach to expressing statements and formulating the learning problem. In this blog post we will explore the aspects of probability theory and random variables and their significant impact on ML. Additionally we will provide an example, in R to demonstrate these concepts."
   },
   {
     "objectID": "posts/Probability/probability.html#probability-theory",
     "href": "posts/Probability/probability.html#probability-theory",
     "title": "Probability Theory and Random Variables in Machine Learning",
     "section": "Probability Theory",
-    "text": "Probability Theory\nProbability theory is a branch of mathematics that deals with uncertainty. It provides a mathematical framework for quantifying our belief or uncertainty. The probability of an event is a measure of the likelihood that the event will occur.\nIn ML, we often have to deal with uncertainty. For example, when we build a spam classifier, we are uncertain about whether a new incoming email is spam or not. Probability theory provides a solid foundation to reason about this uncertainty."
+    "text": "Probability Theory\nProbability theory is a field, within mathematics that tackles the concept of uncertainty. It offers a structure to help us quantify our beliefs or uncertainties. The probability of an event serves as a metric to gauge the likelihood of its occurrence.\nIn machine learning we frequently encounter situations where dealing with uncertainty becomes essential. Take the case of constructing a spam classifier for instance. We often find ourselves unsure whether an incoming email should be classified as spam or not. Probability theory acts as a framework to navigate through this uncertainty and make decisions."
   },
   {
     "objectID": "posts/Probability/probability.html#random-variables",
     "href": "posts/Probability/probability.html#random-variables",
     "title": "Probability Theory and Random Variables in Machine Learning",
     "section": "Random Variables",
-    "text": "Random Variables\nA random variable is a variable whose possible values are outcomes of a random phenomenon. There are two types of random variables: discrete and continuous. A discrete random variable has a countable number of possible values. A continuous random variable has an uncountable number of possible values, often represented by an interval on the real number line.\nIn the context of ML, random variables could represent various things. For example, in a spam classifier, a random variable could represent whether an email is spam (1) or not (0).\nTo see comparison between discrete and continuous, have a look at the table given below\n\nFigure credit: Discrete vs continuous"
+    "text": "Random Variables\nA random variable refers to a variable that takes on values based on the outcomes of an event. There are two types of variables; discrete and continuous. A discrete random variable has an countable number of values while a continuous random variable can have an infinite number of possible values, within a range along the real number line.\nWhen it comes to machine learning random variables can represent elements. For instance in a spam classifier a random variable may indicate whether an email is classified as spam (1) or not (0).\nTo better understand the comparison, between continuous variables you can refer to the table provided below.\n\nFigure credit: Discrete vs continuous"
   },
   {
     "objectID": "posts/Probability/probability.html#probability-distributions",
