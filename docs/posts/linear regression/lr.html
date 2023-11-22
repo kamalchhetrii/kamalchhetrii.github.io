@@ -9,7 +9,7 @@
 <meta name="author" content="Kamal Chhetri">
 <meta name="dcterms.date" content="2023-10-18">
 
-<title>Linear Regression</title>
+<title>Linear Regression and medical charges</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta name="twitter:title" content="Linear Regression">
+<meta name="twitter:title" content="Linear Regression and medical charges">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://editor.analyticsvidhya.com/uploads/375512.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Linear Regression</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Linear Regression and medical charges</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -182,7 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-right">
-      <h1 class="title">Linear Regression</h1>
+      <h1 class="title">Linear Regression and medical charges</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">R</div>
                 <div class="quarto-category">Code</div>
@@ -245,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="introduction" class="level1">
-<h1>Introduction</h1>
+<h1>Introduction:</h1>
 <p>Linear regression is a powerful statistical method that allows us to examine the relationship between two (simple linear regression) or more (multiple linear regression) variables. A key feature of linear regression is its simplicity and interpretability. It’s used in various fields, including machine learning, most medical fields, and social sciences.</p>
 <p>Linear regression models the relationship between two variables by fitting a linear equation to observed data. The steps to perform multiple linear regression are almost identical to those of simple linear regression.</p>
 <p><img src="https://editor.analyticsvidhya.com/uploads/375512.jpg" class="img-fluid"></p>
@@ -253,8 +253,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>a. Simple linear regression: In this case, we use only one input variable</p>
 <p>b. Multiple linear regression: In this case, We use multiple input variable</p>
 <section id="the-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="the-dataset">The Dataset</h3>
-<p>I will update about it soon.</p>
+<h3 class="anchored" data-anchor-id="the-dataset">The Dataset:</h3>
+<p>There are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining six variables—age, sex, bmi, children, smoker, and region—are independent variables, whereas charges is the target variable in this instance. To examine the data, multiple linear regression must be fitted because there are several independent variables.</p>
 </section>
 <section id="assumptions" class="level3">
 <h3 class="anchored" data-anchor-id="assumptions">Assumptions:</h3>
@@ -265,12 +265,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><u><strong>Normality:</strong></u> The residuals are normally distributed. If this assumption is violated, then the confidence intervals may not be accurate.</p>
 <p><u><strong>Absence of multicollinearity:</strong></u> In the case of multiple linear regression, the independent variables should not be too highly correlated with each other.</p>
 </section>
-<section id="about-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="about-the-data">About the data:</h2>
-<p>There are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining six variables—age, sex, bmi, children, smoker, and region—are independent variables, whereas charges is the target variable in this instance. To examine the data, multiple linear regression must be fitted because there are several independent variables.</p>
-</section>
 <section id="load-necessary-libraries" class="level2">
-<h2 class="anchored" data-anchor-id="load-necessary-libraries"><u><strong>Load necessary libraries:</strong></u></h2>
+<h2 class="anchored" data-anchor-id="load-necessary-libraries"><strong>Load necessary libraries:</strong></h2>
 <div class="cell" data-hash="lr_cache/html/unnamed-chunk-2_be0b17b7a82c0a2667e4bec954041ee1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caTools)</span>
@@ -315,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="load-and-clean-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="load-and-clean-the-data"><u><strong>Load and clean the data:</strong></u></h3>
+<h3 class="anchored" data-anchor-id="load-and-clean-the-data">Load and clean the data:</h3>
 <div class="cell" data-hash="lr_cache/html/unnamed-chunk-5_be011b8fe6a37eff7b3c793ee7e44398">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -331,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Upon executing the above code, we got the value 0, which means there are no missing values in the data. Since we don’t have any null or missing values in this data, as indicated above. So, no further handling of missing data is needed.</p>
 </section>
 <section id="visualize-the-data-for-better-understanding-of-the-data-before-proceeding-further" class="level3">
-<h3 class="anchored" data-anchor-id="visualize-the-data-for-better-understanding-of-the-data-before-proceeding-further">Visualize the data: for better understanding of the data before proceeding further</h3>
+<h3 class="anchored" data-anchor-id="visualize-the-data-for-better-understanding-of-the-data-before-proceeding-further">Visualize the data: for better understanding of the data before proceeding further:</h3>
 <div class="cell" data-hash="lr_cache/html/unnamed-chunk-8_778a9700c049ad4d86269208cdb95e5c">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the data</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>bmi, <span class="at">y=</span>charges)) <span class="sc">+</span></span>
@@ -502,7 +498,7 @@ charges  0.2990082 0.1983410 0.06799823 1.00000000</code></pre>
 <p>We can see some outliers data in different children age group.</p>
 </section>
 <section id="building-the-model-and-prediction" class="level2">
-<h2 class="anchored" data-anchor-id="building-the-model-and-prediction"><u><strong>Building the model and prediction:</strong></u></h2>
+<h2 class="anchored" data-anchor-id="building-the-model-and-prediction"><strong>Building the model and prediction:</strong></h2>
 <p>From the above code and analysis, we understand about the data and its distribution. Now, we can build model that fits for our data. In this particular case, we are going to use the linear regression model.</p>
 <p><u><strong>Model evaluation:</strong></u> After building the model, its time to see how good the model is. We evaluate the model based on its performance which involved root mean square error (rmse) and R squared value.</p>
 <div class="cell" data-hash="lr_cache/html/unnamed-chunk-16_bb7290dfccb575346dd5cfcd8f8e5113">

@@ -1,5 +1,5 @@
 ---
-title: "Linear Regression"
+title: "Linear Regression and medical charges"
 author: "Kamal Chhetri"
 date: "2023-10-18"
 categories:
@@ -8,7 +8,7 @@ categories:
   - Analysis
 ---
 
-# Introduction
+# Introduction:
 
 Linear regression is a powerful statistical method that allows us to examine the relationship between two (simple linear regression) or more (multiple linear regression) variables. A key feature of linear regression is its simplicity and interpretability. It's used in various fields, including machine learning, most medical fields, and social sciences.
 
@@ -22,9 +22,9 @@ a\. Simple linear regression: In this case, we use only one input variable
 
 b\. Multiple linear regression: In this case, We use multiple input variable
 
-### The Dataset
+### The Dataset:
 
-I will update about it soon.
+There are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining six variables---age, sex, bmi, children, smoker, and region---are independent variables, whereas charges is the target variable in this instance. To examine the data, multiple linear regression must be fitted because there are several independent variables.
 
 ### Assumptions:
 
@@ -40,15 +40,11 @@ There are several assumption for the linear regression model that I am using in 
 
 [**Absence of multicollinearity:**]{.underline} In the case of multiple linear regression, the independent variables should not be too highly correlated with each other.
 
-## About the data:
-
-There are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining six variables---age, sex, bmi, children, smoker, and region---are independent variables, whereas charges is the target variable in this instance. To examine the data, multiple linear regression must be fitted because there are several independent variables.
-
 ```{r}
 
 ```
 
-## [**Load necessary libraries:**]{.underline}
+## **Load necessary libraries:**
 
 ```{r}
 # Load packages
@@ -76,7 +72,7 @@ head(data)
 str(data)
 ```
 
-### [**Load and clean the data:**]{.underline}
+### Load and clean the data:
 
 ```{r}
 # Check for missing values
@@ -99,7 +95,7 @@ Upon executing the above code, we got the value 0, which means there are no miss
 ```{r}
 ```
 
-### Visualize the data: for better understanding of the data before proceeding further
+### Visualize the data: for better understanding of the data before proceeding further:
 
 ```{r}
 # Visualize the data
@@ -240,7 +236,7 @@ ggplot(data, aes(x = as.factor(children), y = charges, fill = sex)) +
 
 We can see some outliers data in different children age group.
 
-## [**Building the model and prediction:**]{.underline} 
+## **Building the model and prediction:** 
 
 From the above code and analysis, we understand about the data and its distribution. Now, we can build model that fits for our data. In this particular case, we are going to use the linear regression model.
 
