@@ -28,7 +28,7 @@ In this project, I used machine learning to predict the suitability of different
 
 ## The Data
 
-The data used in this project was stored in a CSV file named Crop_recommendation.csv. This file contained various parameters for different crops, including N, P, K, temperature, humidity, pH, rainfall, and a label indicating the crop type.
+The data used in this project was stored in a CSV file named Crop_recommendation.csv. This file contained various parameters for different crops, including N, P, K, temperature, humidity, pH, rainfall, and a label indicating the crop type. [You can find the data file in here](https://github.com/kamalchhetrii/kamalchhetrii.github.io/blob/main/Crop_recommendation.csv).
 
 Before diving into the machine learning aspect of the project, I first explored the data. I used R's head() and tail() functions to view the first and last few rows of the data. I also checked for missing or null values using R's is.na() function.
 

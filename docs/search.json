@@ -46,7 +46,7 @@
     "href": "posts/Classification_crop  suitability/crop.html#the-data",
     "title": "Predicting Crop Suitability with Machine Learning using R",
     "section": "The Data",
-    "text": "The Data\nThe data used in this project was stored in a CSV file named Crop_recommendation.csv. This file contained various parameters for different crops, including N, P, K, temperature, humidity, pH, rainfall, and a label indicating the crop type.\nBefore diving into the machine learning aspect of the project, I first explored the data. I used R’s head() and tail() functions to view the first and last few rows of the data. I also checked for missing or null values using R’s is.na() function."
+    "text": "The Data\nThe data used in this project was stored in a CSV file named Crop_recommendation.csv. This file contained various parameters for different crops, including N, P, K, temperature, humidity, pH, rainfall, and a label indicating the crop type. You can find the data file in here.\nBefore diving into the machine learning aspect of the project, I first explored the data. I used R’s head() and tail() functions to view the first and last few rows of the data. I also checked for missing or null values using R’s is.na() function."
   },
   {
     "objectID": "posts/Classification_crop  suitability/crop.html#data-visualization",

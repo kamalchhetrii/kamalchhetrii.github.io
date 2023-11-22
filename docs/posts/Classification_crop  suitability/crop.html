@@ -265,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-data" class="level2">
 <h2 class="anchored" data-anchor-id="the-data">The Data</h2>
-<p>The data used in this project was stored in a CSV file named Crop_recommendation.csv. This file contained various parameters for different crops, including N, P, K, temperature, humidity, pH, rainfall, and a label indicating the crop type.</p>
+<p>The data used in this project was stored in a CSV file named Crop_recommendation.csv. This file contained various parameters for different crops, including N, P, K, temperature, humidity, pH, rainfall, and a label indicating the crop type. <a href="https://github.com/kamalchhetrii/kamalchhetrii.github.io/blob/main/Crop_recommendation.csv">You can find the data file in here</a>.</p>
 <p>Before diving into the machine learning aspect of the project, I first explored the data. I used R’s head() and tail() functions to view the first and last few rows of the data. I also checked for missing or null values using R’s is.na() function.</p>
 </section>
 <section id="data-visualization" class="level2">
@@ -281,7 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>I used three different machine learning algorithms for this project: Random Forest (RF), Support Vector Machine (SVM), and Naive Bayes (NB). I trained each model on the training data and then evaluated their performance based on their accuracy.</p>
 <p>To visualize the accuracy of each model, I created a line plot using ggplot2. This plot showed that Random Forest had the highest accuracy of prediction.</p>
 <p><u><strong>Load necessary libraries:</strong></u></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-1_36146ed71d4fc6dc0ea3cceda1359c17">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: ggplot2</code></pre>
@@ -310,7 +310,7 @@ Attaching package: 'randomForest'</code></pre>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><u><strong>Load the data:</strong></u></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-2_0c87536322d9dcb06aefadcd080d230a">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/test/Desktop/Machine_learning/mlblog/kchhetrii.github.io/Crop_recommendation.csv"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -323,11 +323,11 @@ Attaching package: 'randomForest'</code></pre>
 6 69 37 42    23.05805 83.37012 7.073454 251.0550  rice</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-3_c2c61c4515c070d545d187e2f6ca92f5">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><u><strong>Split the data into training and testing sets:</strong></u></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-4_864bef92f89cb19119c7ce42ccff13e8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># See the head and tail of data</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -340,7 +340,7 @@ Attaching package: 'randomForest'</code></pre>
 6 69 37 42    23.05805 83.37012 7.073454 251.0550  rice</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-5_4b7f13936f7145f3fa63d5fcca692960">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -348,7 +348,7 @@ Attaching package: 'randomForest'</code></pre>
 </div>
 </div>
 <p><u><strong>Create a data frame to store test data and predicted labels:</strong></u></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-6_d8d16267e3844e2deeb0d36b0514161d">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># See the distribution of data </span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -369,25 +369,25 @@ Attaching package: 'randomForest'</code></pre>
 </div>
 </div>
 <p><u><strong>See the relationship between different parameters such as Ph vs label or precipitation vs crop:</strong></u></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-7_ba2742e56afc375b7bc960fba271654a">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>ph, <span class="at">y=</span>label, <span class="at">color=</span>label)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="crop_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-8_26e9445c29cc32f1c0f7f48ca1fd1aff">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>rainfall, <span class="at">y=</span>label, <span class="at">color=</span>label)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="crop_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p><u><strong>Data processing: separate feature and target variable:</strong></u></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-9_dec8f8ccd5d2448d9bae5117c67565bb">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> data[,<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>]</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>target <span class="ot">&lt;-</span> data<span class="sc">$</span>label</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><u><strong>Split the data into training and testing sets:</strong></u></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-10_4bbab4f2debd426340f5d59fe06cf5f1">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>trainIndex <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(target, <span class="at">p=</span><span class="fl">0.8</span>, <span class="at">list=</span><span class="cn">FALSE</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> features[trainIndex, ]</span>
@@ -396,7 +396,7 @@ Attaching package: 'randomForest'</code></pre>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>testLabels <span class="ot">&lt;-</span> target[<span class="sc">-</span>trainIndex]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><u><strong>Define training control:</strong></u></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-11_3945a2079c4f1e6caf977cfd62569059">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">"cv"</span>, <span class="at">number=</span><span class="dv">10</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the models</span></span>
@@ -405,14 +405,14 @@ Attaching package: 'randomForest'</code></pre>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>model_svm <span class="ot">&lt;-</span> <span class="fu">train</span>(trainData, trainLabels, <span class="at">trControl=</span>train_control, <span class="at">method=</span><span class="st">"svmRadial"</span>)</span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>model_nb <span class="ot">&lt;-</span> <span class="fu">train</span>(trainData, trainLabels, <span class="at">trControl=</span>train_control, <span class="at">method=</span><span class="st">"naive_bayes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-12_5c881474e37b716920a982875e2b9272">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure 'label' is a factor in both training and testing sets</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>trainLabels <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(trainLabels)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>testLabels <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(testLabels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><u><strong>Make predictions on the test data:</strong></u></p>
 <p><strong>Using Random Forest:</strong></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-13_871ab157369d678e3cb42d47566ccf6c">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pred_rf <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_rf, testData)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate confusion matrices</span></span>
@@ -427,14 +427,14 @@ Attaching package: 'randomForest'</code></pre>
 </div>
 </div>
 <p><strong>For SVM</strong></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-14_6d65e1f637674194b5b8caa82e1e11e2">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pred_svm <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_svm, testData)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate confusion matrices</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>cm_svm <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(pred_svm, testLabels)</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print confusion matrices</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>For NB</strong></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-15_5e2894adca4fdb04b2b87ecb9fa3494a">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pred_nb <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_nb, testData)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate confusion matrices</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>cm_nb <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(pred_nb, testLabels)</span>
@@ -449,7 +449,7 @@ Attaching package: 'randomForest'</code></pre>
 </div>
 </div>
 <p><u><strong>Calculate and print misclassification rates:</strong></u></p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-17_77d389367daae92553046ca4be010bea">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>mis_rf <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> cm_rf<span class="sc">$</span>overall[<span class="st">'Accuracy'</span>]</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>mis_svm <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> cm_svm<span class="sc">$</span>overall[<span class="st">'Accuracy'</span>]</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>mis_nb <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> cm_nb<span class="sc">$</span>overall[<span class="st">'Accuracy'</span>]</span>
@@ -470,7 +470,7 @@ Attaching package: 'randomForest'</code></pre>
 3   Naive Bayes            0.004545455</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-19_c1d0950a926fd3c7c71dee36be8c594d">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the results</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">resamples</span>(<span class="fu">list</span>(<span class="at">RF=</span>model_rf, <span class="at">SVM=</span>model_svm, <span class="at">NB=</span>model_nb))</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -495,7 +495,7 @@ SVM 0.9642857 0.9717262 0.9821429 0.9821429 0.9925595    1    0
 NB  0.9761905 0.9940476 0.9940476 0.9940476 1.0000000    1    0</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-20_0b8cb1db5d991a0b14c13a3245db1274">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the results</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(results, <span class="at">metric =</span> <span class="st">"Accuracy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -504,7 +504,7 @@ NB  0.9761905 0.9940476 0.9940476 0.9940476 1.0000000    1    0</code></pre>
 </div>
 <p><u><strong>Making Predictions:</strong></u></p>
 <p>Finally, I used the best model (Random Forest) to make predictions. Given the average temperature (21.7 - 31.7 C), average humidity (71), pH level (5), rainfall (118 cm), and NPK values (89, 41, 22) of Blackstone Area, VA, the model predicted that Maize would be the most suitable crop for this area.</p>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-29_91fe712402677857c8f3f35b5f009875">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>model_rf <span class="ot">&lt;-</span> <span class="fu">train</span>(trainData, trainLabels, <span class="at">trControl=</span>train_control, <span class="at">method=</span><span class="st">"rf"</span>, <span class="at">ntree=</span><span class="dv">100</span>)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -515,7 +515,7 @@ NB  0.9761905 0.9940476 0.9940476 0.9940476 1.0000000    1    0</code></pre>
 <pre><code>[1] "The suitable crop for Blackstone Area is: maize"</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="crop_cache/html/unnamed-chunk-30_a049d2333ff95f67ddbe0f6daabe877c">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The suitable crop for Blackstone Area is:"</span>, prediction))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "The suitable crop for Blackstone Area is: maize"</code></pre>
