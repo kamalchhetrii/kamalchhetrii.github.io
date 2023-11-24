@@ -56,6 +56,7 @@ Load necessary libraries
 library(fpc) 
 library(ggplot2)
 library(dplyr)
+library(corrplot)
 ```
 
 ```{r}
@@ -94,6 +95,26 @@ From the above code, we can conlcude that this data file doesnot contain any na 
 ## Explanatory data analysis:
 
 An overview of a particular database's fundamental statistics is provided in this section. It is an essential step in any analysis since it makes the underlying data easier to comprehend. Distributions and correlations are the two primary sections of this section.
+
+## Lets see the correlation between the variables:
+
+```{r}
+
+# Select the relevant columns
+data_selected <- data_num[, c('age', 'bmi', 'charges', 'children')]
+
+# Calculate the correlation matrix
+corrs <- cor(data_selected)
+
+# Create a heatmap with correlation values
+corrplot(corrs, method="color", type="upper", order="hclust", 
+         addCoef.col = "black", # Add correlation coefficients
+         tl.col="black", tl.srt=45) # Text label color and rotation
+
+
+```
+
+From this, we can see there is not much strong correlation between the different variables.
 
 ```{r}
 # Subset the data
@@ -152,7 +173,7 @@ print(grouped_data)
 
 From the above data, we can see that the mean separation score for male is higher than female.
 
-## lets see the correlation between different variable to understand the relation:
+## Average bmi/region:
 
 ```{r}
 # Calculate the average bmi for each region
@@ -171,6 +192,12 @@ ggplot(avg_bmi_by_region, aes(x = region, y = Average_BMI, fill = region)) +
   geom_bar(stat = "identity") +
   theme_minimal() +
   labs(title = "Average BMI by Region", x = "Region", y = "Average BMI", fill = "Region")
+
+```
+
+## 
+
+```{r}
 
 ```
 
