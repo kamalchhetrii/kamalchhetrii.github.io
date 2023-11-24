@@ -286,20 +286,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this blog post, we will do the clustering analysis using the DBSCAN clustering method. Regarding the choice of this algorithm is explain above. Please have a look if you want to learn more. Regarding the data, <a href="https://www.kaggle.com/code/anujachintyabiswas/mall-customer-hierarchical-kmeans-clustering/input">you can access this data from here</a>.</p>
 <section id="load-the-necessary-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="load-the-necessary-libraries">Load the necessary libraries:</h4>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-1_8e00e1bb49f40290ec18e6461234d7cb">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-1_94a16de1f621cff3f53ae8b3f7ba0c49">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpc) </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">warning =</span> <span class="cn">FALSE</span>, <span class="at">message =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="load-the-data-into-r" class="level2">
 <h2 class="anchored" data-anchor-id="load-the-data-into-r">Load the data into R:</h2>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-2_dbcb132cfe45343abf22b93692918a3c">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-2_16a58519093ed6918eb6f985090f153f">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/test/Downloads/Mall_customers.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -324,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="preprocessing-the-data" class="level1">
 <h1>Preprocessing the data:</h1>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-3_bb539514a0db537c7509dfcfb0ec27f9">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-3_5a9d3e4bd05044781c7c45e4b37bcdd4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_num <span class="ot">&lt;-</span> data[, <span class="fu">sapply</span>(data, is.numeric)]</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_num)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -339,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="data-cleaning" class="level2">
 <h2 class="anchored" data-anchor-id="data-cleaning">Data Cleaning:</h2>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-4_7438b29aff1216da3ebe9a7e8fb765a2">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-4_ba1a5587be231ab0b5b33dbb76cf260f">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To see if the given dataset contains any null values or not</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data_num))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -349,7 +347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="explanatory-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="explanatory-analysis">Explanatory analysis</h2>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-5_c8d0461f42409f24e2677b0fb6a35f7f">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-5_b41576c5ff27b26b3c8c1f936c7291ce">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the relevant columns</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data_selected <span class="ot">&lt;-</span> data_num[, <span class="fu">c</span>(<span class="st">'Age'</span>, <span class="st">'Annual_Income'</span>, <span class="st">'Spending_Score'</span>)]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -369,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="lets-explore-the-data-more">lets explore the data more:</h4>
 <section id="distribution-of-the-variables" class="level5">
 <h5 class="anchored" data-anchor-id="distribution-of-the-variables">Distribution of the variables:</h5>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-6_9a0db8fabf7f2bede62edac01acf6393">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-6_c6e7d5e9e09e4d35a903ea320f7a459c">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a histogram for 'age'</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>Age)) <span class="sc">+</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span>  <span class="st">"blue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
@@ -394,7 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>From the above distribution, We can see that the age group near 30-40 has the highest density, most customers have income in the range of 50-80k, and most customers have a spending score of 50.</p>
 <p><u>Lets see the box plot for Gender by Spending Score:</u></p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-7_5565c5859a1aef6bb413c88f88adbdca">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-7_1e473896c61e12ad34f5de23dcde688c">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the data</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>male_charges <span class="ot">&lt;-</span> data[data<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">"Male"</span>, <span class="st">"Spending_Score"</span>]</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>female_charges <span class="ot">&lt;-</span> data[data<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">"Female"</span>, <span class="st">"Spending_Score"</span>]</span>
@@ -412,7 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-8_e15f05f226b794a74ec67c4a1fef7d06">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-8_3a57914c75d673ce89242e10c38be628">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Average Spending score by gender:</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average bmi for each region</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>avg_bmi_by_region <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
@@ -429,23 +427,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><u>Lets see the relationship between Annual income and spending score:</u></p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-9_115278a31e67eeb0c10202c8e9bfa50e">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-9_14db9780b1b6bcae08947c467e7bd871">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with regression line</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>Annual_Income, <span class="at">y=</span>Spending_Score)) <span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">color=</span><span class="st">"red"</span>) <span class="sc">+</span></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Relation between Annual Income and Spending Score"</span>, <span class="at">x=</span><span class="st">"Annual Income"</span>, <span class="at">y=</span><span class="st">"Spending Score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Calculate and print the correlation coefficient:</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-10_7542a5eb4e4b518e90245deb788c4d93">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="ot">&lt;-</span> <span class="fu">cor</span>(data<span class="sc">$</span>Annual_Income, data<span class="sc">$</span>Spending_Score)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Correlation coefficient: "</span>, correlation))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-10_0e64f04c105b1941dfd95d367590599d">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="ot">&lt;-</span> <span class="fu">cor</span>(data<span class="sc">$</span>Annual_Income, data<span class="sc">$</span>Spending_Score)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Correlation coefficient: "</span>, correlation))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Correlation coefficient:  0.00990284809403761"</code></pre>
 </div>
@@ -457,222 +452,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="perform-dbscan-clustering" class="level1">
 <h1>Perform DBSCAN Clustering:</h1>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-11_c3601f7581fbfef4123bd8d3c24bc81d">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perfom DBSCAN:</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the relevant columns</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the data</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> data</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the 'CustomerID' column</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>CustomerID <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace 'Gender' values</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">"Male"</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-11_6b5d4846f8b6a309fa270e6c32b2ec43">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perfom DBSCAN:</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the relevant columns</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the data</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> data</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the 'CustomerID' column</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>CustomerID <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace 'Gender' values</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">"Male"</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-12_e1ee965fcb5b39b9232577e58444a642">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate Sihoute score:</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the necessary libraries</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the range of parameter values</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>eps_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">1</span>)</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>min_samples_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">13</span>, <span class="dv">1</span>)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize vectors to store the results</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>sil_score <span class="ot">&lt;-</span> <span class="fu">c</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-12_e1a379db8ac5b28a1f8c13016d38041e">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate Sihoute score:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the necessary libraries</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the range of parameter values</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>eps_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">1</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>min_samples_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">13</span>, <span class="dv">1</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize vectors to store the results</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>sil_score <span class="ot">&lt;-</span> <span class="fu">c</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="lets-calculate-silhouette-score" class="level2">
 <h2 class="anchored" data-anchor-id="lets-calculate-silhouette-score">Lets calculate Silhouette Score:</h2>
 <p>Before dealing with the calculation of the Silhouette Score, lets get acquainted with what the Silhouette Score is and its importance to us while doing the DBSCAN clustering:</p>
 <p>The Silhouette Score measures how similar an object is to its cluster compared to others. It ranges from -1 to 1, where a high value indicates that the object is well-matched to its cluster and poorly matched to neighboring clusters. The clustering configuration is appropriate if most objects have a high value. If many points have a low or negative value, the clustering configuration may have too many clusters.</p>
 <p>The silhouette score provides a succinct graphical representation of how well each object lies within its cluster. It is a way to track the validity of the clusters formed by the algorithm. It can be particularly useful in the context of DBSCAN, as the algorithm does not explicitly minimize or maximize any particular objective function.</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-13_76c5c08d219ea70eb71c31077b66c7d3">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over all combinations of parameter values</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (eps <span class="cf">in</span> eps_values) {</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (min_samples <span class="cf">in</span> min_samples_values) {</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Perform DBSCAN clustering</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    dbscan_result <span class="ot">&lt;-</span> <span class="fu">dbscan</span>(df, <span class="at">eps =</span> eps, <span class="at">minPts =</span> min_samples)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Append the number of clusters to the 'clusters' vector</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(clusters, <span class="fu">max</span>(dbscan_result<span class="sc">$</span>cluster))</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate the silhouette score and append it to the 'sil_score' vector</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    sil_score <span class="ot">&lt;-</span> <span class="fu">c</span>(sil_score, <span class="fu">cluster.stats</span>(<span class="fu">dist</span>(df), dbscan_result<span class="sc">$</span>cluster)<span class="sc">$</span>avg.silwidth)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters
-
-Warning in cluster.stats(dist(df), dbscan_result$cluster): clustering
-renumbered because maximum != number of clusters</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with the results</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>dbscan_df <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">Eps =</span> eps_values, <span class="at">Min_Samples =</span> min_samples_values)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>dbscan_df<span class="sc">$</span>Number_of_Clusters <span class="ot">&lt;-</span> clusters</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>dbscan_df<span class="sc">$</span>Silhouette_Score <span class="ot">&lt;-</span> sil_score</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the data frame</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dbscan_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-13_aa1f890cd0873f430859ec58ff34499f">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over all combinations of parameter values</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (eps <span class="cf">in</span> eps_values) {</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (min_samples <span class="cf">in</span> min_samples_values) {</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Perform DBSCAN clustering</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    dbscan_result <span class="ot">&lt;-</span> <span class="fu">dbscan</span>(df, <span class="at">eps =</span> eps, <span class="at">minPts =</span> min_samples)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Append the number of clusters to the 'clusters' vector</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(clusters, <span class="fu">max</span>(dbscan_result<span class="sc">$</span>cluster))</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate the silhouette score and append it to the 'sil_score' vector</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    sil_score <span class="ot">&lt;-</span> <span class="fu">c</span>(sil_score, <span class="fu">cluster.stats</span>(<span class="fu">dist</span>(df), dbscan_result<span class="sc">$</span>cluster)<span class="sc">$</span>avg.silwidth)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with the results</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>dbscan_df <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">Eps =</span> eps_values, <span class="at">Min_Samples =</span> min_samples_values)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>dbscan_df<span class="sc">$</span>Number_of_Clusters <span class="ot">&lt;-</span> clusters</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>dbscan_df<span class="sc">$</span>Silhouette_Score <span class="ot">&lt;-</span> sil_score</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the data frame</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dbscan_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Eps Min_Samples Number_of_Clusters Silhouette_Score
 1   11           5                  5       0.15950489
@@ -731,15 +564,15 @@ renumbered because maximum != number of clusters</code></pre>
 54  16          13                  3       0.20679545</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-14_abd6bed4d953d1b55bc99686123aa824">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'Silhouette_Score' to numeric</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dbscan_df<span class="sc">$</span>Silhouette_Score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(dbscan_df<span class="sc">$</span>Silhouette_Score))</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the maximum silhouette score</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>max_sil_score <span class="ot">&lt;-</span> <span class="fu">max</span>(dbscan_df<span class="sc">$</span>Silhouette_Score)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the data frame for the maximum silhouette score</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>dbscan_df[dbscan_df<span class="sc">$</span>Silhouette_Score <span class="sc">==</span> max_sil_score, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-14_cf9085c2290c10100dd259a5deef9921">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'Silhouette_Score' to numeric</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dbscan_df<span class="sc">$</span>Silhouette_Score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(dbscan_df<span class="sc">$</span>Silhouette_Score))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the maximum silhouette score</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>max_sil_score <span class="ot">&lt;-</span> <span class="fu">max</span>(dbscan_df<span class="sc">$</span>Silhouette_Score)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the data frame for the maximum silhouette score</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>dbscan_df[dbscan_df<span class="sc">$</span>Silhouette_Score <span class="sc">==</span> max_sil_score, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Eps Min_Samples Number_of_Clusters Silhouette_Score
 47  15          12                  1        0.3302256</code></pre>
@@ -747,17 +580,17 @@ renumbered because maximum != number of clusters</code></pre>
 </div>
 <p>The stronger the clustering, the closer the result is near 1. We have reached a maximum Silhouette Score of 0.3302256 with Eps = 15 and Min Samples = 12. To get the best clustering, we will fit these values into the DBSCAN algorithm.</p>
 <p><u>Perform DBSCAN clustering:</u></p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-15_90f30a55ac0773db4f04140299706ccd">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dbscan_result <span class="ot">&lt;-</span> <span class="fu">dbscan</span>(df, <span class="at">eps =</span> <span class="dv">15</span>, <span class="at">minPts =</span> <span class="dv">12</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the cluster assignments to the data frame</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DBSCAN_Clusters <span class="ot">&lt;-</span> dbscan_result<span class="sc">$</span>cluster</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the data frame by the 'DBSCAN_Clusters' column</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[<span class="fu">order</span>(df<span class="sc">$</span>DBSCAN_Clusters), ]</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the data frame</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-15_593dcb24b8eed549c1dc562d52ab5a13">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dbscan_result <span class="ot">&lt;-</span> <span class="fu">dbscan</span>(df, <span class="at">eps =</span> <span class="dv">15</span>, <span class="at">minPts =</span> <span class="dv">12</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the cluster assignments to the data frame</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DBSCAN_Clusters <span class="ot">&lt;-</span> dbscan_result<span class="sc">$</span>cluster</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the data frame by the 'DBSCAN_Clusters' column</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[<span class="fu">order</span>(df<span class="sc">$</span>DBSCAN_Clusters), ]</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the data frame</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Gender Age Annual_Income Spending_Score DBSCAN_Clusters
 1      0  19            15             39               0
@@ -768,34 +601,34 @@ renumbered because maximum != number of clusters</code></pre>
 9      0  64            19              3               0</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-16_bdabc7c6384b7e8e69e3bdada30fc0d8">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'DBSCAN_Clusters' to character</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DBSCAN_Clusters <span class="ot">&lt;-</span> <span class="fu">as.character</span>(df<span class="sc">$</span>DBSCAN_Clusters)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace '-1' with 'Outliers'</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DBSCAN_Clusters[df<span class="sc">$</span>DBSCAN_Clusters <span class="sc">==</span> <span class="st">"-1"</span>] <span class="ot">&lt;-</span> <span class="st">"Outliers"</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the scatter plot</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Annual_Income, <span class="at">y =</span> Spending_Score, <span class="at">color =</span> DBSCAN_Clusters)) <span class="sc">+</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"darkred"</span>, <span class="st">"#0091F7"</span>, <span class="st">"darkgreen"</span>, <span class="st">"#F7F700"</span>)) <span class="sc">+</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">20</span>),</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"DBSCAN Clusters"</span>,</span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Annual Income"</span>,</span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Sum of Spending Scores"</span>,</span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Clusters"</span></span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-16_a6825de74653f057118c9b8ff7ee8875">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'DBSCAN_Clusters' to character</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DBSCAN_Clusters <span class="ot">&lt;-</span> <span class="fu">as.character</span>(df<span class="sc">$</span>DBSCAN_Clusters)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace '-1' with 'Outliers'</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DBSCAN_Clusters[df<span class="sc">$</span>DBSCAN_Clusters <span class="sc">==</span> <span class="st">"-1"</span>] <span class="ot">&lt;-</span> <span class="st">"Outliers"</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the scatter plot</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Annual_Income, <span class="at">y =</span> Spending_Score, <span class="at">color =</span> DBSCAN_Clusters)) <span class="sc">+</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"darkred"</span>, <span class="st">"#0091F7"</span>, <span class="st">"darkgreen"</span>, <span class="st">"#F7F700"</span>)) <span class="sc">+</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"DBSCAN Clusters"</span>,</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Annual Income"</span>,</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Sum of Spending Scores"</span>,</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Clusters"</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>

@@ -57,8 +57,13 @@ library(dplyr)
 library(corrplot)
 library(dbscan)
 
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+
 
 ## Load the data into R:
 
