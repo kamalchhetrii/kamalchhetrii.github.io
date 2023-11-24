@@ -86,7 +86,7 @@ sum(is.na(data_num))
 
 ```
 
-#### Explanatory analysis
+## Explanatory analysis
 
 ```{r}
 # Select the relevant columns
@@ -103,7 +103,7 @@ corrplot(corrs, method="color", type="upper", order="hclust",
 
 From the above correlation table, we can see that either we have negative values which indicated that they are negatively correlated or very low values indicating not a strong correlation between them
 
-#### lets explore the data:
+#### lets explore the data more:
 
 ##### Distribution of the variables:
 
