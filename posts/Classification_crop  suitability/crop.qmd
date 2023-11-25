@@ -57,6 +57,10 @@ library(pheatmap)
 
 ```
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
 [**Load the data:**]{.underline}
 
 ```{r}
