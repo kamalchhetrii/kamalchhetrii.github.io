@@ -46,7 +46,7 @@ Let's get familiar with the fundamental idea underlying the hyperparameters befo
 
 There are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining seven variables---age, sex, bmi, children, smoker, region, and charges. You can access the [data from here](https://github.com/kamalchhetrii/kamalchhetrii.github.io/blob/main/insurance.csv):
 
-## Import necessary libraries: 
+## Import necessary libraries:
 
 ```{r}
 library(fpc)

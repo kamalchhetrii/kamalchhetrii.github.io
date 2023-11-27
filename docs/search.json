@@ -105,81 +105,81 @@
     "text": "From the above code and analysis, we understand about the data and its distribution. Now, we can build model that fits for our data. In this particular case, we are going to use the linear regression model.\nModel evaluation: After building the model, its time to see how good the model is. We evaluate the model based on its performance which involved root mean square error (rmse) and R squared value.\n\n# Set the seed for reproducibility\nset.seed(0)\n\n# Create the independent variable data frame\nx &lt;- data[, !(names(data) %in% \"charges\")]\n\n# Create the dependent variable vector\ny &lt;- data$charges\n\n# Split the data into training and testing sets\nsplit &lt;- sample.split(y, SplitRatio = 0.8)\nx_train &lt;- x[split, ]\ny_train &lt;- y[split]\nx_test &lt;- x[!split, ]\ny_test &lt;- y[!split]\n\n# Fit a linear regression model\nLin_reg &lt;- lm(y_train ~ ., data = cbind(x_train, y_train))\n\n# Print the intercept and coefficients\nprint(paste(\"Intercept: \", Lin_reg$coefficients[1]))\n\n[1] \"Intercept:  -12169.8051075584\"\n\nprint(paste(\"Coefficients: \", Lin_reg$coefficients[-1]))\n\n[1] \"Coefficients:  262.305667539361\"  \"Coefficients:  -6.522038182275\"  \n[3] \"Coefficients:  344.253140133108\"  \"Coefficients:  453.766808768054\" \n[5] \"Coefficients:  23996.309146369\"   \"Coefficients:  -751.161736087778\"\n[7] \"Coefficients:  -1129.0287998095\"  \"Coefficients:  -1085.05633010975\"\n\n# Calculate R-squared on the test set\ny_pred &lt;- predict(Lin_reg, newdata = x_test)\nSSE &lt;- sum((y_pred - y_test)^2)\nSST &lt;- sum((mean(y_train) - y_test)^2)\nR_squared &lt;- 1 - SSE/SST\nprint(paste(\"R-squared: \", R_squared))\n\n[1] \"R-squared:  0.736401619028354\"\n\n# Calculate RMSE\nrmse_val &lt;- rmse(y_test, y_pred)\nprint(paste(\"RMSE: \", rmse_val))\n\n[1] \"RMSE:  5903.79948175291\"\n\n\nLets learn little bit about rmse: The Root Mean Square Error (RMSE) is a frequently used measure to evaluate the prediction errors of a regression model. It tells us about the distribution of the residuals (prediction errors), with a lower RMSE indicating a better fit for the data.\nDuring model evaluation, RMSE serves as a measure to understand the model’s performance. Specifically, it reveals how close the predicted values are to the actual ones. An RMSE of zero indicates perfect predictions, which, in practice, is highly unlikely if not impossible.\nIn this case, the R-squared value is approximately 0.7364, which means that our model explains about 73.64% of the variance in the charges."
   },
   {
-    "objectID": "posts/Clustering/clustering.html",
-    "href": "posts/Clustering/clustering.html",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
+    "objectID": "posts/anomaly detection/anomaly.html#introduction-1",
+    "href": "posts/anomaly detection/anomaly.html#introduction-1",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Introduction",
+    "text": "Introduction\nAnomaly detection, also known as outlier detection, is a fascinating aspect of machine learning. It involves identifying data points, events, or observations that deviate significantly from the norm. These anomalies can often provide critical and actionable insights in various domains, such as fraud detection in banking, intrusion detection in network security, and fault detection in critical systems."
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#what-is-anomaly-detection",
+    "href": "posts/anomaly detection/anomaly.html#what-is-anomaly-detection",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "What is Anomaly Detection?",
+    "text": "What is Anomaly Detection?\nAnomaly detection is the process of identifying unexpected items or events in datasets, which differ from the norm. In other words, it’s about finding the ‘outliers’ in your data. For example, in a manufacturing context, an anomalous event could be a sudden increase in defective products."
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#types-of-anomalies",
+    "href": "posts/anomaly detection/anomaly.html#types-of-anomalies",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Types of Anomalies",
+    "text": "Types of Anomalies\nThere are three main types of anomalies:\n\nPoint Anomalies: A single instance of data is anomalous if it’s too far off from the rest. For example, spending $100 on food every day during the holiday season is normal, but may be odd otherwise.\nContextual Anomalies: The abnormality is context-specific. This type of anomaly is common in time-series data. For example, spending $100 on food during the holiday season is normal, but may be odd otherwise.\nCollective Anomalies: A set of data instances collectively helps in detecting anomalies. For example, someone is trying to copy data form a remote machine to a local host unexpectedly, an anomaly that would be flagged as a potential cyber attack."
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#anomaly-detection-techniques",
+    "href": "posts/anomaly detection/anomaly.html#anomaly-detection-techniques",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Anomaly Detection Techniques",
+    "text": "Anomaly Detection Techniques\nThere are several techniques used for anomaly detection, each with its strengths and weaknesses. Some of the most popular methods include:\n\nStatistical Methods: These methods model the normal data behavior using statistical parameters like mean, median, mode, variance, etc. Any data instance that doesn’t fit this model is considered an anomaly.\nMachine Learning-Based Methods: These include techniques like clustering, classification, and nearest neighbors. These methods can either be supervised (labels are available) or unsupervised (no labels).\nTime Series Analysis: This is particularly useful for sequential data, where some pattern or trend is expected. Techniques used here include state space models, decomposition methods, etc.\n\n\nLet’s get familiar with the fundamental idea underlying the hyperparameters before working with the data. We must examine a few of the hyperparameters that characterize the DBScan job in order to comprehend the idea of the core points. min_samples is the first hyperparameter (HP). This is the bare minimum of core points required for cluster formation. The second crucial HP is ‘eps’. “eps” is the greatest separation that two samples must have in order to be grouped together. Although border points are somewhat farther from the cluster center, they are nonetheless part of the same cluster as core points. All other data points are referred to as “Noise Points” because they are unrelated to any cluster. They require more research because they may be unusual or not."
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#about-the-data",
+    "href": "posts/anomaly detection/anomaly.html#about-the-data",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "About the data:",
+    "text": "About the data:\nThere are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining seven variables—age, sex, bmi, children, smoker, region, and charges. You can access the data from here:"
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#import-necessary-libraries",
+    "href": "posts/anomaly detection/anomaly.html#import-necessary-libraries",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Import necessary libraries:",
+    "text": "Import necessary libraries:\n\nlibrary(fpc)\nlibrary(ggplot2)\nlibrary(dbscan)\nlibrary(cluster)\nlibrary(FNN)\nlibrary(corrplot)\n\ncorrplot 0.92 loaded"
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#import-the-data-set-and-visualize-the-data",
+    "href": "posts/anomaly detection/anomaly.html#import-the-data-set-and-visualize-the-data",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Import the data set and visualize the data:",
+    "text": "Import the data set and visualize the data:\n\ndata &lt;- read.csv(\"/Users/test/Desktop/Machine_learning/mlblog/kamalchhetrii.github.io/insurance.csv\")\n\n\nhead(data)\n\n  Time         V1          V2        V3         V4          V5          V6\n1    0 -1.3598071 -0.07278117 2.5363467  1.3781552 -0.33832077  0.46238778\n2    0  1.1918571  0.26615071 0.1664801  0.4481541  0.06001765 -0.08236081\n3    1 -1.3583541 -1.34016307 1.7732093  0.3797796 -0.50319813  1.80049938\n4    1 -0.9662717 -0.18522601 1.7929933 -0.8632913 -0.01030888  1.24720317\n5    2 -1.1582331  0.87773675 1.5487178  0.4030339 -0.40719338  0.09592146\n6    2 -0.4259659  0.96052304 1.1411093 -0.1682521  0.42098688 -0.02972755\n           V7          V8         V9         V10        V11         V12\n1  0.23959855  0.09869790  0.3637870  0.09079417 -0.5515995 -0.61780086\n2 -0.07880298  0.08510165 -0.2554251 -0.16697441  1.6127267  1.06523531\n3  0.79146096  0.24767579 -1.5146543  0.20764287  0.6245015  0.06608369\n4  0.23760894  0.37743587 -1.3870241 -0.05495192 -0.2264873  0.17822823\n5  0.59294075 -0.27053268  0.8177393  0.75307443 -0.8228429  0.53819555\n6  0.47620095  0.26031433 -0.5686714 -0.37140720  1.3412620  0.35989384\n         V13        V14        V15        V16         V17         V18\n1 -0.9913898 -0.3111694  1.4681770 -0.4704005  0.20797124  0.02579058\n2  0.4890950 -0.1437723  0.6355581  0.4639170 -0.11480466 -0.18336127\n3  0.7172927 -0.1659459  2.3458649 -2.8900832  1.10996938 -0.12135931\n4  0.5077569 -0.2879237 -0.6314181 -1.0596472 -0.68409279  1.96577500\n5  1.3458516 -1.1196698  0.1751211 -0.4514492 -0.23703324 -0.03819479\n6 -0.3580907 -0.1371337  0.5176168  0.4017259 -0.05813282  0.06865315\n          V19         V20          V21          V22         V23         V24\n1  0.40399296  0.25141210 -0.018306778  0.277837576 -0.11047391  0.06692807\n2 -0.14578304 -0.06908314 -0.225775248 -0.638671953  0.10128802 -0.33984648\n3 -2.26185710  0.52497973  0.247998153  0.771679402  0.90941226 -0.68928096\n4 -1.23262197 -0.20803778 -0.108300452  0.005273597 -0.19032052 -1.17557533\n5  0.80348692  0.40854236 -0.009430697  0.798278495 -0.13745808  0.14126698\n6 -0.03319379  0.08496767 -0.208253515 -0.559824796 -0.02639767 -0.37142658\n         V25        V26          V27         V28 Amount Class\n1  0.1285394 -0.1891148  0.133558377 -0.02105305 149.62     0\n2  0.1671704  0.1258945 -0.008983099  0.01472417   2.69     0\n3 -0.3276418 -0.1390966 -0.055352794 -0.05975184 378.66     0\n4  0.6473760 -0.2219288  0.062722849  0.06145763 123.50     0\n5 -0.2060096  0.5022922  0.219422230  0.21515315  69.99     0\n6 -0.2327938  0.1059148  0.253844225  0.08108026   3.67     0\n\n\n\nLets see if the data contains any null values:\n\nsum(is.na(data))\n\n[1] 0\n\n\nThis data set does not contain null values. Thus, we don’t have to deal with it further."
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#explanatory-analysis",
+    "href": "posts/anomaly detection/anomaly.html#explanatory-analysis",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Explanatory analysis:",
+    "text": "Explanatory analysis:\n\n# Select the relevant columns\ndata_selected &lt;- data[, c('age', 'bmi', 'charges', 'children')]\n\n# Calculate the correlation matrix\ncorrs &lt;- cor(data_selected)\n\n# Create a heatmap with correlation values\ncorrplot(corrs, method=\"color\", type=\"upper\", order=\"hclust\", \n         addCoef.col = \"black\", # Change correlation coefficients color to white\n         tl.col=\"black\", tl.srt=45, # Text label color and rotation\n         col = colorRampPalette(c(\"blue\", \"white\", \"red\"))(200), # Change color scheme\n         title=\"Correlation Heatmap\") # Add title\n\n\n\n\nFrom this, we can see there is not much strong correlation between the different variables.\n\nLets see the distribution of charges variable:\n\n# Create a histogram of charges\nggplot(data, aes(x=charges)) +\n  geom_histogram(binwidth=1000, color=\"black\", fill=\"lightblue\") +\n  labs(title=\"Distribution of Charges\", x=\"Charges\", y=\"Count\") +\n  theme_minimal()\n\n\n\n\nFrom this histogram, we can see the distribution of our charges data which is left skewed and there is the possibility that this data set contains the outlier.\nLet’s explore the data set for charges for males and female:\n\n# Create a boxplot of charges by sex\nggplot(data, aes(x=sex, y=charges, color=sex)) +\n  geom_boxplot() +  # Include outliers\n  geom_jitter(width=0.2, alpha=0.5) +  # Add jittered points for better visualization\n  labs(title=\"Charges by Sex\", x=\"Sex\", y=\"Charges\") +\n  theme_minimal() +\n  scale_color_manual(values=c(\"blue\", \"darkgreen\"))  # Specify colors for each sex\n\n\n\n\nNow, lets see the charges by bmi for further data exploration:\n\n# Create a scatter plot of BMI vs charges\nggplot(data, aes(x=bmi, y=charges, color=sex)) +\n  geom_point(alpha=0.5) +  # Add points with transparency for better visualization\n  labs(title=\"BMI vs Charges\", x=\"BMI\", y=\"Charges\") +\n  theme_minimal() +\n  scale_color_manual(values=c(\"red\", \"blue\"))  # Specify colors for each sex"
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#calculate-the-epsilon-value-using-k-distance-graph",
+    "href": "posts/anomaly detection/anomaly.html#calculate-the-epsilon-value-using-k-distance-graph",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Calculate the epsilon value using K-distance graph:",
+    "text": "Calculate the epsilon value using K-distance graph:\n\n# Load necessary libraries\nlibrary(FNN)\n\n# Select the relevant columns\ndata_selected &lt;- data[, c('age', 'bmi')]\n\n# Standardize the data\ndata_std &lt;- scale(data_selected)\n\n# Compute the nearest neighbors\nk &lt;- 2  # 2 because the point itself is included\nknn_dist &lt;- knn.dist(data_std, k=k)\n\n# Sort the distances\nknn_dist &lt;- sort(knn_dist[,k], decreasing=FALSE)  # Exclude the distance to the point itself\n\n# Plot the k-distance graph\nplot(knn_dist, main=\"K-distance Graph\", xlab=\"Data Points sorted by distance\", ylab=\"Epsilon\")\n\n\n\n\nThe optimum value of epsilon is at the point of maximum curvature in the K-Distance Graph, which is 0.6 in this case. Domain knowledge affects minPoints’ value. I’m using 10 minPoints at this time around.\nBased on the above calculation, we can do the DBSCAN clustering\n\n# Select the relevant columns\ndata_selected &lt;- data[, c('age', 'bmi')]\n\n# Standardize the data\ndata_std &lt;- scale(data_selected)\n\n# Perform DBSCAN clustering\ndbscan_res &lt;- dbscan(data_std, eps=0.6, minPts=10)  \nprint(dbscan_res)\n\nDBSCAN clustering for 1338 objects.\nParameters: eps = 0.6, minPts = 10\nUsing euclidean distances and borderpoints = TRUE\nThe clustering contains 1 cluster(s) and 3 noise points.\n\n   0    1 \n   3 1335 \n\nAvailable fields: cluster, eps, minPts, dist, borderPoints"
+  },
+  {
+    "objectID": "posts/anomaly detection/anomaly.html#visualization",
+    "href": "posts/anomaly detection/anomaly.html#visualization",
+    "title": "Anomaly Detection in Machine Learning",
+    "section": "Visualization:",
+    "text": "Visualization:\n\n# Add the DBSCAN results to our data\ndata$cluster &lt;- as.factor(dbscan_res$cluster)\n\n# Define colors for each cluster\ncolors &lt;- rainbow(length(unique(dbscan_res$cluster)))\nnames(colors) &lt;- levels(data$cluster)\n\n# Create the plot\nggplot(data, aes(x=age, y=bmi, color=cluster)) +\n  geom_point() +\n  scale_color_manual(values = colors) +\n  theme_minimal() +\n  labs(x=\"Age\", y=\"BMI\", color=\"Cluster\") +\n  theme(legend.position=\"none\")\n\n\n\n\nFrom the above scatterplot, we can see that three data points are the noise and one cluster with no outliers.\n\n# Create an outliers data frame\noutliers &lt;- data[data$cluster == -1, ]\n\n# Print the outliers\nprint(outliers)\n\n[1] age      sex      bmi      children smoker   region   charges  cluster \n&lt;0 rows&gt; (or 0-length row.names)"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
     "section": "",
-    "text": "Density-Based Spatial Clustering of Applications with Noise (DBSCAN) is a popular clustering algorithm used in machine learning. Unlike other clustering algorithms such as K-means or hierarchical clustering, DBSCAN does not require the user to specify the number of clusters a priori. Instead, it infers the number of clusters based on the data’s density."
-  },
-  {
-    "objectID": "posts/Clustering/clustering.html#introduction",
-    "href": "posts/Clustering/clustering.html#introduction",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
-    "section": "",
-    "text": "Density-Based Spatial Clustering of Applications with Noise (DBSCAN) is a popular clustering algorithm used in machine learning. Unlike other clustering algorithms such as K-means or hierarchical clustering, DBSCAN does not require the user to specify the number of clusters a priori. Instead, it infers the number of clusters based on the data’s density."
-  },
-  {
-    "objectID": "posts/Clustering/clustering.html#how-dbscan-works",
-    "href": "posts/Clustering/clustering.html#how-dbscan-works",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
-    "section": "How DBSCAN Works",
-    "text": "How DBSCAN Works\nDBSCAN works by defining a cluster as a maximal set of density-connected points. It starts with an arbitrary point in the dataset. If there are at least minPts within a radius of eps from that point, a new cluster is created. The algorithm then iteratively adds all directly reachable points to the cluster. Once no more points can be added, the algorithm proceeds to the next unvisited point in the dataset."
-  },
-  {
-    "objectID": "posts/Clustering/clustering.html#advantages-of-dbscan",
-    "href": "posts/Clustering/clustering.html#advantages-of-dbscan",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
-    "section": "Advantages of DBSCAN",
-    "text": "Advantages of DBSCAN\nDBSCAN has several advantages over other clustering algorithms:\n\nNo need to specify the number of clusters: As mentioned earlier, DBSCAN does not require the user to specify the number of clusters a priori. This can be particularly useful when the number of clusters is not known beforehand.\nAbility to find arbitrarily shaped clusters: Unlike K-means, which tends to find spherical clusters, DBSCAN can find clusters of arbitrary shapes.\nRobustness to noise: DBSCAN is less sensitive to noise and outliers, as it only adds points that are directly reachable according to the density criteria."
-  },
-  {
-    "objectID": "posts/Clustering/clustering.html#disadvantages-of-dbscan",
-    "href": "posts/Clustering/clustering.html#disadvantages-of-dbscan",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
-    "section": "Disadvantages of DBSCAN",
-    "text": "Disadvantages of DBSCAN\nDespite its advantages, DBSCAN also has some limitations:\n\nDifficulty handling varying densities: DBSCAN struggles with datasets where clusters have significantly different densities. This is because a single eps and minPts value may not be suitable for all clusters.\nSensitivity to parameter settings: The results of DBSCAN can be significantly affected by the settings of eps and minPts. Choosing appropriate values for these parameters can be challenging.\n\nIn general, density-based clustering algorithms can be quite successful for a wide range of clustering tasks, particularly when the data is shaped and has different densities. When using the algorithm with a specific dataset, it is crucial to pay close attention to the parameters and take the algorithm’s constraints into account.\nAccording to the research report, the concept of dense regions forms the basis of DBSCAN. It is assumed that points in dense locations make up natural clusters. The term “dense region” has to be defined for this. These two parameters are necessary for the DBSCAN algorithm to function.\n\nEps, ε: distance\nMinPts: The bare minimum of points within a given distance Eps\n\n\nIn this blog post, we will perform a DBSCAN clustering analysis on an insurance dataset using R."
-  },
-  {
-    "objectID": "posts/Clustering/clustering.html#data",
-    "href": "posts/Clustering/clustering.html#data",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
-    "section": "Data:",
-    "text": "Data:\nIn this blog post, we will do the clustering analysis using the DBSCAN clustering method. Regarding the choice of this algorithm is explain above. Please have a look if you want to learn more. Regarding the data, you can access this data from here.\nLoad necessary libraries\n\nlibrary(fpc) \nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(corrplot)\n\ncorrplot 0.92 loaded\n\n\n\n# Load the data into R\ndata &lt;- read.csv('/Users/test/Desktop/Machine_learning/mlblog/kchhetrii.github.io/insurance.csv')\n\n# Lets see the couple of rows of this data\nhead(data)\n\n  age    sex    bmi children smoker    region   charges\n1  19 female 27.900        0    yes southwest 16884.924\n2  18   male 33.770        1     no southeast  1725.552\n3  28   male 33.000        3     no southeast  4449.462\n4  33   male 22.705        0     no northwest 21984.471\n5  32   male 28.880        0     no northwest  3866.855\n6  31 female 25.740        0     no southeast  3756.622\n\n\nThe dataset contains information about individuals such as their age, sex, BMI, number of children, smoking status, region, and charges.\n\nstr(data)\n\n'data.frame':   1338 obs. of  7 variables:\n $ age     : int  19 18 28 33 32 31 46 37 37 60 ...\n $ sex     : chr  \"female\" \"male\" \"male\" \"male\" ...\n $ bmi     : num  27.9 33.8 33 22.7 28.9 ...\n $ children: int  0 1 3 0 0 0 1 3 2 0 ...\n $ smoker  : chr  \"yes\" \"no\" \"no\" \"no\" ...\n $ region  : chr  \"southwest\" \"southeast\" \"southeast\" \"northwest\" ...\n $ charges : num  16885 1726 4449 21984 3867 ..."
-  },
-  {
-    "objectID": "posts/Clustering/clustering.html#data-cleaning",
-    "href": "posts/Clustering/clustering.html#data-cleaning",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
-    "section": "Data cleaning:",
-    "text": "Data cleaning:\nIt is important to see if the data contains any null values. If it has any, please consider removing it.\n\nsum(is.na(data_num))\n\n[1] 0\n\n\nFrom the above code, we can conlcude that this data file doesnot contain any na values. If you choose another data set that contains null value, you can remove them by using the code: data &lt;- na.omit(data)"
-  },
-  {
-    "objectID": "posts/Clustering/clustering.html#explanatory-data-analysis",
-    "href": "posts/Clustering/clustering.html#explanatory-data-analysis",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
-    "section": "Explanatory data analysis:",
-    "text": "Explanatory data analysis:\nAn overview of a particular database’s fundamental statistics is provided in this section. It is an essential step in any analysis since it makes the underlying data easier to comprehend. Distributions and correlations are the two primary sections of this section."
-  },
-  {
-    "objectID": "posts/Clustering/clustering.html#lets-see-the-correlation-between-the-variables",
-    "href": "posts/Clustering/clustering.html#lets-see-the-correlation-between-the-variables",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
-    "section": "Lets see the correlation between the variables:",
-    "text": "Lets see the correlation between the variables:\n\n# Select the relevant columns\ndata_selected &lt;- data_num[, c('age', 'bmi', 'charges', 'children')]\n\n# Calculate the correlation matrix\ncorrs &lt;- cor(data_selected)\n\n# Create a heatmap with correlation values\ncorrplot(corrs, method=\"color\", type=\"upper\", order=\"hclust\", \n         addCoef.col = \"black\", # Add correlation coefficients\n         tl.col=\"black\", tl.srt=45) # Text label color and rotation\n\n\n\n\nFrom this, we can see there is not much strong correlation between the different variables.\n\n# Subset the data\nmale_bmi &lt;- data[data$sex == \"male\", \"bmi\"]\nfemale_bmi &lt;- data[data$sex == \"female\", \"bmi\"]\n\n# Create the histogram for male BMI\nggplot(data.frame(BMI = male_bmi), aes(x = BMI)) +\n  geom_histogram(bins = 30, fill = \"blue\", color= \"black\") +\n  theme_minimal() +\n  labs(title = \"Histogram of Male BMI\", x = \"BMI\", y = \"Count\")\n\n\n\n# Create the histogram for female BMI\nggplot(data.frame(BMI = female_bmi), aes(x = BMI)) +\n  geom_histogram(bins = 30, fill = \"green\", color=\"black\") +\n  theme_minimal() +\n  labs(title = \"Histogram of Female BMI\", x = \"BMI\", y = \"Count\")\n\n\n\n\nThe average bmi rate of Male is higher than female.\n\n# Subset the data\nmale_charges &lt;- data[data$sex == \"male\", \"charges\"]\nfemale_charges &lt;- data[data$sex == \"female\", \"charges\"]\n\n# Create a data frame for plotting\nplot_data &lt;- data.frame(\n  Sex = rep(c(\"Male\", \"Female\"), times = c(length(male_charges), length(female_charges))),\n  Charges = c(male_charges, female_charges)\n)\n\n# Create the box plot\nggplot(plot_data, aes(x = Sex, y = Charges, fill = Sex)) +\n  geom_boxplot() +\n  theme_minimal() +\n  labs(title = \"Box Plot of Charges by Sex\", x = \"Sex\", y = \"Charges\", fill = \"Sex\")\n\n\n\n\n\n# Calculate the mean separation score and standard deviation for each group\ngrouped_data &lt;- plot_data %&gt;%\n  group_by(Sex) %&gt;%\n  summarise(\n    Mean_Separation_Score = mean(Charges),\n    SD = sd(Charges)\n  )\n\nprint(grouped_data)\n\n# A tibble: 2 × 3\n  Sex    Mean_Separation_Score     SD\n  &lt;chr&gt;                  &lt;dbl&gt;  &lt;dbl&gt;\n1 Female                12570. 11129.\n2 Male                  13957. 12971.\n\n\nFrom the above data, we can see that the mean separation score for male is higher than female."
-  },
-  {
-    "objectID": "posts/Clustering/clustering.html#average-bmiregion",
-    "href": "posts/Clustering/clustering.html#average-bmiregion",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
-    "section": "Average bmi/region:",
-    "text": "Average bmi/region:\n\n# Calculate the average bmi for each region\navg_bmi_by_region &lt;- data %&gt;%\n  group_by(region) %&gt;%\n  summarise(Average_BMI = mean(bmi))\n\nprint(avg_bmi_by_region)\n\n# A tibble: 4 × 2\n  region    Average_BMI\n  &lt;chr&gt;           &lt;dbl&gt;\n1 northeast        29.2\n2 northwest        29.2\n3 southeast        33.4\n4 southwest        30.6\n\n\nFrom the above graph, we can see that the average bmi of southeast is the highest among all.\n\n# Create the bar plot\nggplot(avg_bmi_by_region, aes(x = region, y = Average_BMI, fill = region)) +\n  geom_bar(stat = \"identity\") +\n  theme_minimal() +\n  labs(title = \"Average BMI by Region\", x = \"Region\", y = \"Average BMI\", fill = \"Region\")"
-  },
-  {
-    "objectID": "posts/Clustering/clustering.html#remove-label-form-dataset",
-    "href": "posts/Clustering/clustering.html#remove-label-form-dataset",
-    "title": "Understanding DBSCAN Clustering Analysis in Machine Learning",
-    "section": "Remove label form dataset",
-    "text": "Remove label form dataset\n\nmed &lt;- data_num[-4] \n\nFitting DBSCAN clustering model:\nDetermining the ideal values is a challenging task that cannot be done at random. As a result, I will start by making a matrix of the options I’ve looked into.\n\nset.seed(0)  # Setting seed \nDbscan_cl &lt;- dbscan(med, eps = 0.45, MinPts = 5) \nDbscan_cl\n\ndbscan Pts=1338 MinPts=5 eps=0.45\n          0 1 2 3 4 5\nborder 1310 5 2 4 3 4\nseed      0 1 5 1 1 2\ntotal  1310 6 7 5 4 6\n\n\nIn this code, eps is the maximum distance between two samples for them to be considered as in the same neighborhood, and MinPts is the number of samples in a neighborhood for a point to be considered as a core point."
+    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2\n\n\n\n\n\n Back to top"
   },
   {
     "objectID": "posts/Probability/probability.html",
@@ -229,97 +229,6 @@
     "title": "Probability Theory and Random Variables in Machine Learning",
     "section": "Conclusion:",
     "text": "Conclusion:\nProbability theory and random variables are essential tools. Understanding discrete and continuous probability distributions is crucial in machine learning. They provide a foundation for many machine learning algorithms and statistical tests. They provide a framework to handle uncertainty and formulate learning problems. Understanding these concepts can help you build more effective and robust machine learning models."
-  },
-  {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2\n\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#introduction-1",
-    "href": "posts/anomaly detection/anomaly.html#introduction-1",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Introduction",
-    "text": "Introduction\nAnomaly detection, also known as outlier detection, is a fascinating aspect of machine learning. It involves identifying data points, events, or observations that deviate significantly from the norm. These anomalies can often provide critical and actionable insights in various domains, such as fraud detection in banking, intrusion detection in network security, and fault detection in critical systems."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#what-is-anomaly-detection",
-    "href": "posts/anomaly detection/anomaly.html#what-is-anomaly-detection",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "What is Anomaly Detection?",
-    "text": "What is Anomaly Detection?\nAnomaly detection is the process of identifying unexpected items or events in datasets, which differ from the norm. In other words, it’s about finding the ‘outliers’ in your data. For example, in a manufacturing context, an anomalous event could be a sudden increase in defective products."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#types-of-anomalies",
-    "href": "posts/anomaly detection/anomaly.html#types-of-anomalies",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Types of Anomalies",
-    "text": "Types of Anomalies\nThere are three main types of anomalies:\n\nPoint Anomalies: A single instance of data is anomalous if it’s too far off from the rest. For example, spending $100 on food every day during the holiday season is normal, but may be odd otherwise.\nContextual Anomalies: The abnormality is context-specific. This type of anomaly is common in time-series data. For example, spending $100 on food during the holiday season is normal, but may be odd otherwise.\nCollective Anomalies: A set of data instances collectively helps in detecting anomalies. For example, someone is trying to copy data form a remote machine to a local host unexpectedly, an anomaly that would be flagged as a potential cyber attack."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#anomaly-detection-techniques",
-    "href": "posts/anomaly detection/anomaly.html#anomaly-detection-techniques",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Anomaly Detection Techniques",
-    "text": "Anomaly Detection Techniques\nThere are several techniques used for anomaly detection, each with its strengths and weaknesses. Some of the most popular methods include:\n\nStatistical Methods: These methods model the normal data behavior using statistical parameters like mean, median, mode, variance, etc. Any data instance that doesn’t fit this model is considered an anomaly.\nMachine Learning-Based Methods: These include techniques like clustering, classification, and nearest neighbors. These methods can either be supervised (labels are available) or unsupervised (no labels).\nTime Series Analysis: This is particularly useful for sequential data, where some pattern or trend is expected. Techniques used here include state space models, decomposition methods, etc.\n\n\nLet’s get familiar with the fundamental idea underlying the hyperparameters before working with the data. We must examine a few of the hyperparameters that characterize the DBScan job in order to comprehend the idea of the core points. min_samples is the first hyperparameter (HP). This is the bare minimum of core points required for cluster formation. The second crucial HP is ‘eps’. “eps” is the greatest separation that two samples must have in order to be grouped together. Although border points are somewhat farther from the cluster center, they are nonetheless part of the same cluster as core points. All other data points are referred to as “Noise Points” because they are unrelated to any cluster. They require more research because they may be unusual or not."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#about-the-data",
-    "href": "posts/anomaly detection/anomaly.html#about-the-data",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "About the data:",
-    "text": "About the data:\nThere are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining seven variables—age, sex, bmi, children, smoker, region, and charges. You can access the data from here:"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#data-cleaning",
-    "href": "posts/anomaly detection/anomaly.html#data-cleaning",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Data cleaning:",
-    "text": "Data cleaning:\nRemove the unnecessary column that is not required during the analysis. We can remove the unnecessary column by following:\n\ndata$Time &lt;- NULL"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#convert-categorical-variables-to-factors",
-    "href": "posts/anomaly detection/anomaly.html#convert-categorical-variables-to-factors",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Convert categorical variables to factors:",
-    "text": "Convert categorical variables to factors:\n\ndata$Class &lt;- as.factor(data$Class)"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#convert-categorical-variable-to-numeric",
-    "href": "posts/anomaly detection/anomaly.html#convert-categorical-variable-to-numeric",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Convert categorical variable to numeric",
-    "text": "Convert categorical variable to numeric\n\ndata$Class &lt;- as.numeric(as.character(data$Class))"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#check-if-the-data-contains-null-values",
-    "href": "posts/anomaly detection/anomaly.html#check-if-the-data-contains-null-values",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Check if the data contains null values:",
-    "text": "Check if the data contains null values:\n\nsum(is.na(data))\n\n[1] 0\n\n\nThis means this data doesnot contains any null values. We are good to go with this data and don’t have to remove any null data if there are any."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#data-visualization",
-    "href": "posts/anomaly detection/anomaly.html#data-visualization",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Data visualization:",
-    "text": "Data visualization:\n\n# Select a subset of variables to plot\nselected_vars &lt;- data[, c(\"V1\", \"V2\", \"V3\", \"V4\", \"V5\")]\n\n# Create a color palette\ncolors &lt;- terrain.colors(length(selected_vars))\n\n# Create the pairs plot with colors\npairs(selected_vars, col=colors)"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#dbscan-clustering-for-anomaly-detection",
-    "href": "posts/anomaly detection/anomaly.html#dbscan-clustering-for-anomaly-detection",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "DBSCAN clustering for anomaly detection:",
-    "text": "DBSCAN clustering for anomaly detection:\n\ndbscan_result &lt;- dbscan(data, eps = 0.3, minPts = 5)"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#visualization-of-dbscan-result",
-    "href": "posts/anomaly detection/anomaly.html#visualization-of-dbscan-result",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Visualization of DBSCAN result:",
-    "text": "Visualization of DBSCAN result:"
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -404,40 +313,5 @@
     "title": "Welcome to my Machine Learning blog",
     "section": "",
     "text": "Understanding DBSCAN Clustering Analysis in Machine Learning\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nNov 24, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nPost With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nNov 18, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nNov 15, 2023\n\n\nKamal\n\n\n\n\n\n\n  \n\n\n\n\nPredicting Crop Suitability with Machine Learning using R\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 28, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nProbability Theory and Random Variables in Machine Learning\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nAnomaly Detection in Machine Learning\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\n  \n\n\n\n\nLinear Regression and medical charges\n\n\n\n\n\n\n\nR\n\n\nCode\n\n\nAnalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2023\n\n\nKamal Chhetri\n\n\n\n\n\n\nNo matching items\n\n Back to top"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#import-necessary-libraries",
-    "href": "posts/anomaly detection/anomaly.html#import-necessary-libraries",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Import necessary libraries:",
-    "text": "Import necessary libraries:\n\nlibrary(fpc)\nlibrary(ggplot2)\nlibrary(dbscan)\nlibrary(cluster)\nlibrary(FNN)\nlibrary(corrplot)\n\ncorrplot 0.92 loaded"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#import-the-data-set-and-visualize-the-data",
-    "href": "posts/anomaly detection/anomaly.html#import-the-data-set-and-visualize-the-data",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Import the data set and visualize the data:",
-    "text": "Import the data set and visualize the data:\n\ndata &lt;- read.csv(\"/Users/test/Desktop/Machine_learning/mlblog/kamalchhetrii.github.io/insurance.csv\")\n\n\nhead(data)\n\n  Time         V1          V2        V3         V4          V5          V6\n1    0 -1.3598071 -0.07278117 2.5363467  1.3781552 -0.33832077  0.46238778\n2    0  1.1918571  0.26615071 0.1664801  0.4481541  0.06001765 -0.08236081\n3    1 -1.3583541 -1.34016307 1.7732093  0.3797796 -0.50319813  1.80049938\n4    1 -0.9662717 -0.18522601 1.7929933 -0.8632913 -0.01030888  1.24720317\n5    2 -1.1582331  0.87773675 1.5487178  0.4030339 -0.40719338  0.09592146\n6    2 -0.4259659  0.96052304 1.1411093 -0.1682521  0.42098688 -0.02972755\n           V7          V8         V9         V10        V11         V12\n1  0.23959855  0.09869790  0.3637870  0.09079417 -0.5515995 -0.61780086\n2 -0.07880298  0.08510165 -0.2554251 -0.16697441  1.6127267  1.06523531\n3  0.79146096  0.24767579 -1.5146543  0.20764287  0.6245015  0.06608369\n4  0.23760894  0.37743587 -1.3870241 -0.05495192 -0.2264873  0.17822823\n5  0.59294075 -0.27053268  0.8177393  0.75307443 -0.8228429  0.53819555\n6  0.47620095  0.26031433 -0.5686714 -0.37140720  1.3412620  0.35989384\n         V13        V14        V15        V16         V17         V18\n1 -0.9913898 -0.3111694  1.4681770 -0.4704005  0.20797124  0.02579058\n2  0.4890950 -0.1437723  0.6355581  0.4639170 -0.11480466 -0.18336127\n3  0.7172927 -0.1659459  2.3458649 -2.8900832  1.10996938 -0.12135931\n4  0.5077569 -0.2879237 -0.6314181 -1.0596472 -0.68409279  1.96577500\n5  1.3458516 -1.1196698  0.1751211 -0.4514492 -0.23703324 -0.03819479\n6 -0.3580907 -0.1371337  0.5176168  0.4017259 -0.05813282  0.06865315\n          V19         V20          V21          V22         V23         V24\n1  0.40399296  0.25141210 -0.018306778  0.277837576 -0.11047391  0.06692807\n2 -0.14578304 -0.06908314 -0.225775248 -0.638671953  0.10128802 -0.33984648\n3 -2.26185710  0.52497973  0.247998153  0.771679402  0.90941226 -0.68928096\n4 -1.23262197 -0.20803778 -0.108300452  0.005273597 -0.19032052 -1.17557533\n5  0.80348692  0.40854236 -0.009430697  0.798278495 -0.13745808  0.14126698\n6 -0.03319379  0.08496767 -0.208253515 -0.559824796 -0.02639767 -0.37142658\n         V25        V26          V27         V28 Amount Class\n1  0.1285394 -0.1891148  0.133558377 -0.02105305 149.62     0\n2  0.1671704  0.1258945 -0.008983099  0.01472417   2.69     0\n3 -0.3276418 -0.1390966 -0.055352794 -0.05975184 378.66     0\n4  0.6473760 -0.2219288  0.062722849  0.06145763 123.50     0\n5 -0.2060096  0.5022922  0.219422230  0.21515315  69.99     0\n6 -0.2327938  0.1059148  0.253844225  0.08108026   3.67     0\n\n\n\nLets see if the data contains any null values:\n\nsum(is.na(data))\n\n[1] 0\n\n\nThis data set does not contain null values. Thus, we don’t have to deal with it further."
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#explanatory-analysis",
-    "href": "posts/anomaly detection/anomaly.html#explanatory-analysis",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Explanatory analysis:",
-    "text": "Explanatory analysis:\n\n# Select the relevant columns\ndata_selected &lt;- data[, c('age', 'bmi', 'charges', 'children')]\n\n# Calculate the correlation matrix\ncorrs &lt;- cor(data_selected)\n\n# Create a heatmap with correlation values\ncorrplot(corrs, method=\"color\", type=\"upper\", order=\"hclust\", \n         addCoef.col = \"black\", # Change correlation coefficients color to white\n         tl.col=\"black\", tl.srt=45, # Text label color and rotation\n         col = colorRampPalette(c(\"blue\", \"white\", \"red\"))(200), # Change color scheme\n         title=\"Correlation Heatmap\") # Add title\n\n\n\n\nFrom this, we can see there is not much strong correlation between the different variables.\n\nLets see the distribution of charges variable:\n\n# Create a histogram of charges\nggplot(data, aes(x=charges)) +\n  geom_histogram(binwidth=1000, color=\"black\", fill=\"lightblue\") +\n  labs(title=\"Distribution of Charges\", x=\"Charges\", y=\"Count\") +\n  theme_minimal()\n\n\n\n\nFrom this histogram, we can see the distribution of our charges data which is left skewed and there is the possibility that this data set contains the outlier.\nLet’s explore the data set for charges for males and female:\n\n# Create a boxplot of charges by sex\nggplot(data, aes(x=sex, y=charges, color=sex)) +\n  geom_boxplot() +  # Include outliers\n  geom_jitter(width=0.2, alpha=0.5) +  # Add jittered points for better visualization\n  labs(title=\"Charges by Sex\", x=\"Sex\", y=\"Charges\") +\n  theme_minimal() +\n  scale_color_manual(values=c(\"blue\", \"darkgreen\"))  # Specify colors for each sex\n\n\n\n\nNow, lets see the charges by bmi for further data exploration:\n\n# Create a scatter plot of BMI vs charges\nggplot(data, aes(x=bmi, y=charges, color=sex)) +\n  geom_point(alpha=0.5) +  # Add points with transparency for better visualization\n  labs(title=\"BMI vs Charges\", x=\"BMI\", y=\"Charges\") +\n  theme_minimal() +\n  scale_color_manual(values=c(\"red\", \"blue\"))  # Specify colors for each sex"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#calculate-the-epsilon-value-using-k-distance-graph",
-    "href": "posts/anomaly detection/anomaly.html#calculate-the-epsilon-value-using-k-distance-graph",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Calculate the epsilon value using K-distance graph:",
-    "text": "Calculate the epsilon value using K-distance graph:\n\n# Load necessary libraries\nlibrary(FNN)\n\n# Select the relevant columns\ndata_selected &lt;- data[, c('age', 'bmi')]\n\n# Standardize the data\ndata_std &lt;- scale(data_selected)\n\n# Compute the nearest neighbors\nk &lt;- 2  # 2 because the point itself is included\nknn_dist &lt;- knn.dist(data_std, k=k)\n\n# Sort the distances\nknn_dist &lt;- sort(knn_dist[,k], decreasing=FALSE)  # Exclude the distance to the point itself\n\n# Plot the k-distance graph\nplot(knn_dist, main=\"K-distance Graph\", xlab=\"Data Points sorted by distance\", ylab=\"Epsilon\")\n\n\n\n\nThe optimum value of epsilon is at the point of maximum curvature in the K-Distance Graph, which is 0.6 in this case. Domain knowledge affects minPoints’ value. I’m using 10 minPoints at this time around.\nBased on the above calculation, we can do the DBSCAN clustering\n\n# Select the relevant columns\ndata_selected &lt;- data[, c('age', 'bmi')]\n\n# Standardize the data\ndata_std &lt;- scale(data_selected)\n\n# Perform DBSCAN clustering\ndbscan_res &lt;- dbscan(data_std, eps=0.6, minPts=10)  \nprint(dbscan_res)\n\nDBSCAN clustering for 1338 objects.\nParameters: eps = 0.6, minPts = 10\nUsing euclidean distances and borderpoints = TRUE\nThe clustering contains 1 cluster(s) and 3 noise points.\n\n   0    1 \n   3 1335 \n\nAvailable fields: cluster, eps, minPts, dist, borderPoints"
-  },
-  {
-    "objectID": "posts/anomaly detection/anomaly.html#visualization",
-    "href": "posts/anomaly detection/anomaly.html#visualization",
-    "title": "Anomaly Detection in Machine Learning",
-    "section": "Visualization:",
-    "text": "Visualization:\n\n# Add the DBSCAN results to our data\ndata$cluster &lt;- as.factor(dbscan_res$cluster)\n\n# Define colors for each cluster\ncolors &lt;- rainbow(length(unique(dbscan_res$cluster)))\nnames(colors) &lt;- levels(data$cluster)\n\n# Create the plot\nggplot(data, aes(x=age, y=bmi, color=cluster)) +\n  geom_point() +\n  scale_color_manual(values = colors) +\n  theme_minimal() +\n  labs(x=\"Age\", y=\"BMI\", color=\"Cluster\") +\n  theme(legend.position=\"none\")\n\n\n\n\nFrom the above scatterplot, we can see that three data points are the noise and one cluster with no outliers.\n\n# Create an outliers data frame\noutliers &lt;- data[data$cluster == -1, ]\n\n# Print the outliers\nprint(outliers)\n\n[1] age      sex      bmi      children smoker   region   charges  cluster \n&lt;0 rows&gt; (or 0-length row.names)"
   }
 ]
