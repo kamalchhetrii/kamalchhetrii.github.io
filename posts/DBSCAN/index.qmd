@@ -59,12 +59,9 @@ library(dbscan)
 
 ```
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
-
-
 
 ## Load the data into R:
 
@@ -217,7 +214,7 @@ sil_score <- c()
 
 ```
 
-## Lets calculate Silhouette Score: 
+## Lets calculate Silhouette Score:
 
 Before dealing with the calculation of the Silhouette Score, lets get acquainted with what the Silhouette Score is and its importance to us while doing the DBSCAN clustering:
 

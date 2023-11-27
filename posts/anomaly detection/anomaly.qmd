@@ -38,24 +38,30 @@ There are several techniques used for anomaly detection, each with its strengths
 
 3.  **Time Series Analysis**: This is particularly useful for sequential data, where some pattern or trend is expected. Techniques used here include state space models, decomposition methods, etc.
 
-![](https://miro.medium.com/v2/resize:fit:750/1*zfcgxCebn8ejyhNLU4sCsg.png)
+![](https://media.geeksforgeeks.org/wp-content/uploads/20190418023034/781ff66c-b380-4a78-af25-80507ed6ff26.jpeg){alt="In this blog post, we will perform a DBSCAN clustering analysis on an insurance dataset using R."}
+
+Let's get familiar with the fundamental idea underlying the hyperparameters before working with the data. We must examine a few of the hyperparameters that characterize the DBScan job in order to comprehend the idea of the core points. min_samples is the first hyperparameter (HP). This is the bare minimum of core points required for cluster formation. The second crucial HP is 'eps'. "eps" is the greatest separation that two samples must have in order to be grouped together. Although border points are somewhat farther from the cluster center, they are nonetheless part of the same cluster as core points. All other data points are referred to as "Noise Points" because they are unrelated to any cluster. They require more research because they may be unusual or not.
 
 ## About the data:
 
-The data collection includes 284,807 credit card purchases made by European cardholders over a 48-hour period. The legitimate purchases significantly distort this data set, with only 492 of these sales being fraudulent. The purchase metrics, which comprise 28 variables namely V1 through V28, have been anonymized and modified to remove any personal information due to the sensitive nature of the data.
+You can access the [data from here](https://github.com/kamalchhetrii/kamalchhetrii.github.io/blob/main/insurance.csv):
 
-[**Load necessary libraries:**]{.underline}
+## Import necessary libraries: 
 
 ```{r}
 library(fpc)
 library(ggplot2)
 library(dbscan)
+library(cluster)
+library(FNN)
 
 ```
 
+## Import the data set and visualize the data:
+
 ```{r}
 
-data <- read.csv("/Users/test/Downloads/creditcard.csv")
+data <- read.csv("/Users/test/Desktop/Machine_learning/mlblog/kamalchhetrii.github.io/insurance.csv")
 
 ```
 
@@ -63,9 +69,155 @@ data <- read.csv("/Users/test/Downloads/creditcard.csv")
 head(data)
 ```
 
-## Data cleaning:
+### Lets see if the data contains any null values:
 
-Remove the unnecessary column that is not required during the analysis. We can remove the unnecessary column by following:
+```{r}
+sum(is.na(data))
+```
+
+This data set does not contain null values. Thus, we don't have to deal with it further.
+
+### 
+
+## Explanatory analysis:
+
+```{r}
+# Select the relevant columns
+data_selected <- data[, c('age', 'bmi', 'charges', 'children')]
+
+# Calculate the correlation matrix
+corrs <- cor(data_selected)
+
+# Create a heatmap with correlation values
+corrplot(corrs, method="color", type="upper", order="hclust", 
+         addCoef.col = "black", # Change correlation coefficients color to white
+         tl.col="black", tl.srt=45, # Text label color and rotation
+         col = colorRampPalette(c("blue", "white", "red"))(200), # Change color scheme
+         title="Correlation Heatmap") # Add title
+
+
+```
+
+From this, we can see there is not much strong correlation between the different variables.
+
+### Lets see the distribution of charges:
+
+```{r}
+# Create a histogram of charges
+ggplot(data, aes(x=charges)) +
+  geom_histogram(binwidth=1000, color="black", fill="lightblue") +
+  labs(title="Distribution of Charges", x="Charges", y="Count") +
+  theme_minimal()
+```
+
+From this histogram, we can see the distribution of our charges data which is left skewed and there is the possibility that this data set contains the outlier.
+
+```{r}
+
+
+```
+
+Let's explore the data set for charges for males and female:
+
+```{r}
+# Create a boxplot of charges by sex
+ggplot(data, aes(x=sex, y=charges, color=sex)) +
+  geom_boxplot() +  # Include outliers
+  geom_jitter(width=0.2, alpha=0.5) +  # Add jittered points for better visualization
+  labs(title="Charges by Sex", x="Sex", y="Charges") +
+  theme_minimal() +
+  scale_color_manual(values=c("blue", "darkgreen"))  # Specify colors for each sex
+
+```
+
+Now, lets see the charges by bmi for further data exploration:
+
+```{r}
+
+
+```
+
+```{r}
+# Create a scatter plot of BMI vs charges
+ggplot(data, aes(x=bmi, y=charges, color=sex)) +
+  geom_point(alpha=0.5) +  # Add points with transparency for better visualization
+  labs(title="BMI vs Charges", x="BMI", y="Charges") +
+  theme_minimal() +
+  scale_color_manual(values=c("red", "blue"))  # Specify colors for each sex
+
+```
+
+### 
+
+```{r}
+# Load necessary libraries
+library(FNN)
+
+# Select the relevant columns
+data_selected <- data[, c('age', 'bmi')]
+
+# Standardize the data
+data_std <- scale(data_selected)
+
+# Compute the nearest neighbors
+k <- 2  # 2 because the point itself is included
+knn_dist <- knn.dist(data_std, k=k)
+
+# Sort the distances
+knn_dist <- sort(knn_dist[,k], decreasing=FALSE)  # Exclude the distance to the point itself
+
+# Plot the k-distance graph
+plot(knn_dist, main="K-distance Graph", xlab="Data Points sorted by distance", ylab="Epsilon")
+
+
+```
+
+The optimum value of epsilon is at the point of maximum curvature in the K-Distance Graph, which is 0.6 in this case. Domain knowledge affects minPoints' value. I'm using 10 minPoints at this time around.
+
+Based on the above calculation, we can do the DBSCAN clustering
+
+```{r}
+# Select the relevant columns
+data_selected <- data[, c('age', 'bmi')]
+
+# Standardize the data
+data_std <- scale(data_selected)
+
+# Perform DBSCAN clustering
+dbscan_res <- dbscan(data_std, eps=0.6, minPts=10)  
+
+```
+
+## Visualization:
+
+```{r}
+# Create a data frame with the results
+df <- data.frame(data_std, cluster=dbscan_res$cluster)
+
+# Plot the clusters
+ggplot(df, aes(x=bmi, y=age, color=factor(cluster))) +
+  geom_point(alpha=0.5) +  # Add points with transparency for better visualization
+  scale_color_manual(values=c("blue", "red")) +  # Specify colors for each cluster
+  labs(title="DBSCAN Clusters", x="BMI", y="Age", color="Cluster") +
+  theme_minimal()
+```
+
+```{r}
+# Create a factor variable for labels
+data$labels <- as.factor(data$labels)
+
+# Define colors for each label
+colors <- c("blue", "red")
+names(colors) <- levels(data$labels)
+
+# Create the plot
+ggplot(data, aes(x=age, y=bmi, color=labels)) +
+  geom_point() +
+  scale_color_manual(values = colors) +
+  theme_minimal() +
+  labs(x="Age", y="BMI", color="Labels") +
+  theme(legend.position="none")
+```
 
 ```{r}
 data$Time <- NULL
@@ -99,27 +251,20 @@ This means this data doesnot contains any null values. We are good to go with th
 
 ```
 
-## Data visualization:
+## 
 
 ```{r}
-# Select a subset of variables to plot
-selected_vars <- data[, c("V1", "V2", "V3", "V4", "V5")]
-
-# Create a color palette
-colors <- terrain.colors(length(selected_vars))
-
-# Create the pairs plot with colors
-pairs(selected_vars, col=colors)
-```
-
-## DBSCAN clustering for anomaly detection:
-
-```{r}
-dbscan_result <- dbscan(data, eps = 0.3, minPts = 5)
 
 ```
 
-## Visualization of DBSCAN result:
+## 
+
+```{r}
+
+
+```
+
+## 
 
 ```{r}
 
