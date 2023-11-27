@@ -44,7 +44,7 @@ Let's get familiar with the fundamental idea underlying the hyperparameters befo
 
 ## About the data:
 
-You can access the [data from here](https://github.com/kamalchhetrii/kamalchhetrii.github.io/blob/main/insurance.csv):
+There are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining seven variables---age, sex, bmi, children, smoker, region, and charges. You can access the [data from here](https://github.com/kamalchhetrii/kamalchhetrii.github.io/blob/main/insurance.csv):
 
 ## Import necessary libraries: 
 
@@ -54,6 +54,7 @@ library(ggplot2)
 library(dbscan)
 library(cluster)
 library(FNN)
+library(corrplot)
 
 ```
 
@@ -100,7 +101,7 @@ corrplot(corrs, method="color", type="upper", order="hclust",
 
 From this, we can see there is not much strong correlation between the different variables.
 
-### Lets see the distribution of charges:
+### Lets see the distribution of charges variable:
 
 ```{r}
 # Create a histogram of charges
@@ -149,6 +150,8 @@ ggplot(data, aes(x=bmi, y=charges, color=sex)) +
 
 ### 
 
+## Calculate the epsilon value using K-distance graph:
+
 ```{r}
 # Load necessary libraries
 library(FNN)
@@ -185,64 +188,68 @@ data_std <- scale(data_selected)
 
 # Perform DBSCAN clustering
 dbscan_res <- dbscan(data_std, eps=0.6, minPts=10)  
+print(dbscan_res)
+
+```
+
+## 
+
+```{r}
 
 ```
 
 ## Visualization:
 
 ```{r}
-# Create a data frame with the results
-df <- data.frame(data_std, cluster=dbscan_res$cluster)
+# Add the DBSCAN results to our data
+data$cluster <- as.factor(dbscan_res$cluster)
 
-# Plot the clusters
-ggplot(df, aes(x=bmi, y=age, color=factor(cluster))) +
-  geom_point(alpha=0.5) +  # Add points with transparency for better visualization
-  scale_color_manual(values=c("blue", "red")) +  # Specify colors for each cluster
-  labs(title="DBSCAN Clusters", x="BMI", y="Age", color="Cluster") +
-  theme_minimal()
-```
-
-```{r}
-# Create a factor variable for labels
-data$labels <- as.factor(data$labels)
-
-# Define colors for each label
-colors <- c("blue", "red")
-names(colors) <- levels(data$labels)
+# Define colors for each cluster
+colors <- rainbow(length(unique(dbscan_res$cluster)))
+names(colors) <- levels(data$cluster)
 
 # Create the plot
-ggplot(data, aes(x=age, y=bmi, color=labels)) +
+ggplot(data, aes(x=age, y=bmi, color=cluster)) +
   geom_point() +
   scale_color_manual(values = colors) +
   theme_minimal() +
-  labs(x="Age", y="BMI", color="Labels") +
+  labs(x="Age", y="BMI", color="Cluster") +
   theme(legend.position="none")
 ```
 
-```{r}
-data$Time <- NULL
-```
-
-## Convert categorical variables to factors:
+From the above scatterplot, we can see that three data points are the noise and one cluster with no outliers.
 
 ```{r}
-data$Class <- as.factor(data$Class)
+# Create an outliers data frame
+outliers <- data[data$cluster == -1, ]
+
+# Print the outliers
+print(outliers)
 
 ```
-
-## Convert categorical variable to numeric
 
 ```{r}
-data$Class <- as.numeric(as.character(data$Class))
+
 ```
 
-## Check if the data contains null values:
+## 
 
 ```{r}
-sum(is.na(data))
+
+
 ```
 
-This means this data doesnot contains any null values. We are good to go with this data and don't have to remove any null data if there are any.
+## 
+
+```{r}
+
+```
+
+## 
+
+```{r}
+
+```
 
 ## 
 

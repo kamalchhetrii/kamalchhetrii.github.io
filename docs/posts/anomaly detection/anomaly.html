@@ -103,7 +103,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../styles.css">
 <meta name="twitter:title" content="Anomaly Detection in Machine Learning">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://miro.medium.com/v2/resize:fit:750/1*zfcgxCebn8ejyhNLU4sCsg.png">
+<meta name="twitter:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190418023034/781ff66c-b380-4a78-af25-80507ed6ff26.jpeg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -272,36 +272,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>Machine Learning-Based Methods</strong>: These include techniques like clustering, classification, and nearest neighbors. These methods can either be supervised (labels are available) or unsupervised (no labels).</p></li>
 <li><p><strong>Time Series Analysis</strong>: This is particularly useful for sequential data, where some pattern or trend is expected. Techniques used here include state space models, decomposition methods, etc.</p></li>
 </ol>
-<p><img src="https://miro.medium.com/v2/resize:fit:750/1*zfcgxCebn8ejyhNLU4sCsg.png" class="img-fluid"></p>
+<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190418023034/781ff66c-b380-4a78-af25-80507ed6ff26.jpeg" class="img-fluid" alt="In this blog post, we will perform a DBSCAN clustering analysis on an insurance dataset using R."></p>
+<p>Let’s get familiar with the fundamental idea underlying the hyperparameters before working with the data. We must examine a few of the hyperparameters that characterize the DBScan job in order to comprehend the idea of the core points. min_samples is the first hyperparameter (HP). This is the bare minimum of core points required for cluster formation. The second crucial HP is ‘eps’. “eps” is the greatest separation that two samples must have in order to be grouped together. Although border points are somewhat farther from the cluster center, they are nonetheless part of the same cluster as core points. All other data points are referred to as “Noise Points” because they are unrelated to any cluster. They require more research because they may be unusual or not.</p>
 </section>
 <section id="about-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="about-the-data">About the data:</h2>
-<p>The data collection includes 284,807 credit card purchases made by European cardholders over a 48-hour period. The legitimate purchases significantly distort this data set, with only 492 of these sales being fraudulent. The purchase metrics, which comprise 28 variables namely V1 through V28, have been anonymized and modified to remove any personal information due to the sensitive nature of the data.</p>
-<p><u><strong>Load necessary libraries:</strong></u></p>
-<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-1_a604e7f1a4e35b878337f45f092111c5">
+<p>There are seven columns and 1338 rows in the data, which indicates that there are seven separate variables. The remaining seven variables—age, sex, bmi, children, smoker, region, and charges. You can access the <a href="https://github.com/kamalchhetrii/kamalchhetrii.github.io/blob/main/insurance.csv">data from here</a>:</p>
+</section>
+<section id="import-necessary-libraries" class="level2">
+<h2 class="anchored" data-anchor-id="import-necessary-libraries">Import necessary libraries:</h2>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-1_417da2275574ea5320cfa9184d30a658">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpc)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FNN)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dbscan'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:fpc':
-
-    dbscan</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:stats':
-
-    as.dendrogram</code></pre>
+<pre><code>corrplot 0.92 loaded</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-2_d662a238f55ddc5bf6fdbb57e6cc8701">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/test/Downloads/creditcard.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="import-the-data-set-and-visualize-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="import-the-data-set-and-visualize-the-data">Import the data set and visualize the data:</h2>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-2_74a1f4a7b50c63553400e877dcedae76">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/test/Desktop/Machine_learning/mlblog/kamalchhetrii.github.io/insurance.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-3_cd2b699c090641e5e1deb55254f92abb">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Time         V1          V2        V3         V4          V5          V6
 1    0 -1.3598071 -0.07278117 2.5363467  1.3781552 -0.33832077  0.46238778
@@ -340,63 +338,190 @@ Attaching package: 'dbscan'</code></pre>
 6 -0.2327938  0.1059148  0.253844225  0.08108026   3.67     0</code></pre>
 </div>
 </div>
-</section>
-<section id="data-cleaning" class="level2">
-<h2 class="anchored" data-anchor-id="data-cleaning">Data cleaning:</h2>
-<p>Remove the unnecessary column that is not required during the analysis. We can remove the unnecessary column by following:</p>
-<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-4_9cb75d31a56eab9ab3a14d22b8a2e358">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Time <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="convert-categorical-variables-to-factors" class="level2">
-<h2 class="anchored" data-anchor-id="convert-categorical-variables-to-factors">Convert categorical variables to factors:</h2>
-<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-5_b2d6a5a8e5bc9e1e3d90c8a849fd1f3f">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Class <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>Class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="convert-categorical-variable-to-numeric" class="level2">
-<h2 class="anchored" data-anchor-id="convert-categorical-variable-to-numeric">Convert categorical variable to numeric</h2>
-<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-6_8ad0cae9bb3ade387bd67a1fefd44b8b">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Class <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(data<span class="sc">$</span>Class))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="check-if-the-data-contains-null-values" class="level2">
-<h2 class="anchored" data-anchor-id="check-if-the-data-contains-null-values">Check if the data contains null values:</h2>
-<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-7_e5c3a095c9c14ab39d8cce7adee9c307">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="lets-see-if-the-data-contains-any-null-values" class="level3">
+<h3 class="anchored" data-anchor-id="lets-see-if-the-data-contains-any-null-values">Lets see if the data contains any null values:</h3>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-4_624b2235e2f6c83683a1f0ed943bed79">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
 </div>
-<p>This means this data doesnot contains any null values. We are good to go with this data and don’t have to remove any null data if there are any.</p>
+<p>This data set does not contain null values. Thus, we don’t have to deal with it further.</p>
 </section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
 </section>
-<section id="data-visualization" class="level2">
-<h2 class="anchored" data-anchor-id="data-visualization">Data visualization:</h2>
-<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-9_0438bc3b371a65150168528dfbeca497">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select a subset of variables to plot</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>selected_vars <span class="ot">&lt;-</span> data[, <span class="fu">c</span>(<span class="st">"V1"</span>, <span class="st">"V2"</span>, <span class="st">"V3"</span>, <span class="st">"V4"</span>, <span class="st">"V5"</span>)]</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a color palette</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">terrain.colors</span>(<span class="fu">length</span>(selected_vars))</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the pairs plot with colors</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(selected_vars, <span class="at">col=</span>colors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="explanatory-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="explanatory-analysis">Explanatory analysis:</h2>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-5_111f7443518e1b7cba0c90feb03f25ee">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the relevant columns</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_selected <span class="ot">&lt;-</span> data[, <span class="fu">c</span>(<span class="st">'age'</span>, <span class="st">'bmi'</span>, <span class="st">'charges'</span>, <span class="st">'children'</span>)]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the correlation matrix</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>corrs <span class="ot">&lt;-</span> <span class="fu">cor</span>(data_selected)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a heatmap with correlation values</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(corrs, <span class="at">method=</span><span class="st">"color"</span>, <span class="at">type=</span><span class="st">"upper"</span>, <span class="at">order=</span><span class="st">"hclust"</span>, </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">"black"</span>, <span class="co"># Change correlation coefficients color to white</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.col=</span><span class="st">"black"</span>, <span class="at">tl.srt=</span><span class="dv">45</span>, <span class="co"># Text label color and rotation</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"white"</span>, <span class="st">"red"</span>))(<span class="dv">200</span>), <span class="co"># Change color scheme</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">title=</span><span class="st">"Correlation Heatmap"</span>) <span class="co"># Add title</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="anomaly_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="anomaly_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From this, we can see there is not much strong correlation between the different variables.</p>
+<section id="lets-see-the-distribution-of-charges-variable" class="level3">
+<h3 class="anchored" data-anchor-id="lets-see-the-distribution-of-charges-variable">Lets see the distribution of charges variable:</h3>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-6_314222bc865b6f15aacefe48361554d1">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a histogram of charges</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>charges)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">1000</span>, <span class="at">color=</span><span class="st">"black"</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Distribution of Charges"</span>, <span class="at">x=</span><span class="st">"Charges"</span>, <span class="at">y=</span><span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="anomaly_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From this histogram, we can see the distribution of our charges data which is left skewed and there is the possibility that this data set contains the outlier.</p>
+<p>Let’s explore the data set for charges for males and female:</p>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-8_c5e23c69fa3d9f96a3d8d6c0a016c1e0">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a boxplot of charges by sex</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>sex, <span class="at">y=</span>charges, <span class="at">color=</span>sex)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span>  <span class="co"># Include outliers</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width=</span><span class="fl">0.2</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span>  <span class="co"># Add jittered points for better visualization</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Charges by Sex"</span>, <span class="at">x=</span><span class="st">"Sex"</span>, <span class="at">y=</span><span class="st">"Charges"</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"darkgreen"</span>))  <span class="co"># Specify colors for each sex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="anomaly_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Now, lets see the charges by bmi for further data exploration:</p>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-10_270bff8e0e815fbd47f49a6d9061839d">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot of BMI vs charges</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>bmi, <span class="at">y=</span>charges, <span class="at">color=</span>sex)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span>  <span class="co"># Add points with transparency for better visualization</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"BMI vs Charges"</span>, <span class="at">x=</span><span class="st">"BMI"</span>, <span class="at">y=</span><span class="st">"Charges"</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>))  <span class="co"># Specify colors for each sex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="anomaly_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="dbscan-clustering-for-anomaly-detection" class="level2">
-<h2 class="anchored" data-anchor-id="dbscan-clustering-for-anomaly-detection">DBSCAN clustering for anomaly detection:</h2>
-<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-10_75269c031ae6778d421a9e029d937bbb">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dbscan_result <span class="ot">&lt;-</span> <span class="fu">dbscan</span>(data, <span class="at">eps =</span> <span class="fl">0.3</span>, <span class="at">minPts =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1"></h3>
+</section>
+</section>
+<section id="calculate-the-epsilon-value-using-k-distance-graph" class="level2">
+<h2 class="anchored" data-anchor-id="calculate-the-epsilon-value-using-k-distance-graph">Calculate the epsilon value using K-distance graph:</h2>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-11_6828e1187ae26a146a4773f9fa24933e">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FNN)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the relevant columns</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>data_selected <span class="ot">&lt;-</span> data[, <span class="fu">c</span>(<span class="st">'age'</span>, <span class="st">'bmi'</span>)]</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the data</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>data_std <span class="ot">&lt;-</span> <span class="fu">scale</span>(data_selected)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the nearest neighbors</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">2</span>  <span class="co"># 2 because the point itself is included</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>knn_dist <span class="ot">&lt;-</span> <span class="fu">knn.dist</span>(data_std, <span class="at">k=</span>k)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the distances</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>knn_dist <span class="ot">&lt;-</span> <span class="fu">sort</span>(knn_dist[,k], <span class="at">decreasing=</span><span class="cn">FALSE</span>)  <span class="co"># Exclude the distance to the point itself</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the k-distance graph</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(knn_dist, <span class="at">main=</span><span class="st">"K-distance Graph"</span>, <span class="at">xlab=</span><span class="st">"Data Points sorted by distance"</span>, <span class="at">ylab=</span><span class="st">"Epsilon"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="anomaly_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The optimum value of epsilon is at the point of maximum curvature in the K-Distance Graph, which is 0.6 in this case. Domain knowledge affects minPoints’ value. I’m using 10 minPoints at this time around.</p>
+<p>Based on the above calculation, we can do the DBSCAN clustering</p>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-12_54cc62ef691b3205668b3309c94dd908">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the relevant columns</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>data_selected <span class="ot">&lt;-</span> data[, <span class="fu">c</span>(<span class="st">'age'</span>, <span class="st">'bmi'</span>)]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the data</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>data_std <span class="ot">&lt;-</span> <span class="fu">scale</span>(data_selected)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform DBSCAN clustering</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>dbscan_res <span class="ot">&lt;-</span> <span class="fu">dbscan</span>(data_std, <span class="at">eps=</span><span class="fl">0.6</span>, <span class="at">minPts=</span><span class="dv">10</span>)  </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dbscan_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>DBSCAN clustering for 1338 objects.
+Parameters: eps = 0.6, minPts = 10
+Using euclidean distances and borderpoints = TRUE
+The clustering contains 1 cluster(s) and 3 noise points.
+
+   0    1 
+   3 1335 
+
+Available fields: cluster, eps, minPts, dist, borderPoints</code></pre>
+</div>
 </div>
 </section>
-<section id="visualization-of-dbscan-result" class="level2">
-<h2 class="anchored" data-anchor-id="visualization-of-dbscan-result">Visualization of DBSCAN result:</h2>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2"></h2>
+</section>
+<section id="visualization" class="level2">
+<h2 class="anchored" data-anchor-id="visualization">Visualization:</h2>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-14_bcd18ca22d272efa8374ba0cb7f073b8">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the DBSCAN results to our data</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dbscan_res<span class="sc">$</span>cluster)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define colors for each cluster</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="fu">length</span>(<span class="fu">unique</span>(dbscan_res<span class="sc">$</span>cluster)))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colors) <span class="ot">&lt;-</span> <span class="fu">levels</span>(data<span class="sc">$</span>cluster)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>cluster)) <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> colors) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Age"</span>, <span class="at">y=</span><span class="st">"BMI"</span>, <span class="at">color=</span><span class="st">"Cluster"</span>) <span class="sc">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="anomaly_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From the above scatterplot, we can see that three data points are the noise and one cluster with no outliers.</p>
+<div class="cell" data-hash="anomaly_cache/html/unnamed-chunk-15_3f0b869e5f02e3aa97eff5fbfdcfed52">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an outliers data frame</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>outliers <span class="ot">&lt;-</span> data[data<span class="sc">$</span>cluster <span class="sc">==</span> <span class="sc">-</span><span class="dv">1</span>, ]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the outliers</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(outliers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] age      sex      bmi      children smoker   region   charges  cluster 
+&lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+</div>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3"></h2>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4"></h2>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5"></h2>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6"></h2>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7"></h2>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8"></h2>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9"></h2>
 
 
 </section>
