@@ -103,7 +103,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../styles.css">
 <meta name="twitter:title" content="Probability Theory and Random Variables in Machine Learning">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://www.researchgate.net/publication/337071456/figure/tbl1/AS:822449109233664@1573098556987/Discrete-and-continuous-random-variables.png">
+<meta name="twitter:image" content="https://ars.els-cdn.com/content/image/3-s2.0-B9780128200254000063-f06-10-9780128200254.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -253,6 +253,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Probability theory is a field, within mathematics that tackles the concept of uncertainty. It offers a structure to help us quantify our beliefs or uncertainties. The probability of an event serves as a metric to gauge the likelihood of its occurrence.</p>
 <p>In machine learning we frequently encounter situations where dealing with uncertainty becomes essential. Take the case of constructing a spam classifier for instance. We often find ourselves unsure whether an incoming email should be classified as spam or not. Probability theory acts as a framework to navigate through this uncertainty and make decisions.</p>
 </section>
+<section id="probability-fundamentals" class="level2">
+<h2 class="anchored" data-anchor-id="probability-fundamentals">Probability Fundamentals:</h2>
+<section id="a.-sets-events-and-probability" class="level3">
+<h3 class="anchored" data-anchor-id="a.-sets-events-and-probability">a. Sets, events, and probability:</h3>
+<p>A <strong>set</strong> is a collection of distinct objects, elements, or points. For example, the set of all fruits in a basket or the set of all students in a class.</p>
+<p>A <strong>subset</strong> is a set that is contained within another set. If every element of set A is contained in set B, we denote this by A⊂B. For example, the set of all apples in a basket is a subset of the set of all fruits in the basket.</p>
+<p>Two sets A and B are <strong>mutually exclusive</strong> (or disjoint) if they have no elements in common. This is denoted by A∩B=∅. For example, the set of all apples and the set of all oranges in a basket are mutually exclusive because there are no elements that are both an apple and an orange.</p>
+<p>A <strong>random experiment</strong> is an experiment whose result or outcome is uncertain before it is performed. For example, tossing a coin is a random experiment because we are uncertain whether the outcome will be a head or a tail.</p>
+<p>The set of all possible outcomes of a random experiment is called the <strong>sample space</strong>, usually denoted by S or Ω. Each outcome is called a sample point in the sample space. For example, in a coin toss experiment, the sample space S = {Head, Tail}.</p>
+<p>An <strong>event</strong> is a subset of the sample space, i.e., a collection of possible outcomes to which a probability can be assigned. Events that cannot be decomposed are called simple events, otherwise, they are called compound events. For example, getting a head in a coin toss experiment is a simple event.</p>
+</section>
+<section id="b.-conditional-probability" class="level3">
+<h3 class="anchored" data-anchor-id="b.-conditional-probability">b. Conditional probability:</h3>
+<p>In machine learning, understanding probability and statistics is crucial. One such concept is conditional probability, which refers to the probability of an event given that another event has occurred. Conditional probability is the probability of an event (A), given that another (B) has already occurred. If the event of interest is A and event B is known or assumed to have occurred, the conditional probability of A given B is usually written as P(A | B).</p>
+<p>The formula for conditional probability is defined as:</p>
+<p>P(A/B)= P (A∩B)/P(B)</p>
+<p>​</p>
+<p><img src="https://ars.els-cdn.com/content/image/3-s2.0-B9780128200254000063-f06-10-9780128200254.jpg" class="img-fluid"></p>
+<p><a href="https://www.sciencedirect.com/topics/mathematics/conditional-probability">Figure source:</a></p>
+</section>
+</section>
 <section id="random-variables" class="level2">
 <h2 class="anchored" data-anchor-id="random-variables">Random Variables</h2>
 <p>A random variable refers to a variable that takes on values based on the outcomes of an event. There are two types of variables; discrete and continuous. A discrete random variable has an countable number of values while a continuous random variable can have an infinite number of possible values, within a range along the real number line.</p>
@@ -272,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="discrete-probability-distributions">Discrete Probability Distributions:</h2>
 <p>A discrete probability distribution applies to scenarios where the set of possible outcomes is discrete. Common examples of discrete probability distributions include the Bernoulli, Binomial, and Poisson distributions.</p>
 <p>Example: Binomial distribution</p>
-<p>Let's create a hypothetical scenario where we toss a coin 10 times. We are interested in the number of times we get heads. This scenario follows a binomial distribution. Lets do the data analysis for better understanding of it.</p>
+<p>Let’s create a hypothetical scenario where we toss a coin 10 times. We are interested in the number of times we get heads. This scenario follows a binomial distribution. Lets do the data analysis for better understanding of it.</p>
 <p><u><strong>Load necessary libraries:</strong></u></p>
 <div class="cell" data-hash="probability_cache/html/unnamed-chunk-1_9fc7fd7a7555cb21c21c4e1f1cf27f37">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
@@ -302,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="continuous-probability-distributions">Continuous Probability Distributions:</h2>
 <p>A continuous probability distribution applies to scenarios where the set of possible outcomes is an interval of real numbers. Common examples of continuous probability distributions include the Normal, Exponential, and Beta distributions.</p>
 <p>Example: Normal distiribution</p>
-<p>Let's create a hypothetical scenario where we measure the heights of a large group of individuals. The heights of individuals in a large population often follow a normal distribution.</p>
+<p>Let’s create a hypothetical scenario where we measure the heights of a large group of individuals. The heights of individuals in a large population often follow a normal distribution.</p>
 <div class="cell" data-hash="probability_cache/html/unnamed-chunk-3_8d25c5e28b8fe02928a0d94546123086">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set parameters</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="dv">170</span></span>
