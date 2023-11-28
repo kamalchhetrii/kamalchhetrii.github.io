@@ -110,7 +110,7 @@ A continuous probability distribution applies to scenarios where the set of poss
 
 Example: Normal distiribution
 
-Let's create a hypothetical scenario where we measure the heights of a large group of individuals. The heights of individuals in a large population often follow a normal distribution.
+Let's understand it using a hypothetical data where we measure the heights of a large group of individuals. The heights of individuals in a large population often follow a normal distribution.
 
 ```{r}
 # Set parameters
