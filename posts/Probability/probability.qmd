@@ -20,7 +20,7 @@ In machine learning we frequently encounter situations where dealing with uncert
 
 ## Probability Fundamentals:
 
-### a. Sets, events, and probability: 
+### a. Sets, events, and probability:
 
 A **set** is a collection of distinct objects, elements, or points. For example, the set of all fruits in a basket or the set of all students in a class.
 
@@ -34,7 +34,7 @@ The set of all possible outcomes of a random experiment is called the **sample s
 
 An **event** is a subset of the sample space, i.e., a collection of possible outcomes to which a probability can be assigned. Events that cannot be decomposed are called simple events, otherwise, they are called compound events. For example, getting a head in a coin toss experiment is a simple event.
 
-### b. Conditional probability: 
+### b. Conditional probability:
 
 In machine learning, understanding probability and statistics is crucial. One such concept is conditional probability, which refers to the probability of an event given that another event has occurred. Conditional probability is the probability of an event (A), given that another (B) has already occurred. If the event of interest is A and event B is known or assumed to have occurred, the conditional probability of A given B is usually written as P(A \| B).
 
@@ -127,6 +127,42 @@ ggplot(data.frame(x = data), aes(x = x)) +
   geom_density(alpha = 0.2, fill = "#FF6666") +
   labs(x = "Height (cm)", y = "Density", title = "Normal Distribution") +
   theme_minimal()
+
+```
+
+Understanding the probability using a real example:
+
+Consider a segment of 100 base pairs on the mouse genome. Among these 100 base pairs, there are 18 A\'s, 22 T\'s, 33 C\'s, and 27 G\'s. What is the probability of observing base A, T, C, and G in the mouse genome?
+
+```{r}
+# Number of each base
+num_A <- 18
+num_T <- 22
+num_C <- 33
+num_G <- 27
+
+
+```
+
+```{r}
+# Total number of base pairs
+total_bp <- 100
+
+# Calculate probabilities
+prob_A <- num_A / total_bp
+prob_T <- num_T / total_bp
+prob_C <- num_C / total_bp
+prob_G <- num_G / total_bp
+
+# Print probabilities
+print(paste("Probability of A: ", prob_A))
+print(paste("Probability of T: ", prob_T))
+print(paste("Probability of C: ", prob_C))
+print(paste("Probability of G: ", prob_G))
+
+# Visualize the result
+barplot(c(prob_A, prob_T, prob_C, prob_G), names.arg = c("A", "T", "C", "G"),
+        xlab = "Base", ylab = "Probability", main = "Probability of Each Base")
 
 ```
 
