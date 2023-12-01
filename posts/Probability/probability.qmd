@@ -132,7 +132,7 @@ ggplot(data.frame(x = data), aes(x = x)) +
 
 Understanding the probability using a real example:
 
-Consider a segment of 100 base pairs on the mouse genome. Among these 100 base pairs, there are 18 A\'s, 22 T\'s, 33 C\'s, and 27 G\'s. What is the probability of observing base A, T, C, and G in the mouse genome?
+Consider a segment of 100 base pairs on the mouse genome. Among these 100 base pairs, there are 18 A's, 22 T's, 33 C's, and 27 G's. What is the probability of observing base A, T, C, and G in the mouse genome?
 
 ```{r}
 # Number of each base
@@ -169,3 +169,16 @@ barplot(c(prob_A, prob_T, prob_C, prob_G), names.arg = c("A", "T", "C", "G"),
 ## Conclusion:
 
 Probability theory and random variables are essential tools. Understanding discrete and continuous probability distributions is crucial in machine learning. They provide a foundation for many machine learning algorithms and statistical tests. They provide a framework to handle uncertainty and formulate learning problems. Understanding these concepts can help you build more effective and robust machine learning models.
+
+```{r}
+
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
