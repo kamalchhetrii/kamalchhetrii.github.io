@@ -2,42 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://kamalchhetrii.github.io/about.html</loc>
-    <lastmod>2023-12-03T14:18:28.216Z</lastmod>
+    <lastmod>2023-12-03T14:24:53.107Z</lastmod>
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/posts/Classification_crop  suitability/crop.html</loc>
-    <lastmod>2023-12-01T18:25:07.947Z</lastmod>
+    <lastmod>2023-12-03T14:24:52.211Z</lastmod>
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/posts/linear regression/lr.html</loc>
-    <lastmod>2023-12-03T14:18:09.251Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/anomaly detection/anomaly.html</loc>
-    <lastmod>2023-12-01T18:25:05.531Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/post-with-code/index.html</loc>
-    <lastmod>2023-12-03T14:19:10.650Z</lastmod>
+    <lastmod>2023-12-03T14:24:50.864Z</lastmod>
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/posts/Probability/probability.html</loc>
-    <lastmod>2023-12-03T14:16:27.669Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/welcome/index.html</loc>
-    <lastmod>2023-12-01T18:25:05.831Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/DBSCAN/index.html</loc>
-    <lastmod>2023-12-01T18:25:07.266Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/index.html</loc>
-    <lastmod>2023-12-03T14:18:30.573Z</lastmod>
+    <lastmod>2023-12-03T14:24:49.531Z</lastmod>
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/posts/Non_Linear regression/non_linear.html</loc>
-    <lastmod>2023-12-03T14:16:30.027Z</lastmod>
+    <lastmod>2023-12-03T14:24:48.853Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/posts/anomaly detection/anomaly.html</loc>
+    <lastmod>2023-12-03T14:24:50.172Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/posts/DBSCAN/index.html</loc>
+    <lastmod>2023-12-03T14:24:51.540Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/index.html</loc>
+    <lastmod>2023-12-03T14:24:52.828Z</lastmod>
   </url>
 </urlset>

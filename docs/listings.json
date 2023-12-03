@@ -3,8 +3,6 @@
     "listing": "/index.html",
     "items": [
       "/posts/DBSCAN/index.html",
-      "/posts/post-with-code/index.html",
-      "/posts/welcome/index.html",
       "/posts/Classification_crop  suitability/crop.html",
       "/posts/Non_Linear regression/non_linear.html",
       "/posts/Probability/probability.html",
