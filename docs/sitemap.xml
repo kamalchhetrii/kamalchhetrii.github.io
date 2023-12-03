@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://kamalchhetrii.github.io/about.html</loc>
-    <lastmod>2023-12-01T18:25:08.877Z</lastmod>
+    <lastmod>2023-12-03T14:18:28.216Z</lastmod>
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/posts/Classification_crop  suitability/crop.html</loc>
@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/posts/linear regression/lr.html</loc>
-    <lastmod>2023-12-01T18:25:06.605Z</lastmod>
+    <lastmod>2023-12-03T14:18:09.251Z</lastmod>
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/posts/anomaly detection/anomaly.html</loc>
@@ -18,11 +18,11 @@
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/posts/post-with-code/index.html</loc>
-    <lastmod>2023-12-01T18:25:04.195Z</lastmod>
+    <lastmod>2023-12-03T14:19:10.650Z</lastmod>
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/posts/Probability/probability.html</loc>
-    <lastmod>2023-12-01T18:25:04.874Z</lastmod>
+    <lastmod>2023-12-03T14:16:27.669Z</lastmod>
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/posts/welcome/index.html</loc>
@@ -34,6 +34,10 @@
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/index.html</loc>
-    <lastmod>2023-12-01T18:25:08.586Z</lastmod>
+    <lastmod>2023-12-03T14:18:30.573Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/posts/Non_Linear regression/non_linear.html</loc>
+    <lastmod>2023-12-03T14:16:30.027Z</lastmod>
   </url>
 </urlset>

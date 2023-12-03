@@ -9,7 +9,7 @@
 <meta name="author" content="Kamal Chhetri">
 <meta name="dcterms.date" content="2023-10-18">
 
-<title>Understanding Linear and Non-Linear Regression</title>
+<title>Understanding Linear Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta name="twitter:title" content="Understanding Linear and Non-Linear Regression">
+<meta name="twitter:title" content="Understanding Linear Regression">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://editor.analyticsvidhya.com/uploads/375512.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Understanding Linear and Non-Linear Regression</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Understanding Linear Regression</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -182,7 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-right">
-      <h1 class="title">Understanding Linear and Non-Linear Regression</h1>
+      <h1 class="title">Understanding Linear Regression</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">R</div>
                 <div class="quarto-category">Code</div>
@@ -560,185 +560,8 @@ charges  0.2990082 0.1983410 0.06799823 1.00000000</code></pre>
 </section>
 <section id="section-1" class="level1">
 <h1></h1>
-</section>
-<section id="b.-non--linear-regression-model" class="level1">
-<h1>B. Non- linear regression model:</h1>
-<p>Non-linear regression is a form of regression analysis in which observational data are modeled by a function which is a non-linear combination of the model parameters and depends on one or more independent variables. The data is fitted by a method of successive approximations. Non-linear regression models are generally assumed to be parametric, where the model is described as a nonlinear equation.</p>
-<p>Non-linear regression is used when the relationship between the independent and dependent variables is not linear, or when the data is not normally distributed, or involves complex relationships. Non-linear regression can capture complex patterns and interactions and provide impressive results in performance, stability, and precision.</p>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">Data:</h3>
-<p>You can access the data <a href="https://www.kaggle.com/datasets/iansurii/china-gdp-dataset">from here</a>. This is the data about the china’s GDP per year which is growing in an exponential rate.</p>
-<div class="cell" data-hash="lr_cache/html/unnamed-chunk-17_84aa5990d3fd3810f2bbf5740a84341c">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/test/Desktop/Machine_learning/mlblog/kamalchhetrii.github.io/china_gdp.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-hash="lr_cache/html/unnamed-chunk-18_30175b6312e3fe1478a3d6826ad998b7">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Year       Value
-1 1960 59184116489
-2 1961 49557050183
-3 1962 46685178504
-4 1963 50097303271
-5 1964 59062254890
-6 1965 69709153115</code></pre>
-</div>
-</div>
-</section>
-<section id="explanatory-visualization" class="level3">
-<h3 class="anchored" data-anchor-id="explanatory-visualization">Explanatory visualization:</h3>
-<div class="cell" data-hash="lr_cache/html/unnamed-chunk-19_8f4bf39aa4e0c6057df4c8b1e5f0c08d">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the data</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>x_data <span class="ot">&lt;-</span> df[[<span class="st">"Year"</span>]]</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>y_data <span class="ot">&lt;-</span> df[[<span class="st">"Value"</span>]]</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x_data, <span class="at">y =</span> y_data)) <span class="sc">+</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>) <span class="sc">+</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"GDP"</span>) <span class="sc">+</span></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="lr_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="building-the-model" class="level3">
-<h3 class="anchored" data-anchor-id="building-the-model">Building the model:</h3>
-<p>The logistic function appears to be a reasonable approximation based on the plot’s first appearance. This is because the logistic function begins slowly, grows more rapidly in the middle, and then declines once more in the conclusion.</p>
-<p><img src="https://hvidberrrg.github.io/deep_learning/activation_functions/assets/sigmoid_function.png" class="img-fluid"></p>
-<p>Figure source: <a href="https://hvidberrrg.github.io/deep_learning/activation_functions/sigmoid_function_and_derivative.html"><strong>The sigmoid function (a.k.a. the logistic function) and its derivative</strong></a></p>
-<div class="cell" data-hash="lr_cache/html/unnamed-chunk-20_5691536afedf2028cb590d0762c57828">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the sigmoid function</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>sigmoid <span class="ot">&lt;-</span> <span class="cf">function</span>(x, Beta_1, Beta_2) {</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>Beta_1<span class="sc">*</span>(x<span class="sc">-</span>Beta_2)))</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the parameters</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>beta_2 <span class="ot">&lt;-</span> <span class="fl">1990.0</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the logistic function</span></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="ot">&lt;-</span> <span class="fu">sigmoid</span>(x_data, beta_1, beta_2)</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe for plotting</span></span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_data, <span class="at">y =</span> Y_pred <span class="sc">*</span> <span class="fl">15000000000000.</span>, <span class="at">y_actual =</span> y_data)</span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the initial prediction against the data points</span></span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
-<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> y_actual), <span class="at">color =</span> <span class="st">"darkgreen"</span>) <span class="sc">+</span></span>
-<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Independent Variable"</span>, <span class="at">y =</span> <span class="st">"Dependent Variable"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="lr_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Now, we can see the sigmoid and the our actual data plotted in here. We have find the best parameter for our data. We can fit our sigmoid function to the data using curve_fit, which applies non-linear least squares. It is necessary to normalize our x and y variable before proceeding to further data analysis.</p>
-<div class="cell" data-hash="lr_cache/html/unnamed-chunk-21_11b20d210fa13dfd32d004e7536d1d13">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize the data</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>xdata <span class="ot">&lt;-</span> x_data <span class="sc">/</span> <span class="fu">max</span>(x_data)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>ydata <span class="ot">&lt;-</span> y_data <span class="sc">/</span> <span class="fu">max</span>(y_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-hash="lr_cache/html/unnamed-chunk-22_6e96a0f6c5dc93263b131384985b8443">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the sigmoid function</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>sigmoid <span class="ot">&lt;-</span> <span class="cf">function</span>(x, Beta_1, Beta_2) {</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>Beta_1<span class="sc">*</span>(x<span class="sc">-</span>Beta_2)))</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial parameter values</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Beta_1 =</span> <span class="dv">1</span>, <span class="at">Beta_2 =</span> <span class="dv">1</span>)</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Non-linear least squares fit</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">nlsLM</span>(ydata <span class="sc">~</span> <span class="fu">sigmoid</span>(xdata, Beta_1, Beta_2), <span class="at">start =</span> start)</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the final parameters</span></span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">coef</span>(fit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     Beta_1      Beta_2 
-690.4517142   0.9972071 </code></pre>
-</div>
-</div>
-</section>
-<section id="lets-visualize-the-result-obtained-from-model" class="level2">
-<h2 class="anchored" data-anchor-id="lets-visualize-the-result-obtained-from-model">Lets visualize the result obtained from model:</h2>
-<div class="cell" data-hash="lr_cache/html/unnamed-chunk-23_7dbcc16c3db51b373c94099014757bd6">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the x values</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1960</span>, <span class="at">to =</span> <span class="dv">2015</span>, <span class="at">length.out =</span> <span class="dv">55</span>)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x <span class="sc">/</span> <span class="fu">max</span>(x)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the y values</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sigmoid</span>(x, <span class="fu">coef</span>(fit)[<span class="dv">1</span>], <span class="fu">coef</span>(fit)[<span class="dv">2</span>])</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe for plotting</span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(xdata, x), <span class="at">y =</span> <span class="fu">c</span>(ydata, y), <span class="at">group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"data"</span>, <span class="st">"fit"</span>), <span class="at">each =</span> <span class="dv">55</span>))</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> group)) <span class="sc">+</span></span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"data"</span>, ]) <span class="sc">+</span></span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> df[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"fit"</span>, ], <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkgreen"</span>, <span class="st">"blue"</span>)) <span class="sc">+</span></span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"GDP"</span>, <span class="at">color =</span> <span class="st">"Legend"</span>) <span class="sc">+</span></span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="lr_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell" data-hash="lr_cache/html/unnamed-chunk-24_e87d1720a6c449316984f5af095757d2">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the sigmoid function</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>sigmoid <span class="ot">&lt;-</span> <span class="cf">function</span>(x, Beta_1, Beta_2) {</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>Beta_1<span class="sc">*</span>(x<span class="sc">-</span>Beta_2)))</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Split data into train/test</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># for reproducibility</span></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>msk <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">nrow</span>(df)) <span class="sc">&lt;</span> <span class="fl">0.8</span></span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>train_x <span class="ot">&lt;-</span> xdata[msk]</span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>test_x <span class="ot">&lt;-</span> xdata[<span class="sc">!</span>msk]</span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>train_y <span class="ot">&lt;-</span> ydata[msk]</span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>test_y <span class="ot">&lt;-</span> ydata[<span class="sc">!</span>msk]</span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial parameter values</span></span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Beta_1 =</span> <span class="dv">1</span>, <span class="at">Beta_2 =</span> <span class="dv">1</span>)</span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the model using train set</span></span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">nlsLM</span>(train_y <span class="sc">~</span> <span class="fu">sigmoid</span>(train_x, Beta_1, Beta_2), <span class="at">start =</span> start)</span>
-<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the final parameters</span></span>
-<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">coef</span>(fit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     Beta_1      Beta_2 
-696.7862319   0.9971532 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict using test set</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="fu">list</span>(<span class="at">x =</span> test_x))</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y_hat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 5.594781e-08 7.907452e-08 1.117609e-07 3.155369e-07 4.459679e-07
- [6] 8.908616e-07 1.259109e-06 2.515184e-06 3.554862e-06 5.024300e-06
-[11] 7.101141e-06 1.418508e-05 2.004854e-05 2.833562e-05 7.999641e-05
-[16] 1.130602e-04 2.258226e-04 3.191394e-04 4.510000e-04 6.373074e-04
-[21] 9.005089e-04 1.272272e-03 3.583718e-03 5.057599e-03 7.133306e-03
-[26] 1.005230e-02 1.414875e-02 1.988103e-02 2.787006e-02 3.894186e-02
-[31] 5.416702e-02 7.488098e-02 1.026564e-01 1.391845e-01 1.860159e-01
-[36] 2.441358e-01 3.134227e-01 3.921713e-01 4.769605e-01 6.455921e-01
-[41] 7.202477e-01 7.844284e-01 8.372127e-01 8.790649e-01</code></pre>
-</div>
-</div>
 
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
