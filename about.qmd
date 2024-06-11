@@ -1,6 +1,6 @@
 ---
 title: "About"
-image: profile.jpg
+image: img.jpg
 about:
   template: jolla
   links:
@@ -15,8 +15,14 @@ about:
       href: https://github.com/kamalchhetrii/kamalchhetrii.github.io
 ---
 
-Hello! I'm Kamal Chhetri, a PhD student in Plant Pathology at Virginia Tech University. My journey in the field of science began with a Master's degree in Biotechnology from West Virginia State University.
+Hi there !
 
-Originally from Nepal, I've always been fascinated by the intricate workings of plant life and the ecosystem. This fascination led me to pursue a career in Plant Pathology, where I'm currently delving into the complex interactions between plants and their environment.
+[**About me:**]{.underline}
 
-Through this blog, I aim to share machine learning and its application to the agriculture field. Enjoy my blog
+I am Kamal Chhetri and I am from Nepal. I completed my master of science at West Virginia State University and am doing my PhD in plant pathology at Virginia Tech University. I am interested in host-pathogen interaction, plant breeding, genomics, modeling, and the application of machine learning in these areas.
+
+[**My project:**]{.underline}
+
+I did my MS in Biotechnology (Plant Breeding) and am now doing my PhD at Virginia Tech University. I am working on corn hybrid susceptibility, the airborne fungal pathogen community, corn leaf endophytes, and fungicide decision-support system tools. I am learning and trying to use machine learning skills for prediction and early decision-making in fungicide decision-support system tools to benefit farmers and make easy decisions about dealing with pathogens.
+
+I aim to share machine learning and its application to the agriculture field. I am also in the learning phase, so your suggestions and feedback will help if you want to reach out to me.
