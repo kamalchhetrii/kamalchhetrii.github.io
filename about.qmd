@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "About Me"
 image: img.jpg
 about:
   template: jolla
@@ -14,8 +14,6 @@ about:
       text: Github
       href: https://github.com/kamalchhetrii/kamalchhetrii.github.io
 ---
-
-[**About me:**]{.underline}
 
 Hi there !
 
