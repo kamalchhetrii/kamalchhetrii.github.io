@@ -1,0 +1,296 @@
+---
+title: "Understanding Non-Linear Regression"
+author: "Kamal Chhetri"
+date: "2023-10-18"
+categories:
+  - R
+  - Code
+  - Analysis
+---
+
+# A. Non Linear regression:
+
+# Introduction:
+
+Non-linear regression is a form of polynomial regression that models a non-linear relationship between dependent and independent variables. It\'s used when data shows a curvy trend, and linear regression wouldn\'t yield accurate results due to its assumption of linearity.
+
+This method can accommodate various types of regression, such as quadratic, cubic, and so on, to fit the dataset.
+
+Unlike simple linear regression, which uses a straight line to relate two variables (X and Y), non-linear regression captures more complex, curved relationships between these variables.
+
+The main goal of non-linear regression is to minimize the sum of squared differences between the observed Y values and the predictions made by the non-linear model. This sum of squares serves as a measure of how well the model fits the data points. It\'s calculated by finding the differences between the fitted non-linear function and each data point\'s Y value, squaring these differences, and then summing them up. A smaller sum of squared differences indicates a better fit of the model to the data.
+
+Non-linear regression employs various mathematical functions such as logarithmic, trigonometric, exponential, power functions, Lorenz curves, Gaussian functions, and other fitting techniques to capture the underlying relationships in the data. This makes it a versatile tool for modeling complex relationships in data.
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Michaelis-Menten_saturation_curve_of_an_enzyme_reaction.svg/300px-Michaelis-Menten_saturation_curve_of_an_enzyme_reaction.svg.png)
+
+Figure: Non linear regression (Fig credit: [Wikipedia](https://en.wikipedia.org/wiki/Nonlinear_regression))
+
+## Working mechanism:
+
+Non-linear regression models the relationship between a dependent variable and one or more independent variables using a non-linear function. This function is typically a polynomial, exponential, logarithmic, or other non-linear function.
+
+The goal of non-linear regression is to find the parameters that minimize the difference between the predicted and actual output values. This is often done using iterative optimization algorithms, such as gradient descent or Newton\'s method.
+
+## Lets understand it by example from each:
+
+1.  **Polynomial Regression (Quadratic relationship)**
+
+```{r}
+library(ggplot2)
+
+
+# Generate some sample data
+set.seed(123)
+x <- seq(-10, 10, by = 0.1)
+y <- x^2 + rnorm(length(x), sd = 10)
+
+# Fit a non-linear regression model
+model <- nls(y ~ a * x^2, start = list(a = 1))
+
+# Print the model summary
+print(summary(model))
+
+# Plot the data and the fitted model
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+  geom_point() +
+  stat_function(fun = function(x) coef(model) * x^2, color = "red") +
+  labs(x = "Independent Variable", y = "Dependent Variable", title = "Quadratic Regression") +
+  theme_minimal()
+
+
+```
+
+### **Exponential Regression**
+
+```{r}
+# Generate some sample data
+set.seed(123)
+x <- seq(0, 10, by = 0.1)
+y <- exp(x) + rnorm(length(x), sd = 10)
+
+# Fit a non-linear regression model
+model <- nls(y ~ a * exp(b * x), start = list(a = 1, b = 1))
+
+# Print the model summary
+print(summary(model))
+
+# Plot the data and the fitted model
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+  geom_point() +
+  stat_function(fun = function(x) coef(model)[1] * exp(coef(model)[2] * x), color = "red") +
+  labs(x = "Independent Variable", y = "Dependent Variable", title = "Exponential Regression") +
+  theme_minimal()
+
+
+
+```
+
+### **Logarithmic Regression**
+
+```{r}
+# Generate some sample data
+set.seed(123)
+x <- seq(1, 10, by = 0.1)
+y <- log(x) + rnorm(length(x), sd = 0.1)
+
+# Fit a non-linear regression model
+model <- nls(y ~ a * log(b * x), start = list(a = 1, b = 1))
+
+# Print the model summary
+print(summary(model))
+
+# Plot the data and the fitted model
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+  geom_point() +
+  stat_function(fun = function(x) coef(model)[1] * log(coef(model)[2] * x), color = "red") +
+  labs(x = "Independent Variable", y = "Dependent Variable", title = "Logarithmic Regression") +
+  theme_minimal()
+
+```
+
+# Lets understand Non- linear regression model by using real data:
+
+Non-linear regression is used when the relationship between the independent and dependent variables is not linear, or when the data is not normally distributed, or involves complex relationships. Non-linear regression can capture complex patterns and interactions and provide impressive results in performance, stability, and precision.
+
+### Data:
+
+You can access the data [from here](https://www.kaggle.com/datasets/iansurii/china-gdp-dataset). This is the data about the china's GDP per year which is growing in an exponential rate.
+
+```{r}
+
+# Load the package
+library(minpack.lm)
+
+df <- read.csv("/Users/test/Desktop/Kamal/Virginia_Tech_PhD/First semester/Machine_learning/mlblog/kamalchhetrii.github.io/china_gdp.csv")
+```
+
+```{r}
+head(df)
+```
+
+### Explanatory visualization:
+
+```{r}
+# Define the data
+x_data <- df[["Year"]]
+y_data <- df[["Value"]]
+
+# Create the plot
+ggplot(df, aes(x = x_data, y = y_data)) +
+  geom_point(color = "darkgreen") +
+  labs(x = "Year", y = "GDP") +
+  theme_minimal()
+
+```
+
+### Building the model:
+
+The logistic function appears to be a reasonable approximation based on the plot's first appearance. This is because the logistic function begins slowly, grows more rapidly in the middle, and then declines once more in the conclusion.
+
+![](https://raw.githubusercontent.com/Codecademy/docs/main/media/sigmoid-function.png){width="435"}
+
+Figure source: [**Sigmoid Activation Function**](https://www.codecademy.com/resources/docs/ai/neural-networks/sigmoid-activation-function)
+
+```{r}
+# Define the sigmoid function
+sigmoid <- function(x, Beta_1, Beta_2) {
+  y <- 1 / (1 + exp(-Beta_1*(x-Beta_2)))
+  return(y)
+}
+
+# Define the parameters
+beta_1 <- 0.10
+beta_2 <- 1990.0
+
+# Apply the logistic function
+Y_pred <- sigmoid(x_data, beta_1, beta_2)
+
+# Load necessary library
+library(ggplot2)
+
+# Create a dataframe for plotting
+df <- data.frame(x = x_data, y = Y_pred * 15000000000000., y_actual = y_data)
+
+# Plot the initial prediction against the data points
+ggplot(df, aes(x = x)) +
+  geom_line(aes(y = y), color = "red") +
+  geom_point(aes(y = y_actual), color = "darkgreen") +
+  labs(x = "Independent Variable", y = "Dependent Variable")
+
+```
+
+Now, we can see the sigmoid and the our actual data plotted in here. We have find the best parameter for our data. We can fit our sigmoid function to the data using curve_fit, which applies non-linear least squares. It is necessary to normalize our x and y variable before proceeding to further data analysis.
+
+```{r}
+# Normalize the data
+xdata <- x_data / max(x_data)
+ydata <- y_data / max(y_data)
+
+```
+
+```{r}
+# Define the sigmoid function
+sigmoid <- function(x, Beta_1, Beta_2) {
+  y <- 1 / (1 + exp(-Beta_1*(x-Beta_2)))
+  return(y)
+}
+
+# Initial parameter values
+start <- c(Beta_1 = 1, Beta_2 = 1)
+
+# Non-linear least squares fit
+fit <- nlsLM(ydata ~ sigmoid(xdata, Beta_1, Beta_2), start = start)
+
+# Print the final parameters
+print(coef(fit))
+```
+
+## Lets visualize the result obtained from model:
+
+```{r}
+# Define the x values
+x <- seq(from = 1960, to = 2015, length.out = 55)
+x <- x / max(x)
+
+# Calculate the y values
+y <- sigmoid(x, coef(fit)[1], coef(fit)[2])
+
+# Create a dataframe for plotting
+df <- data.frame(x = c(xdata, x), y = c(ydata, y), group = rep(c("data", "fit"), each = 55))
+
+# Load necessary library
+library(ggplot2)
+
+# Create the plot
+ggplot(df, aes(x = x, y = y, color = group)) +
+  geom_point(data = df[df$group == "data", ]) +
+  geom_line(data = df[df$group == "fit", ], size = 1.5) +
+  scale_color_manual(values = c("darkgreen", "blue")) +
+  labs(x = "Year", y = "GDP", color = "Legend") +
+  theme_minimal()
+
+```
+
+```{r}
+
+# Define the sigmoid function
+sigmoid <- function(x, Beta_1, Beta_2) {
+  y <- 1 / (1 + exp(-Beta_1*(x-Beta_2)))
+  return(y)
+}
+
+# Split data into train/test
+set.seed(0) # for reproducibility
+msk <- runif(nrow(df)) < 0.8
+train_x <- xdata[msk]
+test_x <- xdata[!msk]
+train_y <- ydata[msk]
+test_y <- ydata[!msk]
+
+# Initial parameter values
+start <- c(Beta_1 = 1, Beta_2 = 1)
+
+# Build the model using train set
+fit <- nlsLM(train_y ~ sigmoid(train_x, Beta_1, Beta_2), start = start)
+
+# Print the final parameters
+print(coef(fit))
+
+# Predict using test set
+y_hat <- predict(fit, list(x = test_x))
+
+print(y_hat)
+
+
+```
+
+### Evaluate the model we developed earlier:
+
+```{r}
+
+# Observed values
+y_obs <- ydata
+
+# Fitted/predicted values
+y_pred <- sigmoid(xdata, coef(fit)[1], coef(fit)[2])
+
+# Calculate RMSE
+rmse <- sqrt(mean((y_obs - y_pred)^2))
+
+# R-squared
+SS_res <- sum((y_obs - y_pred)^2) 
+SS_tot <- sum((y_obs - mean(y_obs))^2)
+rsq <- 1 - SS_res/SS_tot
+
+# Print metrics
+cat("RMSE:", rmse, "\n")
+cat("R-squared:", rsq)
+
+
+
+```
+
+```{r}
+
+```

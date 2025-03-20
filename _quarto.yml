@@ -47,10 +47,10 @@ website:
           - text: "Metagenomics & Bioinformatics"
             file: research/metagenomics.qmd
       - section: "Blog"
-        file: blog/blog.qmd
+        file: posts/index.qmd
         contents:
           - text: "Latest Posts"
-            file: blog/posts.qmd
+            file: posts/index.qmd
 
 format:
   html:
