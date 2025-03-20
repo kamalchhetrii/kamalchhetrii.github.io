@@ -1,0 +1,15 @@
+---
+title: "Research"
+format: html
+---
+
+
+Welcome to my research section. Here, you can explore my work in plant pathology, including studies on fungicide efficacy and metagenomics. 
+
+
+Click on the topics below for more details:
+
+- [Fungicide Efficacy](fungicide.qmd)
+- [Metagenomics & Bioinformatics](metagenomics.qmd)
+
+Stay tune for more update !!!

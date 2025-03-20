@@ -189,6 +189,27 @@
     "text": "Lets visualize the result obtained from model:\n\n# Define the x values\nx &lt;- seq(from = 1960, to = 2015, length.out = 55)\nx &lt;- x / max(x)\n\n# Calculate the y values\ny &lt;- sigmoid(x, coef(fit)[1], coef(fit)[2])\n\n# Create a dataframe for plotting\ndf &lt;- data.frame(x = c(xdata, x), y = c(ydata, y), group = rep(c(\"data\", \"fit\"), each = 55))\n\n# Load necessary library\nlibrary(ggplot2)\n\n# Create the plot\nggplot(df, aes(x = x, y = y, color = group)) +\n  geom_point(data = df[df$group == \"data\", ]) +\n  geom_line(data = df[df$group == \"fit\", ], size = 1.5) +\n  scale_color_manual(values = c(\"darkgreen\", \"blue\")) +\n  labs(x = \"Year\", y = \"GDP\", color = \"Legend\") +\n  theme_minimal()\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n\n\n\n\n# Define the sigmoid function\nsigmoid &lt;- function(x, Beta_1, Beta_2) {\n  y &lt;- 1 / (1 + exp(-Beta_1*(x-Beta_2)))\n  return(y)\n}\n\n# Split data into train/test\nset.seed(0) # for reproducibility\nmsk &lt;- runif(nrow(df)) &lt; 0.8\ntrain_x &lt;- xdata[msk]\ntest_x &lt;- xdata[!msk]\ntrain_y &lt;- ydata[msk]\ntest_y &lt;- ydata[!msk]\n\n# Initial parameter values\nstart &lt;- c(Beta_1 = 1, Beta_2 = 1)\n\n# Build the model using train set\nfit &lt;- nlsLM(train_y ~ sigmoid(train_x, Beta_1, Beta_2), start = start)\n\n# Print the final parameters\nprint(coef(fit))\n\n     Beta_1      Beta_2 \n698.7956319   0.9972452 \n\n# Predict using test set\ny_hat &lt;- predict(fit, list(x = test_x))\n\nprint(y_hat)\n\n [1] 7.073461e-08 1.000734e-07 1.415811e-07 2.833863e-07 8.024885e-07\n [6] 1.135339e-06 1.606245e-06 2.272471e-06 3.215028e-06 4.548528e-06\n[11] 6.435122e-06 9.104212e-06 1.288034e-05 1.822266e-05 3.647350e-05\n[16] 5.160093e-05 1.032782e-04 1.461089e-04 2.066984e-04 2.924063e-04\n[21] 4.136383e-04 5.851038e-04 8.275882e-04 1.655114e-03 2.340004e-03\n[26] 3.307365e-03 4.672760e-03 6.598106e-03 1.311995e-02 1.846129e-02\n[31] 2.592005e-02 3.628093e-02 5.056831e-02 9.633731e-02 1.310586e-01\n[36] 1.758585e-01 2.318858e-01 2.992809e-01 3.766586e-01 4.608835e-01\n[41] 5.474029e-01 6.311496e-01 7.076754e-01 8.289294e-01 8.726981e-01\n\n\n\nEvaluate the model we developed earlier:\n\n# Observed values\ny_obs &lt;- ydata\n\n# Fitted/predicted values\ny_pred &lt;- sigmoid(xdata, coef(fit)[1], coef(fit)[2])\n\n# Calculate RMSE\nrmse &lt;- sqrt(mean((y_obs - y_pred)^2))\n\n# R-squared\nSS_res &lt;- sum((y_obs - y_pred)^2) \nSS_tot &lt;- sum((y_obs - mean(y_obs))^2)\nrsq &lt;- 1 - SS_res/SS_tot\n\n# Print metrics\ncat(\"RMSE:\", rmse, \"\\n\")\n\nRMSE: 0.03953521 \n\ncat(\"R-squared:\", rsq)\n\nR-squared: 0.9726905"
   },
   {
+    "objectID": "research/metagenomics.html",
+    "href": "research/metagenomics.html",
+    "title": "Metagenomics & Bioinformatics",
+    "section": "",
+    "text": "This research investigates the microbial communities associated with corn plants using metagenomic sequencing and bioinformatics analysis. Key focus areas include:\n\nUtilizing metagenomic sequencing methods to profile microbial diversity.\nAnalyzing sequencing data with advanced bioinformatics pipelines.\nInterpreting the implications of microbial community dynamics on plant health.\n\nFor more on metagenomics techniques, check out the resources provided by the National Center for Biotechnology Information (NCBI) :contentReferenceoaicite:1.\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "research/index.html",
+    "href": "research/index.html",
+    "title": "Research",
+    "section": "",
+    "text": "Welcome to my research section. Here, you can explore my work in plant pathology, including studies on fungicide efficacy and metagenomics.\nClick on the topics below for more details:\n\nFungicide Efficacy\nMetagenomics & Bioinformatics\n\nStay tune for more update !!!\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "research/fungicide.html",
+    "href": "research/fungicide.html",
+    "title": "Fungicide Efficacy",
+    "section": "",
+    "text": "Fungicide Efficacy\nUnderstanding how fungicides work—and their limitations—is key to effective plant disease management. My research in fungicide efficacy focuses on the following areas:\n\nFormulation and Dosage:\nEvaluating various fungicide formulations and determining optimal dosages to suppress corn pathogens while minimizing environmental impacts.\nTiming and Application Strategies:\nStudying the best timing for application and comparing different delivery methods (e.g., foliar sprays versus soil treatments) to maximize disease control.\nResistance Monitoring:\nInvestigating the development of fungicide resistance in fungal populations. This includes tracking changes in sensitivity and identifying genetic markers associated with resistance.\nImpact on Crop Health:\nAssessing how fungicide treatments affect overall plant health and yield. This research also looks at secondary effects on beneficial microorganisms in the crop ecosystem.\n\nMy approach combines field trials with controlled laboratory experiments to provide robust, actionable insights. These results help in the development of decision-support tools for growers and agronomists, contributing to more sustainable and effective disease management practices.\nFor further reading on fungicide resistance management, you might check the Fungicide Resistance Action Committee (FRAC) resource.\nI am in the process of making it. Stay tune for more updates…\n\n\n\n\n Back to top"
+  },
+  {
     "objectID": "posts/Probability/index.html",
     "href": "posts/Probability/index.html",
     "title": "Probability Theory and Random Variables in Machine Learning",
@@ -326,6 +347,6 @@
     "href": "index.html",
     "title": "Welcome to My Research Portfolio",
     "section": "",
-    "text": "Banner\n\n\n\nAbout Me\n👨‍🔬 Kamal Chhetri | PhD Student | Plant Pathology | Virginia Tech University\nWelcome to my GitHub site! I specialize in Machine learning and its application in plant pathology, fungicide efficacy testing, metagenomics, and pathogen detection in corn disease research. My work focuses on bioinformatics and statistical analysis to develop decision-support tools for agricultural disease management.\n🔍 Explore:\n📂 My Research | ✍️ My Blog | 📧 Contact Me\n\n\n\n\n Back to top"
+    "text": "Banner\n\n\n\nAbout Me\n👨‍🔬 Kamal Chhetri\nPhD Student | Plant Pathology | Virginia Tech University\nWelcome to my GitHub site! I specialize in machine learning and its applications in plant pathology—including fungicide efficacy testing, metagenomics, and pathogen detection in corn disease research. My work focuses on using bioinformatics and statistical analysis to develop decision-support tools for effective agricultural disease management.\n🔍 Explore: - 📂 My Research - ✍️ My Blog - 📧 Contact Me\n\n\n\n\n Back to top"
   }
 ]

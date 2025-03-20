@@ -1,0 +1,26 @@
+---
+title: "Fungicide Efficacy"
+format: html
+---
+
+# Fungicide Efficacy
+
+Understanding how fungicides work—and their limitations—is key to effective plant disease management. My research in fungicide efficacy focuses on the following areas:
+
+- **Formulation and Dosage:**  
+  Evaluating various fungicide formulations and determining optimal dosages to suppress corn pathogens while minimizing environmental impacts.
+
+- **Timing and Application Strategies:**  
+  Studying the best timing for application and comparing different delivery methods (e.g., foliar sprays versus soil treatments) to maximize disease control.
+
+- **Resistance Monitoring:**  
+  Investigating the development of fungicide resistance in fungal populations. This includes tracking changes in sensitivity and identifying genetic markers associated with resistance.
+
+- **Impact on Crop Health:**  
+  Assessing how fungicide treatments affect overall plant health and yield. This research also looks at secondary effects on beneficial microorganisms in the crop ecosystem.
+
+My approach combines field trials with controlled laboratory experiments to provide robust, actionable insights. These results help in the development of decision-support tools for growers and agronomists, contributing to more sustainable and effective disease management practices.
+
+For further reading on fungicide resistance management, you might check the [Fungicide Resistance Action Committee (FRAC)](https://www.frac.info/) resource.
+
+I am in the process of making it. Stay tune for more updates...

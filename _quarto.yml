@@ -41,6 +41,7 @@ website:
       - text: "About Me"
         file: about.qmd
       - section: "Research"
+        file: research/index.qmd
         contents:
           - text: "Fungicide Efficacy"
             file: research/fungicide.qmd
