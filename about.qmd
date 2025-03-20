@@ -15,14 +15,36 @@ about:
       href: https://github.com/kamalchhetrii/kamalchhetrii.github.io
 ---
 
-Hi there !
-
 [**About me:**]{.underline}
 
-I am Kamal Chhetri and I am from Nepal. I completed my master of science at West Virginia State University and am doing my PhD in plant pathology at Virginia Tech University. I am interested in host-pathogen interaction, plant breeding, genomics, modeling, and the application of machine learning in these areas.
+Hi there !
 
-[**My project:**]{.underline}
+🌱 **Research Interests:**\
 
-I did my MS in Biotechnology (Plant Breeding) and am now doing my PhD at Virginia Tech University. I am working on corn hybrid susceptibility, the airborne fungal pathogen community, corn leaf endophytes, and fungicide decision-support system tools. I am learning and trying to use machine learning skills for prediction and early decision-making in fungicide decision-support system tools to benefit farmers and make easy decisions about dealing with pathogens.
+I am a second-year PhD student in the **Plant Pathology, Physiology, and Weed Science (PPWS) Department** at \[Your University\]. My research focuses on:\
 
-I aim to share machine learning and its application to the agriculture field. I am also in the learning phase, so your suggestions and feedback will help if you want to reach out to me.
+🔬 Evaluating **fungicide efficacies** for corn disease management\
+
+🦠 Studying **corn leaf endophytes** and their microbial community responses to foliar fungicides\
+
+🌾 Unveiling **airborne fungal pathogen communities** in corn fields\
+
+📊 Building **fungicide application decision-support tools** to improve **Tar Spot disease** management
+
+🧬 I work extensively with **metagenomic sequencing**, **bioinformatics pipelines**, and **statistical designs** to analyze microbial communities and their interactions with fungicides.
+
+### 🛠 Skills & Tools:
+
+💻 **Bioinformatics:** Kaiju, KBase, MinION (Nanopore) sequencing, SLURM HPC\
+
+📊 **Statistical Analysis:** R, Python, Experimental Designs (Full Factorial, Fractional Factorial, Incomplete Blocks)\
+
+🌍 **Genomic Analysis:** Taxonomic profiling ( I am learning it), Metagenomics (without assembly), Reference Genome Alignment
+
+### 🏆 Conferences & Presentations:
+
+-   **Oral Presentation**: American Society for Horticultural Science (ASHS)
+
+-   **Poster Presentation**: Plant and Animal Genome Conference (PAG)
+
+-   **Poster Presentation**: American Phytopathological Society (APS)
