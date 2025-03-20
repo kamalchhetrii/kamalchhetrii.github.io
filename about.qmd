@@ -37,7 +37,7 @@ I am a second-year PhD student in the **Plant Pathology, Physiology, and Weed Sc
 
 📊 **Statistical Analysis:** R, Python, Experimental Designs (Full Factorial, Fractional Factorial, Incomplete Blocks)\
 
-🌍 **Genomic Analysis:** Taxonomic profiling ( I am learning it), Metagenomics (without assembly), Reference Genome Alignment
+🌍 **Genomic Analysis:** Taxonomic profiling (I am learning it), Metagenomics (without assembly), Reference Genome Alignment
 
 ### 🏆 Conferences & Presentations:
 

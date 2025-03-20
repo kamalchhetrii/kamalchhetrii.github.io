@@ -7,36 +7,51 @@ website:
   reader-mode: true
   page-navigation: true
   favicon: media/dec.png
+
   navbar:
-    title: Kamal Chhetri
+    title: "Kamal Chhetri"
     logo: media/dec.png
-    logo-alt: ""
+    logo-alt: "Kamal Chhetri"
     right:
-      - icon: house
+      - text: "Home"
+        icon: house
         href: https://kamalchhetrii.github.io
-      - icon: pencil
+      - text: "Blog"
+        icon: pencil
         href: https://kamalchhetrii.github.io/blog
-      - icon: github
+      - text: "GitHub"
+        icon: github
         href: https://github.com/kamalchhetrii/kamalchhetrii.github.io
-      - icon: linkedin
+      - text: "LinkedIn"
+        icon: linkedin
         href: https://www.linkedin.com/in/kamal-chhetri-555b04125/
-      - icon: envelope
+      - text: "Email"
+        icon: envelope
         href: mailto:kchhetri@vt.edu
+
   twitter-card: true
   site-url: https://kamalchhetrii.github.io
+
   sidebar:
     search: true
     sort: order
     style: floating
-    title: none
+    title: "Navigation"
     contents:
-      - text: About
+      - text: "About Me"
         file: about.qmd
-      - section: Blog
+      - section: "Research"
+        contents:
+          - text: "Fungicide Efficacy"
+            file: research/fungicide.qmd
+          - text: "Metagenomics & Bioinformatics"
+            file: research/metagenomics.qmd
+      - section: "Blog"
         file: blog/blog.qmd
         contents:
-        
-    
+          - text: "Latest Posts"
+            file: blog/posts.qmd
+
 format:
   html:
     page-layout: full
@@ -45,9 +60,10 @@ format:
       dark: [darkly, dark.scss]
     css: styles.css
     grid:
-      sidebar-width: 200px
-      body-width: 1800px
-      margin-width: 200px
+      sidebar-width: 220px
+      body-width: 1600px
+      margin-width: 250px
+
 execute:
   freeze: true
   cache: true
