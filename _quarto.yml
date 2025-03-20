@@ -16,9 +16,12 @@ website:
       - text: "Home"
         icon: house
         href: https://kamalchhetrii.github.io
+      - text: "Research"
+        icon: search
+        href: research/index.qmd
       - text: "Blog"
         icon: pencil
-        href: https://kamalchhetrii.github.io/blog
+        href: posts/index.qmd
       - text: "GitHub"
         icon: github
         href: https://github.com/kamalchhetrii/kamalchhetrii.github.io
