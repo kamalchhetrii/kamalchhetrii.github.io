@@ -1,51 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://kamalchhetrii.github.io/about.html</loc>
-    <lastmod>2025-03-20T15:31:56.519Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/Classification_crop  suitability/index.html</loc>
-    <lastmod>2025-03-20T15:31:55.881Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/linear regression/index.html</loc>
-    <lastmod>2025-03-20T15:31:54.400Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/anomaly detection/index.html</loc>
-    <lastmod>2025-03-20T15:31:53.373Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/Non_Linear regression/index.html</loc>
-    <lastmod>2025-03-20T15:31:51.936Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/research/metagenomics.html</loc>
-    <lastmod>2025-03-20T15:31:50.691Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/research/index.html</loc>
-    <lastmod>2025-03-20T15:31:50.374Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/research/fungicide.html</loc>
-    <lastmod>2025-03-20T15:31:51.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/Probability/index.html</loc>
-    <lastmod>2025-03-20T15:31:52.663Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/index.html</loc>
-    <lastmod>2025-03-20T15:31:53.671Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kamalchhetrii.github.io/posts/DBSCAN/index.html</loc>
-    <lastmod>2025-03-20T15:31:55.160Z</lastmod>
+    <loc>https://kamalchhetrii.github.io/Teaching/index.html</loc>
+    <lastmod>2025-03-24T16:28:38.036Z</lastmod>
   </url>
   <url>
     <loc>https://kamalchhetrii.github.io/index.html</loc>
-    <lastmod>2025-03-20T15:31:56.185Z</lastmod>
+    <lastmod>2025-03-24T16:28:37.405Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/Publication/index.html</loc>
+    <lastmod>2025-03-24T16:28:36.806Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/posts/DBSCAN/index.html</loc>
+    <lastmod>2025-03-24T16:28:35.791Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/posts/index.html</loc>
+    <lastmod>2025-03-24T16:28:34.354Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/posts/Probability/index.html</loc>
+    <lastmod>2025-03-24T16:28:33.416Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/research/fungicide.html</loc>
+    <lastmod>2025-03-24T16:28:31.981Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/research/index.html</loc>
+    <lastmod>2025-03-24T16:28:31.316Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/research/metagenomics.html</loc>
+    <lastmod>2025-03-24T16:28:31.643Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/posts/Non_Linear regression/index.html</loc>
+    <lastmod>2025-03-24T16:28:32.735Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/posts/anomaly detection/index.html</loc>
+    <lastmod>2025-03-24T16:28:34.068Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/posts/linear regression/index.html</loc>
+    <lastmod>2025-03-24T16:28:35.083Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/posts/Classification_crop  suitability/index.html</loc>
+    <lastmod>2025-03-24T16:28:36.503Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/Talks/index.html</loc>
+    <lastmod>2025-03-24T16:28:37.099Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kamalchhetrii.github.io/about.html</loc>
+    <lastmod>2025-03-24T16:28:37.717Z</lastmod>
   </url>
 </urlset>

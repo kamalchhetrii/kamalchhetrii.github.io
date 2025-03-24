@@ -19,6 +19,15 @@ website:
       - text: "Research"
         icon: search
         href: research/index.qmd
+      - text: "Publication"
+        icon: book
+        href: Publication/index.qmd
+      - text: "Talks"
+        icon: mic
+        href: Talks/index.qmd
+      - text: "Teaching"
+        icon: mic
+        href: Teaching/index.qmd
       - text: "Blog"
         icon: pencil
         href: posts/index.qmd
