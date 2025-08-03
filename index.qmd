@@ -3,15 +3,13 @@ title: "Welcome to My Research Portfolio"
 format: html
 ---
 
-![Banner](media/banner.png)
-
 # About Me
-👨‍🔬 **Kamal Chhetri**  
-PhD Student | Plant Pathology | Virginia Tech University
 
-Welcome to my GitHub site! I specialize in **machine learning** and its applications in plant pathology—including fungicide efficacy testing, metagenomics, and pathogen detection in corn disease research. My work focuses on using **bioinformatics** and **statistical analysis** to develop decision-support tools for effective agricultural disease management.
+👨‍🔬 **Kamal Chhetri**\
+PhD Student \| Plant Pathology \| Virginia Tech University
 
-🔍 **Explore:**
-- 📂 [My Research](research/index.qmd)
-- ✍️ [My Blog](posts/index.qmd)
-- 📧 [Contact Me](mailto:kchhetri@vt.edu)
+Welcome to my GitHub site !
+
+I am originally from Nepal and am pursuing my PhD in plant pathology at Virginia Tech University. I am conducting research on fungicide evaluations, early pathogen detection, metagenomics, and decision support system tools. My work focuses on using **bioinformatics** and **statistical analysis** to develop decision-support tools for effective agricultural disease management.
+
+🔍 **Explore:** - 📂 [My Research](research/index.qmd) - ✍️ [My Blog](posts/index.qmd) - 📧 [Contact Me](mailto:kchhetri@vt.edu)
