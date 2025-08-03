@@ -11,7 +11,7 @@ website:
   navbar:
     title: "Kamal Chhetri"
     logo: media/dec.png
-    logo-alt: "" 
+    logo-alt: "Kamal Chhetri" 
     right:
       - text: "Home"
         icon: house
@@ -39,7 +39,7 @@ website:
         href: https://www.linkedin.com/in/kamal-chhetri-555b04125/
       - text: "Email"
         icon: envelope
-        href: mailto:kchhetri@vt.edu
+        href: mailto:kamalchhetri999@gmail.com
 
   twitter-card: true
   site-url: https://kamalchhetrii.github.io
@@ -59,6 +59,8 @@ website:
             file: research/fungicide.qmd
           - text: "Metagenomics & Bioinformatics"
             file: research/metagenomics.qmd
+      - section: "Publication"
+        file: talks/index.qmd
       - section: "Blog"
         file: posts/index.qmd
         contents:
