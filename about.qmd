@@ -15,11 +15,7 @@ about:
       href: https://github.com/kamalchhetrii/kamalchhetrii.github.io
 ---
 
-title: "About Me" date: "2025-07-18" image: "img.jpg" image_alt: "Headshot of Kamal Chhetri" excerpt: "Second-year PhD student at Virginia Tech specializing in bioinformatics-driven corn disease management." categories: - About - Plant Pathology - Bioinformatics tags: - Tar Spot - Metagenomics - Fungicide Efficacy - Corn Disease
-
-**introduction**:
-
-My work bridges field experimentation and high-throughput sequencing to deliver actionable insights for corn disease management.
+**introduction**: My work bridges field experimentation and high-throughput sequencing to deliver actionable insights for corn disease management.
 
 **🌱 Research_interests:**
 
