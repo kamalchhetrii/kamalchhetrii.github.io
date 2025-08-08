@@ -17,11 +17,25 @@ about:
 
 title: "About Me" date: "2025-07-18" image: "img.jpg" image_alt: "Headshot of Kamal Chhetri" excerpt: "Second-year PhD student at Virginia Tech specializing in bioinformatics-driven corn disease management." categories: - About - Plant Pathology - Bioinformatics tags: - Tar Spot - Metagenomics - Fungicide Efficacy - Corn Disease
 
-**introduction**: \| I am a second-year PhD student in the Plant Pathology, Physiology, and Weed Science Department at Virginia Tech. My work bridges field experimentation and high-throughput sequencing to deliver actionable insights for corn disease management.
+**introduction**:
 
-**🌱Research_interests:** - Evaluating fungicide efficacies to optimize integrated disease management for corn - Profiling corn leaf endophyte communities and tracking their response to foliar treatments - Characterizing airborne fungal pathogens in commercial corn fields - Developing decision-support tools for Tar Spot disease forecasting and management - Implementing metagenomic sequencing and custom bioinformatics pipelines for microbial community analysis
+My work bridges field experimentation and high-throughput sequencing to deliver actionable insights for corn disease management.
 
-**Skills_tools:** bioinformatics: - Kaiju for taxonomic classification - KBase workflows with SLURM-based HPC integration - Nanopore (MinION) sequencing and real-time basecalling statistical_analysis: - R (tidyverse, lme4) and Python (pandas, scikit-bio) - Experimental designs: full factorial, fractional, and incomplete block designs genomic_analysis: - Reference genome alignment (Minimap2) - Metagenomic profiling without de novo assembly - Learning advanced taxonomic profiling techniques
+**🌱 Research_interests:**
+
+-   Evaluating fungicide efficacies to optimize integrated disease management for corn - Profiling corn leaf endophyte communities and tracking their response to foliar treatments
+
+-   Developing decision-support tools for Tar Spot disease forecasting and management
+
+-   Implementing metagenomic sequencing and custom bioinformatics pipelines for microbial community analysis
+
+**Skills_tools:**
+
+-   Bioinformatics: - Kaiju for taxonomic classification - KBase workflows with SLURM-based HPC integration - Nanopore (MinION) sequencing and real-time basecalling
+
+-   Statistical_analysis: - R (tidyverse, lme4) and Python (pandas, scikit-bio)
+
+-   Experimental designs: full factorial, fractional, and incomplete block designs genomic_analysis: - Reference genome alignment (Minimap2) - Metagenomic profiling without de novo assembly - Learning advanced taxonomic profiling techniques
 
 **Conferences_presentations:** - year: 2024 event: American Society for Horticultural Science (ASHS) format: Oral Presentation title: "Optimizing Fungicide Programs for Corn Tar Spot" - year: 2025 event: Plant and Animal Genome Conference (PAG) format: Poster title: "Airborne Pathogen Diversity in Corn Fields" - year: 2025 event: American Phytopathological Society (APS) format: Poster title: "Endophyte Community Shifts Following Fungicide Application"
 

@@ -5,11 +5,10 @@ format: html
 
 # About Me
 
-👨‍🔬 **Kamal Chhetri**\
-PhD Student \| Plant Pathology \| Virginia Tech University
+👨‍🔬 **Kamal Chhetri**
 
 Welcome to my GitHub site !
 
-I am originally from Nepal and am pursuing my PhD in plant pathology at Virginia Tech University. I am conducting research on fungicide evaluations, early pathogen detection, metagenomics, and decision support system tools. My work focuses on using **bioinformatics** and **statistical analysis** to develop decision-support tools for effective agricultural disease management.
+I am originally from Nepal and I have completed my MS in Biotechnology (Plant breeding). My research interests lie in **plant breeding, host pathogen interactions, genomics, and the integration of machine learning** in crop improvement. I am conducting research on fungicide evaluations, early pathogen detection, metagenomics, and decision support system tools. My work focuses on using **bioinformatics** and **statistical analysis** to develop decision-support tools for effective agricultural disease management.
 
 🔍 **Explore:** - 📂 [My Research](research/index.qmd) - ✍️ [My Blog](posts/index.qmd) - 📧 [Contact Me](mailto:kchhetri@vt.edu)
