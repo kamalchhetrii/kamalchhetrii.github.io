@@ -24,7 +24,7 @@ website:
         href: publication/index.qmd
       - text: "Talks"
         icon: mic
-        href: talks/
+        href: talks/index.html
       - text: "Teaching"
         icon: chalkboard-teacher
         href: teaching/index.qmd
