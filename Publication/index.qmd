@@ -13,3 +13,6 @@ format: html
 
 2. Chhetri, K., Bishop, C., Langston, D., & Zeng, Y. (2025).  
    *Evaluation of effects of foliar fungicide treatments and hybrid susceptibility on major corn foliar diseases in Virginia.* (In process)
+
+3. Chhetri, K., Bishop, C., Langston, D., & Zeng, Y. (2025).  
+   *Tar Spot of Corn.* https://www.pubs.ext.vt.edu/SPES/SPES-726/SPES-726.html
