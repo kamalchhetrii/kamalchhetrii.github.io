@@ -6,7 +6,7 @@ website:
   back-to-top-navigation: true
   reader-mode: true
   page-navigation: true
-  favicon: media/dec.png
+  favicon:
 
   navbar:
     title: "Kamal Chhetri"
