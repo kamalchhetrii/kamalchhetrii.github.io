@@ -5,3 +5,4 @@
 [1,"\u001B[32mGET: /\u001B[39m\n"]
 [1,"\u001B[31m  /media/dec.png (404: Not Found)\u001B[39m\n"]
 [1,"\u001B[31m  /media/dec.png (404: Not Found)\u001B[39m\n"]
+[1,"\u001B[91mERROR: YAMLException: can not read a block mapping entry; a multiline key may not be an implicit key (_quarto.yml, 7:25)\n6: \u001B[34m<<<<<<< HEAD\u001B[91m\n7: \u001B[34m  back-to-top-navigation: true\u001B[91m\n                          ~~\n8: \u001B[34m  reader-mode: true\u001B[91m\u001B[39m\n"]
