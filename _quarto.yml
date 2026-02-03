@@ -3,15 +3,9 @@ project:
   output-dir: docs
 
 website:
-  back-to-top-navigation: true
-  reader-mode: true
-  page-navigation: true
-  favicon: media/dec.png
-
   navbar:
-    title: "Kamal Chhetri"
     logo: media/dec.png
-    logo-alt: "Kamal Chhetri" 
+    logo-alt: ""
     right:
       - text: "Home"
         icon: house
@@ -24,7 +18,7 @@ website:
         href: publication/index.qmd
       - text: "Talks"
         icon: mic
-        href: talks/index.html
+        href: talks/index.qmd
       - text: "Teaching"
         icon: chalkboard-teacher
         href: teaching/index.qmd

@@ -3,17 +3,16 @@ title: "Publications"
 format: html
 ---
 
-
 ## Publications
 
-1. Pun, L. B., Chhetri, K., Pandey, A., & Poudel, R. (2020).  
-   *In vitro evaluation of botanical extracts, chemical fungicides and Trichoderma harzianum against Alternaria brassicicola causing leafspot of cabbage.*  
-   *Nepalese Horticulture, 14(1), 68–76.*  
-   [https://nepjol.info/index.php/nh/article/view/30612](https://doi.org/10.3126/nh.v14i1.30612)
+1.  Pun, L. B., Chhetri, K., Pandey, A., & Poudel, R. (2020).\
+    *In vitro evaluation of botanical extracts, chemical fungicides and Trichoderma harzianum against Alternaria brassicicola causing leafspot of cabbage. Nepalese Horticulture, 14(1), 68–76.*\
+    https://doi.org/10.3126/nh.v14i1.30612
 
-2. Chhetri, K., Bishop, C., Langston, D., & Zeng, Y. (2025).  
-   *Evaluation of effects of foliar fungicide treatments and hybrid susceptibility on major corn foliar diseases in Virginia.* (In process)
+2.  Chhetri, K., Bishop, C., Langston, D., & Zeng, Y. (2025).\
+    *Evaluation of effects of foliar fungicide treatments and hybrid susceptibility on major corn foliar diseases in Virginia.* (In process)
 
 ## Extension publication
-1. Chhetri, K., Bishop, C., Langston, D., & Zeng, Y. (2025).  
-   *Tar Spot of Corn* [https://www.pubs.ext.vt.edu/content/dam/pubs_ext_vt_edu/spes/spes-726/SPES-726.pdf]
+
+3.  Chhetri, K., Bishop, C., Langston, D., & Zeng, Y. (2025).\
+    *Tar Spot of Corn.* https://www.pubs.ext.vt.edu/SPES/SPES-726/SPES-726.html
