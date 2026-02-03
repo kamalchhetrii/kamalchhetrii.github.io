@@ -1,0 +1,268 @@
+---
+title: "Corn disease detection using deep learning algorithm"
+author: "Kamal Chhetri"
+date: "2023-11-10"
+categories:
+  - R
+  - Code
+  - Analysis
+---
+
+# Introduction
+
+## a. Load the required libraries
+
+```{python}
+import os
+import time
+import shutil
+import pathlib
+import itertools
+from PIL import Image
+
+import cv2
+import numpy as np
+import pandas as pd
+import seaborn as sns
+sns.set_style('darkgrid')
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report
+
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.optimizers import Adam, Adamax
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Activation, Dropout, BatchNormalization
+from tensorflow.keras import regularizers
+
+import warnings
+warnings.filterwarnings("ignore")
+
+print ('modules loaded')
+```
+
+```{r}
+# reticulate::py_config()
+# reticulate::py_install(c("pillow", "opencv-python", "pandas", "seaborn", "matplotlib", "scikit-learn", "tensorflow")) (if not previously installed)
+
+```
+
+## b. Define the base directory and load the data.
+
+```{python}
+#| echo: false
+
+# Define the base directory
+data_path = '/Users/test/Library/CloudStorage/GoogleDrive-kchhetri@wvstateu.edu/My Drive/ML_data/data'
+
+# List the subdirectories
+classes = os.listdir(data_path)
+print("Classes found:", classes)
+
+
+
+```
+
+## c. Data augmentation:
+
+```{python}
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+
+datagen = ImageDataGenerator(
+        rotation_range=40,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        rescale=1./255,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True,
+        fill_mode='nearest')
+```
+
+## d. Create dataframe with images:
+
+```{python}
+images = []
+labels = []
+
+for subfolder in os.listdir(data_path):
+
+    subfolder_path = os.path.join(data_path, subfolder)
+    if not os.path.isdir(subfolder_path):
+        continue
+
+    for image_filename in os.listdir(subfolder_path):
+        image_path = os.path.join(subfolder_path, image_filename)
+        images.append(image_path)
+
+        labels.append(subfolder)
+
+data = pd.DataFrame({'image': images, 'label': labels})
+```
+
+## e. Data visualization:
+
+```{python}
+data.head()
+
+data.shape
+```
+
+## f. Splitting data into stratified training, validation, and test sets
+
+Splits data into train_df and dummy_df.
+
+-   The train size will be 80%.
+
+-   shuffle=True will randomize rows before splitting.
+
+-   stratify=strat ensures the class distribution in train_df matches the original dataset.
+
+-   strat = data\['label'\] Saves the class labels (the column named label) to use for stratified sampling.
+
+```{python}
+strat = data['label']
+train_df, dummy_df = train_test_split(data,  train_size= 0.80, shuffle= True, random_state= 123, stratify= strat)
+
+strat = dummy_df['label']
+valid_df, test_df = train_test_split(dummy_df,  train_size= 0.5, shuffle= True, random_state= 123, stratify= strat)
+
+# Lets check the dimension of our data
+print("Training set shape:", train_df.shape)
+print("Validation set shape:", valid_df.shape)
+print("Test set shape:", test_df.shape)
+```
+
+# 
+
+## g. 
+
+This block prepares Keras image generators that feed batches of images and labels to the model during training, validation, and testing.
+
+batch_size = 32 — number of samples per batch delivered to the model.
+
+img_size = (224, 224) — height and width of each image will be resized to.
+
+channels = 3 — RGB images (3 channels).
+
+img_shape = (224, 224, 3) — full image shape (not directly used by the generators here).
+
+tr_gen = ImageDataGenerator() and ts_gen = ImageDataGenerator() create generator objects with default settings (no augmentation, only basic rescaling if specified). Right now they do not apply preprocessing or augmentation because no arguments were passed.
+
+```{python}
+batch_size = 32
+img_size = (224, 224)
+channels = 3
+img_shape = (img_size[0], img_size[1], channels)
+
+tr_gen = ImageDataGenerator()
+ts_gen = ImageDataGenerator()
+
+train_gen = tr_gen.flow_from_dataframe(train_df, x_col='image', y_col='label', target_size=img_size, class_mode='categorical', color_mode='rgb', shuffle=True, batch_size=batch_size)
+
+valid_gen = ts_gen.flow_from_dataframe(valid_df, x_col='image', y_col='label', target_size=img_size, class_mode='categorical', color_mode='rgb', shuffle=True, batch_size=batch_size)
+
+test_gen = ts_gen.flow_from_dataframe(test_df, x_col='image', y_col='label', target_size=img_size, class_mode='categorical', color_mode='rgb', shuffle=False, batch_size=batch_size)
+```
+
+```{python}
+plt.pie([len(train_gen), len(valid_gen), len(test_gen)],
+        labels=['train', 'validation', 'test'], autopct='%.1f%%', colors=['aqua', 'red', 'green'], explode=(0.05, 0, 0))
+plt.show()
+plt.savefig('dataset_pie.png')
+```
+
+```{python}
+print(train_gen.class_indices)
+print(test_gen.class_indices)
+print(valid_gen.class_indices)
+```
+
+```{python}
+g_dict = train_gen.class_indices
+classes = list(g_dict.keys())
+images, labels = next(train_gen)
+
+plt.figure(figsize= (12, 12))
+
+for i in range(16):
+    plt.subplot(4, 4, i + 1)
+    image = images[i] / 255
+    plt.imshow(image)
+    index = np.argmax(labels[i])
+    class_name = classes[index]
+    plt.title(class_name, color= 'blue', fontsize= 10)
+    plt.axis('off')
+plt.show()
+```
+
+```{python}
+model = Sequential()
+
+model.add(tf.keras.layers.InputLayer(input_shape=(224, 224, 3)))
+
+model.add(Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), activation='relu'))
+model.add(Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
+
+
+model.add(Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), activation='relu'))
+model.add(Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
+
+
+model.add(Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), activation='relu'))
+model.add(Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
+model.add(Dropout(0.25))
+
+model.add(Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), activation='relu'))
+model.add(Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
+model.add(Dropout(0.25))
+
+model.add(Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
+model.add(Dropout(0.25))
+
+model.add(Flatten())
+
+model.add(Dropout(0.3))
+
+model.add(Dense(128, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.0001)))
+
+
+model.add(Dense(5, activation='softmax', kernel_regularizer=tf.keras.regularizers.l2(0.0001)))
+
+
+
+model.summary()
+```
+
+```{python}
+class myCallback(tf.keras.callbacks.Callback):
+    def on_epoch_end(self, epoch, logs={}):
+        if(logs.get('val_accuracy') > 0.98):
+            print("\nReached 98% accuracy so cancelling training!")
+            self.model.stop_training = True
+
+callbacks = myCallback()
+
+model.compile(optimizer=Adamax(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
+
+history = model.fit(
+    train_gen,
+    epochs=100,
+    batch_size=32,
+    verbose=1,
+    validation_data=valid_gen,
+    callbacks=[callbacks]
+)
+```
