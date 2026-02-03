@@ -9,7 +9,7 @@
 <meta name="author" content="Kamal Chhetri">
 <meta name="dcterms.date" content="2023-11-24">
 
-<title>Understanding DBSCAN Clustering Analysis in Machine Learning</title>
+<title>Kamal Chhetri - PhD Researcher - Understanding DBSCAN Clustering Analysis in Machine Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,7 +60,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
@@ -98,23 +97,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta name="twitter:title" content="Understanding DBSCAN Clustering Analysis in Machine Learning">
+<meta property="og:title" content="Kamal Chhetri - PhD Researcher - Understanding DBSCAN Clustering Analysis in Machine Learning">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190418023034/781ff66c-b380-4a78-af25-80507ed6ff26.jpeg">
+<meta property="og:site-name" content="Kamal Chhetri - PhD Researcher">
+<meta name="twitter:title" content="Kamal Chhetri - PhD Researcher - Understanding DBSCAN Clustering Analysis in Machine Learning">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190418023034/781ff66c-b380-4a78-af25-80507ed6ff26.jpeg">
+<meta name="twitter:creator" content="@yourtwitterhandle">
+<meta name="twitter:site" content="@yourtwitterhandle">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-sidebar floating nav-fixed">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../../index.html">
+    <a href="../../posts/DBSCAN/index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../media/dec.png" alt="Kamal Chhetri Logo" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../posts/DBSCAN/index.html">
     <span class="navbar-title">Kamal Chhetri</span>
     </a>
   </div>
@@ -123,51 +132,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="https://kamalchhetrii.github.io" rel="" target=""><i class="bi bi-house" role="img">
+    <a class="nav-link active" href="../../index.html" rel="" target="" aria-current="page"><i class="bi bi-house-fill" role="img">
 </i> 
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../research/index.html" rel="" target="" aria-current="page"><i class="bi bi-search" role="img">
+    <a class="nav-link" href="../../research/index.html" rel="" target=""><i class="bi bi-microscope" role="img">
 </i> 
  <span class="menu-text">Research</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../publication/index.qmd" rel="" target=""><i class="bi bi-book" role="img">
+    <a class="nav-link" href="../../publication/index.qmd" rel="" target=""><i class="bi bi-file-text" role="img">
 </i> 
- <span class="menu-text">Publication</span></a>
+ <span class="menu-text">Publications</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../talks/index.qmd" rel="" target=""><i class="bi bi-mic" role="img">
+    <a class="nav-link" href="../../posts/index.html" rel="" target=""><i class="bi bi-pencil-square" role="img">
 </i> 
- <span class="menu-text">Talks</span></a>
+ <span class="menu-text">Blog</span></a>
   </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../teaching/index.qmd" rel="" target=""><i class="bi bi-chalkboard-teacher" role="img">
 </i> 
  <span class="menu-text">Teaching</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../posts/index.html" rel="" target=""><i class="bi bi-pencil" role="img">
+    <a class="nav-link" href="../../talks/index.qmd" rel="" target=""><i class="bi bi-mic-fill" role="img">
 </i> 
- <span class="menu-text">Blog</span></a>
+ <span class="menu-text">Talks</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://github.com/kamalchhetrii/kamalchhetrii.github.io" rel="" target=""><i class="bi bi-github" role="img">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/kamalchhetrii" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
- <span class="menu-text">GitHub</span></a>
+ <span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://www.linkedin.com/in/kamal-chhetri-555b04125/" rel="" target=""><i class="bi bi-linkedin" role="img">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/kamal-chhetri-555b04125/" rel="" target=""><i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
 </i> 
- <span class="menu-text">LinkedIn</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="mailto:kamalchhetri999@gmail.com" rel="" target=""><i class="bi bi-envelope" role="img">
-</i> 
- <span class="menu-text">Email</span></a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools">
@@ -198,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-right">
+    <div class="quarto-title column-body">
       <h1 class="title">Understanding DBSCAN Clustering Analysis in Machine Learning</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">R</div>
@@ -229,9 +235,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -241,14 +247,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🏠 Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About Me</span></a>
+ <span class="menu-text">👤 About Me</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../research/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Research</span></a>
+ <span class="menu-text">🔬 Research</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -268,19 +280,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Publication</span></span>
-  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../publication/index.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">📚 Publications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../talks/index.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎤 Talks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../teaching/index.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👨‍🏫 Teaching</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../posts/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Blog</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+ <span class="menu-text">✍️ Blog</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/index.html" class="sidebar-item-text sidebar-link">
@@ -294,9 +320,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#how-dbscan-works" id="toc-how-dbscan-works" class="nav-link" data-scroll-target="#how-dbscan-works">How DBSCAN Works</a></li>
+  <li><a href="#advantages-of-dbscan" id="toc-advantages-of-dbscan" class="nav-link" data-scroll-target="#advantages-of-dbscan">Advantages of DBSCAN</a></li>
+  <li><a href="#disadvantages-of-dbscan" id="toc-disadvantages-of-dbscan" class="nav-link" data-scroll-target="#disadvantages-of-dbscan">Disadvantages of DBSCAN</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data:</a></li>
+  <li><a href="#load-the-data-into-r" id="toc-load-the-data-into-r" class="nav-link" data-scroll-target="#load-the-data-into-r">Load the data into R:</a></li>
+  <li><a href="#preprocessing-the-data" id="toc-preprocessing-the-data" class="nav-link" data-scroll-target="#preprocessing-the-data">Preprocessing the data:</a>
+  <ul class="collapse">
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning:</a></li>
+  <li><a href="#explanatory-analysis" id="toc-explanatory-analysis" class="nav-link" data-scroll-target="#explanatory-analysis">Explanatory analysis</a></li>
+  </ul></li>
+  <li><a href="#perform-dbscan-clustering" id="toc-perform-dbscan-clustering" class="nav-link" data-scroll-target="#perform-dbscan-clustering">Perform DBSCAN Clustering:</a>
+  <ul class="collapse">
+  <li><a href="#lets-calculate-silhouette-score" id="toc-lets-calculate-silhouette-score" class="nav-link" data-scroll-target="#lets-calculate-silhouette-score">Lets calculate Silhouette Score:</a>
+  <ul class="collapse">
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion:</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
@@ -1046,10 +1097,55 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp("https:\/\/kamalchhetrii\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© 2024 Kamal Chhetri. All rights reserved.</div>   
+    <div class="nav-footer-center">PhD Candidate, Virginia Tech</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/kamalchhetrii">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/kamal-chhetri-555b04125/">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:kamalchhetri999@gmail.com">
+      <i class="bi bi-envelope" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
 
 
 
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
