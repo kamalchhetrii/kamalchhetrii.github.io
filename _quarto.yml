@@ -10,7 +10,7 @@ website:
 
   navbar:
     title: "Kamal Chhetri"
-    logo: media/dec.png
+    #logo: media/dec.png
     logo-alt: "Kamal Chhetri" 
     right:
       - text: "Home"
