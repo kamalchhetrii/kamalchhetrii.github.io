@@ -1,0 +1,184 @@
+---
+title: "Probability Theory and Random Variables in Machine Learning"
+author: "Kamal Chhetri"
+date: "2023-10-18"
+categories:
+  - R
+  - Code
+  - Analysis
+---
+
+### Introduction
+
+Probability theory serves as a cornerstone for Machine Learning (ML). It offers an approach to expressing statements and formulating the learning problem. In this blog post we will explore the aspects of probability theory and random variables and their significant impact on ML. Additionally we will provide an example, in R to demonstrate these concepts.
+
+## Probability Theory
+
+Probability theory is a field, within mathematics that tackles the concept of uncertainty. It offers a structure to help us quantify our beliefs or uncertainties. The probability of an event serves as a metric to gauge the likelihood of its occurrence.
+
+In machine learning we frequently encounter situations where dealing with uncertainty becomes essential. Take the case of constructing a spam classifier for instance. We often find ourselves unsure whether an incoming email should be classified as spam or not. Probability theory acts as a framework to navigate through this uncertainty and make decisions.
+
+## Probability Fundamentals:
+
+### a. Sets, events, and probability:
+
+A **set** is a collection of distinct objects, elements, or points. For example, the set of all fruits in a basket or the set of all students in a class.
+
+A **subset** is a set that is contained within another set. If every element of set A is contained in set B, we denote this by A⊂B. For example, the set of all apples in a basket is a subset of the set of all fruits in the basket.
+
+Two sets A and B are **mutually exclusive** (or disjoint) if they have no elements in common. This is denoted by A∩B=∅. For example, the set of all apples and the set of all oranges in a basket are mutually exclusive because there are no elements that are both an apple and an orange.
+
+A **random experiment** is an experiment whose result or outcome is uncertain before it is performed. For example, tossing a coin is a random experiment because we are uncertain whether the outcome will be a head or a tail.
+
+The set of all possible outcomes of a random experiment is called the **sample space**, usually denoted by S or Ω. Each outcome is called a sample point in the sample space. For example, in a coin toss experiment, the sample space S = {Head, Tail}.
+
+An **event** is a subset of the sample space, i.e., a collection of possible outcomes to which a probability can be assigned. Events that cannot be decomposed are called simple events, otherwise, they are called compound events. For example, getting a head in a coin toss experiment is a simple event.
+
+### b. Conditional probability:
+
+In machine learning, understanding probability and statistics is crucial. One such concept is conditional probability, which refers to the probability of an event given that another event has occurred. Conditional probability is the probability of an event (A), given that another (B) has already occurred. If the event of interest is A and event B is known or assumed to have occurred, the conditional probability of A given B is usually written as P(A \| B).
+
+The formula for conditional probability is defined as:
+
+P(A/B)= P (A∩B)/P(B)
+
+​
+
+![](https://ars.els-cdn.com/content/image/3-s2.0-B9780128200254000063-f06-10-9780128200254.jpg)
+
+[Figure source:](https://www.sciencedirect.com/topics/mathematics/conditional-probability)
+
+## Random Variables
+
+A random variable refers to a variable that takes on values based on the outcomes of an event. There are two types of variables; discrete and continuous. A discrete random variable has an countable number of values while a continuous random variable can have an infinite number of possible values, within a range along the real number line.
+
+When it comes to machine learning random variables can represent elements. For instance in a spam classifier a random variable may indicate whether an email is classified as spam (1) or not (0).
+
+To better understand the comparison, between continuous variables you can refer to the table provided below.
+
+![](https://www.researchgate.net/publication/337071456/figure/tbl1/AS:822449109233664@1573098556987/Discrete-and-continuous-random-variables.png)
+
+Figure credit: [Discrete vs continuous](https://www.researchgate.net/publication/337071456_Dynamic_Location_Referencing_Probability-Based_Decision_System/figures?lo=1&utm_source=google&utm_medium=organic)
+
+## Probability Distributions
+
+A probability distribution describes how a random variable is distributed. It tells us what the probabilities of each outcome are. For discrete random variables, we use a probability mass function (PMF). For continuous random variables, we use a probability density function (PDF).
+
+With the facts at hand, one can utilize the decision tree depicted in the picture below to get an understanding of some common probability distributions:
+
+![](https://tinyheero.github.io/assets/prob-distr/overview-prob-distr.png)
+
+Figure credit: [Probabilistic approaches to risk by Aswath Damodaran](http://people.stern.nyu.edu/adamodar/pdfiles/papers/probabilistic.pdf).
+
+## Discrete Probability Distributions:
+
+A discrete probability distribution applies to scenarios where the set of possible outcomes is discrete. Common examples of discrete probability distributions include the Bernoulli, Binomial, and Poisson distributions.
+
+Example: Binomial distribution
+
+Let's create a hypothetical scenario where we toss a coin 10 times. We are interested in the number of times we get heads. This scenario follows a binomial distribution. Lets do the data analysis for better understanding of it.
+
+[**Load necessary libraries:**]{.underline}
+
+```{r}
+# Load necessary library
+library(ggplot2)
+
+```
+
+[**Set the random seed for reproducibility:**]{.underline}
+
+```{r}
+# Set parameters
+size <- 10
+prob <- 0.5
+
+# Generate binomial data
+set.seed(123)
+data <- rbinom(1000, size, prob)
+
+# Create a histogram
+ggplot(data.frame(x = data), aes(x = x)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "lightblue") +
+  labs(x = "Number of Heads", y = "Frequency", title = "Binomial Distribution") +
+  theme_minimal()
+```
+
+## Continuous Probability Distributions:
+
+A continuous probability distribution applies to scenarios where the set of possible outcomes is an interval of real numbers. Common examples of continuous probability distributions include the Normal, Exponential, and Beta distributions.
+
+Example: Normal distiribution
+
+Let's understand it using a hypothetical data where we measure the heights of a large group of individuals. The heights of individuals in a large population often follow a normal distribution.
+
+```{r}
+# Set parameters
+mean <- 170
+sd <- 10
+
+# Generate normal data
+set.seed(123)
+data <- rnorm(1000, mean, sd)
+
+# Create a histogram
+ggplot(data.frame(x = data), aes(x = x)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "lightblue", aes(y = ..density..)) +
+  geom_density(alpha = 0.2, fill = "#FF6666") +
+  labs(x = "Height (cm)", y = "Density", title = "Normal Distribution") +
+  theme_minimal()
+
+```
+
+Understanding the probability using a real example:
+
+Consider a segment of 100 base pairs on the mouse genome. Among these 100 base pairs, there are 18 A's, 22 T's, 33 C's, and 27 G's. What is the probability of observing base A, T, C, and G in the mouse genome?
+
+```{r}
+# Number of each base
+num_A <- 18
+num_T <- 22
+num_C <- 33
+num_G <- 27
+
+
+```
+
+```{r}
+# Total number of base pairs
+total_bp <- 100
+
+# Calculate probabilities
+prob_A <- num_A / total_bp
+prob_T <- num_T / total_bp
+prob_C <- num_C / total_bp
+prob_G <- num_G / total_bp
+
+# Print probabilities
+print(paste("Probability of A: ", prob_A))
+print(paste("Probability of T: ", prob_T))
+print(paste("Probability of C: ", prob_C))
+print(paste("Probability of G: ", prob_G))
+
+# Visualize the result
+barplot(c(prob_A, prob_T, prob_C, prob_G), names.arg = c("A", "T", "C", "G"),
+        xlab = "Base", ylab = "Probability", main = "Probability of Each Base")
+
+```
+
+## Conclusion:
+
+Probability theory and random variables are essential tools. Understanding discrete and continuous probability distributions is crucial in machine learning. They provide a foundation for many machine learning algorithms and statistical tests. They provide a framework to handle uncertainty and formulate learning problems. Understanding these concepts can help you build more effective and robust machine learning models.
+
+```{r}
+
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```

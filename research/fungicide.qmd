@@ -1,0 +1,21 @@
+---
+title: "Fungicide Efficacy"
+format: html
+---
+
+# Fungicide Efficacy
+
+Foliar fungicides are a key tool for managing corn diseases like tar spot (*Phyllachora maydis*) and gray leaf spot (*Cercospora zeae‑maydis*). Their effectiveness, however, depends on the active ingredients, timing of application, hybrid susceptibility, and disease pressure.
+
+My research in fungicide efficacy focuses on the following areas:
+
+-   **Evaluation of fungicides against Curvularia leaf spot, gray leaf spot, and tar spot disease**: Conducted replicated field trials across Virginia to compare SDHI, QoI, and mixed‑mode products under natural infection.\
+    Conducted field trial
+
+-   **Hybrid succeptibility evaluations:** Tested six corn hybrids in 2023 and two hybrids in 2024 at Shenandoah County and Montgomery County, assessing disease severity from VT/R1 through R6.
+
+My approach combines field trials with controlled laboratory assays to provide robust, actionable insights. These results feed into a web‑based decision‑support tool for growers and agronomists, helping to optimize application timing, product choice, and economic return.
+
+For further reading on resistance‑management strategies, see the Fungicide Resistance Action Committee (FRAC) resources: <https://www.frac.info/>.
+
+I’m actively developing this section—stay tuned for updates!

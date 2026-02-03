@@ -1,0 +1,15 @@
+---
+title: "Blog Posts"
+format: html
+---
+
+# Blog Posts
+
+Welcome to my blog! Below is a list of posts:
+
+- [Anomaly Detection](./anomaly detection/)
+- [Classification Crop Suitability](./Classification_crop_suitability/)
+- [DBSCAN](./DBSCAN/)
+- [Linear Regression](./linear regression/)
+- [Non-Linear Regression](./Non_Linear regression/)
+- [Probability](./Probability/)

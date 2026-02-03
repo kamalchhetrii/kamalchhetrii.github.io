@@ -1,0 +1,12 @@
+---
+title: "Metagenomics & Bioinformatics"
+format: html
+---
+
+This research investigates the microbial communities associated with corn plants using metagenomic sequencing and bioinformatics analysis. Key focus areas include:
+
+- Utilizing metagenomic sequencing methods to profile microbial diversity.
+- Analyzing sequencing data with advanced bioinformatics pipelines.
+- Interpreting the implications of microbial community dynamics on plant health.
+
+For more on metagenomics techniques, check out the resources provided by the [National Center for Biotechnology Information (NCBI)](https://www.ncbi.nlm.nih.gov/) :contentReference[oaicite:1]{index=1}.

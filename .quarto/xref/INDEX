@@ -1,0 +1,47 @@
+{
+  "index.qmd": {
+    "index.html": "aca80e54"
+  },
+  "posts/index.qmd": {
+    "index.html": "66d57f1f"
+  },
+  "posts/anomaly detection/index.qmd": {
+    "index.html": "e8560f81"
+  },
+  "publication/index.qmd": {
+    "index.html": "7daa2b7a"
+  },
+  "research/index.qmd": {
+    "index.html": "d5b4eefd"
+  },
+  "research/metagenomics.qmd": {
+    "metagenomics.html": "dc8424e9"
+  },
+  "research/fungicide.qmd": {
+    "fungicide.html": "f76f0272"
+  },
+  "posts/Non_Linear regression/index.qmd": {
+    "index.html": "700cf78b"
+  },
+  "posts/Probability/index.qmd": {
+    "index.html": "65820cc3"
+  },
+  "posts/linear regression/index.qmd": {
+    "index.html": "e05dd6b9"
+  },
+  "posts/DBSCAN/index.qmd": {
+    "index.html": "15140d95"
+  },
+  "posts/Classification_crop  suitability/index.qmd": {
+    "index.html": "16b7db5a"
+  },
+  "talks/index.qmd": {
+    "index.html": "77496e4d"
+  },
+  "about.qmd": {
+    "about.html": "904c9452"
+  },
+  "teaching/index.qmd": {
+    "index.html": "d1d47c07"
+  }
+}

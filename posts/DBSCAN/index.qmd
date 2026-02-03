@@ -1,0 +1,314 @@
+---
+title: "Understanding DBSCAN Clustering Analysis in Machine Learning"
+author: "Kamal Chhetri"
+date: "2023-11-24"
+categories:
+  - R
+  - Code
+  - Analysis
+---
+
+## Introduction
+
+Density-Based Spatial Clustering of Applications with Noise (DBSCAN) is a popular clustering algorithm used in machine learning. Unlike other clustering algorithms such as K-means or hierarchical clustering, DBSCAN does not require the user to specify the number of clusters a priori. Instead, it infers the number of clusters based on the data's density.
+
+## How DBSCAN Works
+
+DBSCAN works by defining a cluster as a maximal set of density-connected points. It starts with an arbitrary point in the dataset. If there are at least **`minPts`** within a radius of **`eps`** from that point, a new cluster is created. The algorithm then iteratively adds all directly reachable points to the cluster. Once no more points can be added, the algorithm proceeds to the next unvisited point in the dataset.
+
+## Advantages of DBSCAN
+
+DBSCAN has several advantages over other clustering algorithms:
+
+1.  **No need to specify the number of clusters**: As mentioned earlier, DBSCAN does not require the user to specify the number of clusters a priori. This can be particularly useful when the number of clusters is not known beforehand.
+
+2.  **Ability to find arbitrarily shaped clusters**: Unlike K-means, which tends to find spherical clusters, DBSCAN can find clusters of arbitrary shapes.
+
+3.  **Robustness to noise**: DBSCAN is less sensitive to noise and outliers, as it only adds points that are directly reachable according to the density criteria.
+
+## Disadvantages of DBSCAN
+
+Despite its advantages, DBSCAN also has some limitations:
+
+1.  **Difficulty handling varying densities**: DBSCAN struggles with datasets where clusters have significantly different densities. This is because a single **`eps`** and **`minPts`** value may not be suitable for all clusters.
+
+2.  **Sensitivity to parameter settings**: The results of DBSCAN can be significantly affected by the settings of **`eps`** and **`minPts`**. Choosing appropriate values for these parameters can be challenging.
+
+In general, density-based clustering algorithms can be quite successful for a wide range of clustering tasks, particularly when the data is shaped and has different densities. When using the algorithm with a specific dataset, it is crucial to pay close attention to the parameters and take the algorithm's constraints into account.
+
+According to the research report, the concept of dense regions forms the basis of DBSCAN. It is assumed that points in dense locations make up natural clusters. The term "dense region" has to be defined for this. These two parameters are necessary for the DBSCAN algorithm to function.
+
+-   Eps, ε: distance
+
+-   MinPts: The bare minimum of points within a given distance Eps
+
+![In this blog post, we will perform a DBSCAN clustering analysis on an insurance dataset using R.](https://media.geeksforgeeks.org/wp-content/uploads/20190418023034/781ff66c-b380-4a78-af25-80507ed6ff26.jpeg)
+
+## Data:
+
+In this blog post, we will do the clustering analysis using the DBSCAN clustering method. Regarding the choice of this algorithm is explain above. Please have a look if you want to learn more. Regarding the data, [you can access this data from here](https://www.kaggle.com/code/anujachintyabiswas/mall-customer-hierarchical-kmeans-clustering/input).
+
+#### Load the necessary libraries:
+
+```{r}
+library(fpc) 
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(dbscan)
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+## Load the data into R:
+
+```{r}
+data <- read.csv("/Users/test/Downloads/Mall_customers.csv")
+head(data)
+
+str(data)
+```
+
+# Preprocessing the data:
+
+```{r}
+data_num <- data[, sapply(data, is.numeric)]
+head(data_num)
+
+
+```
+
+## Data Cleaning:
+
+```{r}
+# To see if the given dataset contains any null values or not
+sum(is.na(data_num))
+
+```
+
+## Explanatory analysis
+
+```{r}
+# Select the relevant columns
+data_selected <- data_num[, c('Age', 'Annual_Income', 'Spending_Score')]
+
+# Calculate the correlation matrix
+corrs <- cor(data_selected)
+
+# Create a heatmap with correlation values
+corrplot(corrs, method="color", type="upper", order="hclust", 
+         addCoef.col = "black", # Add correlation coefficients
+         tl.col="black", tl.srt=45) # Text label color and rotation
+```
+
+From the above correlation table, we can see that either we have negative values which indicated that they are negatively correlated or very low values indicating not a strong correlation between them
+
+#### lets explore the data more:
+
+##### Distribution of the variables:
+
+```{r}
+# Create a histogram for 'age'
+ggplot(data, aes(x=Age)) +
+  geom_histogram(bins = 30, fill =  "blue", color = "black") +
+  labs(title="Distribution of Age", x="Age", y="Count")
+
+# Create a histogram for 'income'
+ggplot(data, aes(x=Annual_Income)) +
+  geom_histogram(bins = 30, fill = 'green', color = 'black') +
+  labs(title="Distribution of Income", x="Income", y="Count")
+
+
+#Create a histogram for spending score:
+ggplot(data, aes(x=Spending_Score))+
+  geom_histogram(bins = 30, fill='darkgreen', color='black')+
+  labs(title= "Distribution of Spending Score", x='spending score', y= 'count')
+```
+
+From the above distribution, We can see that the age group near 30-40 has the highest density, most customers have income in the range of 50-80k, and most customers have a spending score of 50.
+
+[Lets see the box plot for Gender by Spending Score:]{.underline}
+
+```{r}
+# Subset the data
+male_charges <- data[data$Gender == "Male", "Spending_Score"]
+female_charges <- data[data$Gender == "Female", "Spending_Score"]
+# Create a data frame for plotting
+plot_data <- data.frame(
+  Gender = rep(c("Male", "Female"), times = c(length(male_charges), length(female_charges))),
+  Charges = c(male_charges, female_charges)
+)
+# Create the box plot
+ggplot(plot_data, aes(x = Gender, y = Charges, fill = Gender)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Box Plot of Charges by Gender", x = "Gender", y = "Spending Score", fill = "Gender")
+
+```
+
+```{r}
+#Average Spending score by gender:
+# Calculate the average bmi for each region
+avg_bmi_by_region <- data %>%
+  group_by(Gender) %>%
+  summarise(Average_Spending_score = mean(Spending_Score))
+
+print(avg_bmi_by_region)
+```
+
+[Lets see the relationship between Annual income and spending score:]{.underline}
+
+```{r}
+# Create a scatter plot with regression line
+ggplot(data, aes(x=Annual_Income, y=Spending_Score)) +
+  geom_point() +
+  geom_smooth(method=lm, se=FALSE, color="red") +
+  labs(title="Relation between Annual Income and Spending Score", x="Annual Income", y="Spending Score")
+
+```
+
+Calculate and print the correlation coefficient:
+
+```{r}
+correlation <- cor(data$Annual_Income, data$Spending_Score)
+print(paste("Correlation coefficient: ", correlation))
+```
+
+From this, we can see that there is no correlation between Annual income vs Spending Score.
+
+# Perform DBSCAN Clustering:
+
+```{r}
+# Perfom DBSCAN:
+# Select the relevant columns
+# Copy the data
+df <- data
+
+# Drop the 'CustomerID' column
+df$CustomerID <- NULL
+
+# Replace 'Gender' values
+df$Gender <- ifelse(df$Gender == "Male", 0, 1)
+
+
+```
+
+```{r}
+#Calculate Sihoute score:
+# Load the necessary libraries
+library(dbscan)
+library(cluster)
+
+
+# Define the range of parameter values
+eps_values <- seq(11, 16, 1)
+min_samples_values <- seq(5, 13, 1)
+
+# Initialize vectors to store the results
+clusters <- c()
+sil_score <- c()
+
+
+```
+
+## Lets calculate Silhouette Score:
+
+Before dealing with the calculation of the Silhouette Score, lets get acquainted with what the Silhouette Score is and its importance to us while doing the DBSCAN clustering:
+
+The Silhouette Score measures how similar an object is to its cluster compared to others. It ranges from -1 to 1, where a high value indicates that the object is well-matched to its cluster and poorly matched to neighboring clusters. The clustering configuration is appropriate if most objects have a high value. If many points have a low or negative value, the clustering configuration may have too many clusters.
+
+The silhouette score provides a succinct graphical representation of how well each object lies within its cluster. It is a way to track the validity of the clusters formed by the algorithm. It can be particularly useful in the context of DBSCAN, as the algorithm does not explicitly minimize or maximize any particular objective function.
+
+```{r}
+# Loop over all combinations of parameter values
+for (eps in eps_values) {
+  for (min_samples in min_samples_values) {
+    # Perform DBSCAN clustering
+    dbscan_result <- dbscan(df, eps = eps, minPts = min_samples)
+    
+    # Append the number of clusters to the 'clusters' vector
+    clusters <- c(clusters, max(dbscan_result$cluster))
+    
+    # Calculate the silhouette score and append it to the 'sil_score' vector
+    sil_score <- c(sil_score, cluster.stats(dist(df), dbscan_result$cluster)$avg.silwidth)
+  }
+}
+
+# Create a data frame with the results
+dbscan_df <- expand.grid(Eps = eps_values, Min_Samples = min_samples_values)
+dbscan_df$Number_of_Clusters <- clusters
+dbscan_df$Silhouette_Score <- sil_score
+
+# Print the data frame
+print(dbscan_df)
+
+```
+
+```{r}
+
+# Convert 'Silhouette_Score' to numeric
+dbscan_df$Silhouette_Score <- as.numeric(as.character(dbscan_df$Silhouette_Score))
+
+# Find the maximum silhouette score
+max_sil_score <- max(dbscan_df$Silhouette_Score)
+
+# Filter the data frame for the maximum silhouette score
+dbscan_df[dbscan_df$Silhouette_Score == max_sil_score, ]
+
+
+```
+
+The stronger the clustering, the closer the result is near 1. We have reached a maximum Silhouette Score of 0.3302256 with Eps = 15 and Min Samples = 12. To get the best clustering, we will fit these values into the DBSCAN algorithm.
+
+[Perform DBSCAN clustering:]{.underline}
+
+```{r}
+dbscan_result <- dbscan(df, eps = 15, minPts = 12)
+
+# Add the cluster assignments to the data frame
+df$DBSCAN_Clusters <- dbscan_result$cluster
+
+# Sort the data frame by the 'DBSCAN_Clusters' column
+df <- df[order(df$DBSCAN_Clusters), ]
+
+# Print the data frame
+print(head(df))
+
+```
+
+```{r}
+# Convert 'DBSCAN_Clusters' to character
+df$DBSCAN_Clusters <- as.character(df$DBSCAN_Clusters)
+
+# Replace '-1' with 'Outliers'
+df$DBSCAN_Clusters[df$DBSCAN_Clusters == "-1"] <- "Outliers"
+
+
+# Create the scatter plot
+p <- ggplot(df, aes(x = Annual_Income, y = Spending_Score, color = DBSCAN_Clusters)) +
+  geom_point(size = 4, alpha = 0.8) +
+  scale_color_manual(values = c("black", "darkred", "#0091F7", "darkgreen", "#F7F700")) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 20),
+    legend.title = element_text(size = 12),
+    axis.title.x = element_text(size = 12),
+    axis.title.y = element_text(size = 12)
+  ) +
+  labs(
+    title = "DBSCAN Clusters",
+    x = "Annual Income",
+    y = "Sum of Spending Scores",
+    color = "Clusters"
+  )
+
+# Print the plot
+print(p)
+```
+
+### Conclusion:
+
+As we can see, the lack of substantial density in our data causes DBSCAN to perform poorly. The black label indicates outliers, so it will mostly appear as such. Having a more dense data structure means we can get better performance from DBSCAN clustering.
