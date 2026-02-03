@@ -43,5 +43,17 @@
   },
   "teaching/index.qmd": {
     "index.html": "d1d47c07"
+  },
+  "posts/Disease detection/index.qmd": {
+    "index.html": "a06b5839"
+  },
+  "Publication/index.qmd": {
+    "index.html": "f7948e8c"
+  },
+  "Talks/index.qmd": {
+    "index.html": "fadf3be9"
+  },
+  "Teaching/index.qmd": {
+    "index.html": "6a335da1"
   }
 }

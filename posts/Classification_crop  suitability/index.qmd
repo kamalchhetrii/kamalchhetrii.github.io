@@ -1,5 +1,5 @@
 ---
-title: "Predicting Crop Suitability with Machine Learning using R "
+title: "Predicting Crop Suitability using different machine learning algorithm in R "
 author: "Kamal Chhetri"
 date: "2023-10-28"
 categories:

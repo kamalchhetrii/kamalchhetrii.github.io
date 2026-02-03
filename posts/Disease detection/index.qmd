@@ -12,7 +12,14 @@ categories:
 
 ## a. Load the required libraries
 
+
+```{r}
+library(reticulate)
+```
+
 ```{python}
+#| eval: false
+#| include: false
 import os
 import time
 import shutil
@@ -52,7 +59,8 @@ print ('modules loaded')
 ## b. Define the base directory and load the data.
 
 ```{python}
-#| echo: false
+#| eval: false
+#| include: false
 
 # Define the base directory
 data_path = '/Users/test/Library/CloudStorage/GoogleDrive-kchhetri@wvstateu.edu/My Drive/ML_data/data'
@@ -68,6 +76,8 @@ print("Classes found:", classes)
 ## c. Data augmentation:
 
 ```{python}
+#| eval: false
+#| include: false
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 
 datagen = ImageDataGenerator(
@@ -84,6 +94,8 @@ datagen = ImageDataGenerator(
 ## d. Create dataframe with images:
 
 ```{python}
+#| eval: false
+#| include: false
 images = []
 labels = []
 
@@ -105,6 +117,8 @@ data = pd.DataFrame({'image': images, 'label': labels})
 ## e. Data visualization:
 
 ```{python}
+#| eval: false
+#| include: false
 data.head()
 
 data.shape
@@ -123,6 +137,8 @@ Splits data into train_df and dummy_df.
 -   strat = data\['label'\] Saves the class labels (the column named label) to use for stratified sampling.
 
 ```{python}
+#| eval: false
+#| include: false
 strat = data['label']
 train_df, dummy_df = train_test_split(data,  train_size= 0.80, shuffle= True, random_state= 123, stratify= strat)
 
@@ -152,6 +168,8 @@ img_shape = (224, 224, 3) — full image shape (not directly used by the generat
 tr_gen = ImageDataGenerator() and ts_gen = ImageDataGenerator() create generator objects with default settings (no augmentation, only basic rescaling if specified). Right now they do not apply preprocessing or augmentation because no arguments were passed.
 
 ```{python}
+#| eval: false
+#| include: false
 batch_size = 32
 img_size = (224, 224)
 channels = 3
@@ -168,6 +186,8 @@ test_gen = ts_gen.flow_from_dataframe(test_df, x_col='image', y_col='label', tar
 ```
 
 ```{python}
+#| eval: false
+#| include: false
 plt.pie([len(train_gen), len(valid_gen), len(test_gen)],
         labels=['train', 'validation', 'test'], autopct='%.1f%%', colors=['aqua', 'red', 'green'], explode=(0.05, 0, 0))
 plt.show()
@@ -175,12 +195,16 @@ plt.savefig('dataset_pie.png')
 ```
 
 ```{python}
+#| eval: false
+#| include: false
 print(train_gen.class_indices)
 print(test_gen.class_indices)
 print(valid_gen.class_indices)
 ```
 
 ```{python}
+#| eval: false
+#| include: false
 g_dict = train_gen.class_indices
 classes = list(g_dict.keys())
 images, labels = next(train_gen)
@@ -199,6 +223,8 @@ plt.show()
 ```
 
 ```{python}
+#| eval: false
+#| include: false
 model = Sequential()
 
 model.add(tf.keras.layers.InputLayer(input_shape=(224, 224, 3)))
@@ -247,6 +273,8 @@ model.summary()
 ```
 
 ```{python}
+#| eval: false
+#| include: false
 class myCallback(tf.keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs={}):
         if(logs.get('val_accuracy') > 0.98):

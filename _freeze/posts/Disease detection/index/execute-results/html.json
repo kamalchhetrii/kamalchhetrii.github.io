@@ -1,0 +1,14 @@
+{
+  "hash": "af4748850f270d1201acee7f9535c7d1",
+  "result": {
+    "markdown": "---\ntitle: \"Corn disease detection using deep learning algorithm\"\nauthor: \"Kamal Chhetri\"\ndate: \"2023-11-10\"\ncategories:\n  - R\n  - Code\n  - Analysis\n---\n\n\n# Introduction\n\n## a. Load the required libraries\n\n\n\n::: {.cell hash='index_cache/html/unnamed-chunk-1_0310a678de19a464e2f24b591d6684a6'}\n\n```{.r .cell-code}\nlibrary(reticulate)\n```\n:::\n\n\n\n::: {.cell hash='index_cache/html/unnamed-chunk-3_4174eb3244b64098f755a57bb2cf77fd'}\n\n```{.r .cell-code}\n# reticulate::py_config()\n# reticulate::py_install(c(\"pillow\", \"opencv-python\", \"pandas\", \"seaborn\", \"matplotlib\", \"scikit-learn\", \"tensorflow\")) (if not previously installed)\n```\n:::\n\n\n## b. Define the base directory and load the data.\n\n\n\n\n\n## c. Data augmentation:\n\n\n\n\n\n## d. Create dataframe with images:\n\n\n\n\n\n## e. Data visualization:\n\n\n\n\n\n## f. Splitting data into stratified training, validation, and test sets\n\nSplits data into train_df and dummy_df.\n\n-   The train size will be 80%.\n\n-   shuffle=True will randomize rows before splitting.\n\n-   stratify=strat ensures the class distribution in train_df matches the original dataset.\n\n-   strat = data\\['label'\\] Saves the class labels (the column named label) to use for stratified sampling.\n\n\n\n\n\n# \n\n## g. \n\nThis block prepares Keras image generators that feed batches of images and labels to the model during training, validation, and testing.\n\nbatch_size = 32 — number of samples per batch delivered to the model.\n\nimg_size = (224, 224) — height and width of each image will be resized to.\n\nchannels = 3 — RGB images (3 channels).\n\nimg_shape = (224, 224, 3) — full image shape (not directly used by the generators here).\n\ntr_gen = ImageDataGenerator() and ts_gen = ImageDataGenerator() create generator objects with default settings (no augmentation, only basic rescaling if specified). Right now they do not apply preprocessing or augmentation because no arguments were passed.\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

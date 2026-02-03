@@ -1,5 +1,5 @@
 ---
-title: "Anomaly Detection in Machine Learning"
+title: "Anomaly Detection using Machine Learning"
 author: "Kamal Chhetri"
 date: "2023-10-18"
 categories:
