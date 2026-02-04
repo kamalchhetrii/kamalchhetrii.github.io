@@ -92,11 +92,11 @@ website:
           - text: "Metagenomics & Bioinformatics"
             file: research/metagenomics.qmd
       - text: "📚 Publications"
-        file: publication/index.qmd
+        file: Publication/index.qmd
       - text: "🎤 Talks"
-        file: talks/index.qmd
+        file: Talks/index.qmd
       - text: "👨‍🏫 Teaching"
-        file: teaching/index.qmd
+        file: Teaching/index.qmd
       - section: "✍️ Blog"
         file: posts/index.qmd
         contents:
