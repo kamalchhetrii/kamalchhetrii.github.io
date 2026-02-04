@@ -207,7 +207,7 @@
     "href": "research/metagenomics.html",
     "title": "Metagenomics & Bioinformatics",
     "section": "",
-    "text": "This research investigates the microbial communities associated with corn plants using metagenomic sequencing and bioinformatics analysis. Key focus areas include:\n\nUtilizing metagenomic sequencing methods to profile microbial diversity.\nAnalyzing sequencing data with advanced bioinformatics pipelines.\nInterpreting the implications of microbial community dynamics on plant health.\n\nFor more on metagenomics techniques, check out the resources provided by the National Center for Biotechnology Information (NCBI) :contentReferenceoaicite:1.\n\n\n\n Back to top"
+    "text": "My research investigates the microbial communities associated with corn plants from airsample using metagenomic sequencing and bioinformatics analysis. Key focus areas include:\n\nUtilizing HTS based metagenomic sequencing methods to identify the corn foliar fungal, rot rot, and emerging pathogens of corn.\nAnalyzing sequencing data using Minimap2 and other bioinformatics tool with bioinformatics pipelines.\n\nFor more on metagenomics techniques, check out the resources provided by the National Center for Biotechnology Information (NCBI) :contentReferenceoaicite:1.\n\n\n\n Back to top"
   },
   {
     "objectID": "research/index.html",

@@ -37,8 +37,8 @@ website:
   
   navbar:
     title: "Kamal Chhetri"
-    logo: media/dec.png
-    logo-alt: "Kamal Chhetri Logo"
+    #logo: media/dec.png
+    #logo-alt: "Kamal Chhetri Logo"
     logo-href: index.qmd
     background: "#059669"
     foreground: white
