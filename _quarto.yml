@@ -136,6 +136,6 @@ execute:
   message: false
   engine: knitr
 
-# Bibliography settings (if you use citations)
+# Bibliography settings (if using citations)
 #bibliography: references.bib
 #csl: apa.csl
