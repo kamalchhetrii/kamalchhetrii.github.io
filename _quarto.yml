@@ -54,17 +54,17 @@ website:
         href: research/index.qmd
       - text: "Publications"
         icon: file-text
-        href: publication/index.qmd
+        href: publication/index.html
       - text: "Blog"
         icon: pencil-square
         href: posts/index.qmd
     right:
       - text: "Teaching"
         icon: chalkboard-teacher
-        href: Teaching/index.qmd
+        href: Teaching/index.html
       - text: "Talks"
         icon: mic-fill
-        href: Talks/index.qmd
+        href: Talks/index.html
       - icon: github
         href: https://github.com/kamalchhetrii
         aria-label: GitHub
