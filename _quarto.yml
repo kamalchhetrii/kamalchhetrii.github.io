@@ -61,10 +61,10 @@ website:
     right:
       - text: "Teaching"
         icon: chalkboard-teacher
-        href: teaching/index.qmd
+        href: Teaching/index.qmd
       - text: "Talks"
         icon: mic-fill
-        href: talks/index.qmd
+        href: Talks/index.qmd
       - icon: github
         href: https://github.com/kamalchhetrii
         aria-label: GitHub
