@@ -61,10 +61,10 @@ website:
     right:
       - text: "Teaching"
         icon: chalkboard-teacher
-        href: Teaching/index.html
+        href: teaching/index.html
       - text: "Talks"
         icon: mic-fill
-        href: Talks/index.html
+        href: talks/index.html
       - icon: github
         href: https://github.com/kamalchhetrii
         aria-label: GitHub
