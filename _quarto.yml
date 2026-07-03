@@ -54,7 +54,7 @@ website:
         href: research/index.qmd
       - text: "Publications"
         icon: file-text
-        href: publication/index.html
+        href: Publication/index.html
       - text: "Blog"
         icon: pencil-square
         href: posts/index.qmd

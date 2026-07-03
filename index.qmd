@@ -7,15 +7,15 @@ format: html
 
 👨‍🔬 **Kamal Chhetri**
 
-Welcome to my GitHub site !
-
 By this time, you know me a lot. I am Kamal Chhetri and I am PhD candidate in Virginia Tech. I have completed my MS in Biotechnology (Plant breeding) from West Virginia State University and Bachelor of Science in Agriculture (BSc.Ag) from Lamjung campus, Tribhuvan University, Nepal.
 
-My research interests are in **plant breeding, host pathogen interactions, genomics, and the integration of machine learning** in crop improvement. As a graudate research assitant at Virgina Tech, I am conducting research on
+My research interests are in Plant disease epidemiology, plant breeding, host pathogen interactions, genomics, and the integration of machine learning in crop improvement. As a graudate research assitant at Virgina Tech, I am conducting research on
 
 - Fungicide efficacy evaluations and corn hybrid succeptibility evaluation.
 
-- Early pathogen detection using high throughput metagenomics sequencing apporach, and decision support system tools.
+- Early pathogen detection using high throughput metagenomics sequencing apporach,
+
+- Plant disease risk prediction tool.
 
 My work centers on integrating bioinformatics, statistical analysis, and machine learning to develop decision‑support tools that improve agricultural disease management. If you’d like to explore my research and learn more about me, you can find everything through the quick link below.
 

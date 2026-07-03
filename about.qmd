@@ -27,9 +27,9 @@ about:
 
 **Skills_tools:**
 
--   Bioinformatics: - Kaiju for taxonomic classification - KBase workflows with SLURM-based HPC integration - Nanopore (MinION) sequencing and real-time basecalling
+-   Bioinformatics: - Kaiju for taxonomic classification - KBase workflows, Minimap2, Porechop, Chopper, Trimmomatic
 
--   Statistical_analysis: - R (tidyverse, lme4) and Python (pandas, scikit-bio)
+-   Statistical_analysis: - R (tidyverse, glmmTMB, lme4) and Python (pandas, scikit-learn, Keras)
 
 -   Experimental designs: full factorial, fractional, and incomplete block designs genomic_analysis: - Reference genome alignment (Minimap2) - Metagenomic profiling without de novo assembly - Learning advanced taxonomic profiling techniques
 
